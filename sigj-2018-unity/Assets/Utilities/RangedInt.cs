@@ -26,4 +26,18 @@ public struct RangedInt
 
     return value > MinValue && value < MaxValue;
   }
+
+  public float DistanceFromRange(float value)
+  {
+    if (value <= MinValue)
+    {
+      return value - MinValue;
+    }
+    else if (value >= MaxValue)
+    {
+      return value - MaxValue;
+    }
+
+    return 0;
+  }
 }

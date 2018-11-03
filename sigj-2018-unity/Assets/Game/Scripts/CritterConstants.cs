@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class CritterConstants {
+public static class CritterConstants
+{
   public enum CreatureColor
   {
     White,
@@ -16,7 +18,8 @@ public static class CritterConstants {
 
   public static string GetCreatureColorDisplayString(CreatureColor Color)
   {
-    switch(Color) {
+    switch (Color)
+    {
       case CreatureColor.White:
         return "White";
       case CreatureColor.Red:
@@ -48,7 +51,8 @@ public static class CritterConstants {
 
   public static string GetCreatureShapeDisplayString(CreatureShape Shape)
   {
-    switch (Shape) {
+    switch (Shape)
+    {
       case CreatureShape.FloatingOrb:
         return "Floating Orb";
       case CreatureShape.SlimeBlobGumdrop:
@@ -66,6 +70,7 @@ public static class CritterConstants {
     return "INVALID";
   }
 
+  public readonly static int CreatureSizeCount = System.Enum.GetValues(typeof(CreatureSize)).Length;
   public enum CreatureSize
   {
     Small,
@@ -75,7 +80,8 @@ public static class CritterConstants {
 
   public static string GetCreatureSizeDisplayString(CreatureSize Size)
   {
-    switch (Size) {
+    switch (Size)
+    {
       case CreatureSize.Small:
         return "Small";
       case CreatureSize.Medium:
@@ -85,5 +91,55 @@ public static class CritterConstants {
     }
 
     return "INVALID";
+  }
+
+  public static float GetCreatureSizeScale(CreatureSize Size)
+  {
+    switch (Size)
+    {
+      case CreatureSize.Small:
+        return 0.3f;
+      case CreatureSize.Medium:
+        return 0.6f;
+      case CreatureSize.Large:
+        return 1.0f;
+    }
+
+    return 1.0f;
+  }
+
+  public static CreatureSize GetCreatureSizeAtAge(float age)
+  {
+    if (age >= 0.66f)
+      return CreatureSize.Large;
+    else if (age >= 0.33f)
+      return CreatureSize.Medium;
+
+    return CreatureSize.Small;
+  }
+
+  public static T PickRandomEnum<T>()
+  {
+    Array values = Enum.GetValues(typeof(T));
+    RangedInt enumRange = new RangedInt(0, values.Length);
+    int randomIndex = enumRange.RandomValue;
+    T randomEnumValue = (T)values.GetValue(randomIndex);
+
+    return randomEnumValue;
+  }
+
+  public static CreatureColor PickRandomCreatureColor()
+  {
+    return PickRandomEnum<CreatureColor>();
+  }
+
+  public static CreatureShape PickRandomCreatureShape()
+  {
+    return PickRandomEnum<CreatureShape>();
+  }
+
+  public static CreatureSize PickRandomCreatureSize()
+  {
+    return PickRandomEnum<CreatureSize>();
   }
 }
