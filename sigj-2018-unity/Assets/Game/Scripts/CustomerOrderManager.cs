@@ -6,11 +6,11 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
 {
   public GameObject OrderPanelPrefab;
   public Transform PanelListTransform;
-  public float PanelOffset= 13;
+  public float PanelOffset = 13;
   public RangedFloat OrderTimeRange = new RangedFloat(5.0f, 10.0f);
   public int TotalOrders = 5;
 
-  private int _OrdersIssued= 0;
+  private int _OrdersIssued = 0;
   private IEnumerator _OrdersTimer;
 
   private List<GameObject> CustomerOrderPanelList = new List<GameObject>();
@@ -42,7 +42,8 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
 
   void StopOrderTimer()
   {
-    if (_OrdersTimer != null) {
+    if (_OrdersTimer != null)
+    {
       StopCoroutine(_OrdersTimer);
       _OrdersTimer = null;
     }
@@ -50,7 +51,8 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
 
   IEnumerator IssueOrderTimer()
   {
-    while (_OrdersIssued < TotalOrders) {
+    while (_OrdersIssued < TotalOrders)
+    {
       yield return new WaitForSeconds(OrderTimeRange.RandomValue);
       print("Adding a new random order");
       IssueRandomOrder();
@@ -66,7 +68,7 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
     CustomerOrder newOrder = CreateRandomOrder();
 
     // Spawn a creature that corresponds to that order
-    CritterSpawner.Instance.SpawnCritter(newOrder);
+    CritterSpawner.Instance?.SpawnCritter(newOrder);
 
     // Spawn the order panel that shows what the customer wants
     SpawnOrderPanel(newOrder);
@@ -77,7 +79,8 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
 
   public void ClearOrders()
   {
-    foreach (GameObject orderPanel in CustomerOrderPanelList) {
+    foreach (GameObject orderPanel in CustomerOrderPanelList)
+    {
       Destroy(orderPanel);
     }
     CustomerOrderPanelList.Clear();
@@ -87,7 +90,7 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
   {
     Vector3 panelListRight = PanelListTransform.rotation * Vector3.right;
 
-    return PanelListTransform.position + PanelOffset*panelListRight*(float)CustomerOrderPanelList.Count;
+    return PanelListTransform.position + PanelOffset * panelListRight * (float)CustomerOrderPanelList.Count;
   }
 
   CustomerOrder CreateRandomOrder()
@@ -107,9 +110,10 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
   {
     // Instantiate the wreck game object at the same position we are at
     GameObject orderPanelObject = (GameObject)Instantiate(OrderPanelPrefab, GetNextPanelStartLocation(), PanelListTransform.rotation);
-    CustomerOrderPanel orderPanelComponent= orderPanelObject.GetComponent<CustomerOrderPanel>();
+    CustomerOrderPanel orderPanelComponent = orderPanelObject.GetComponent<CustomerOrderPanel>();
 
-    if (orderPanelComponent != null) {
+    if (orderPanelComponent != null)
+    {
       orderPanelComponent.AssignCustomerOrder(Order);
       CustomerOrderPanelList.Add(orderPanelObject);
     }
