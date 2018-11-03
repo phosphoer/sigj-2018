@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -85,5 +86,30 @@ public static class CritterConstants {
     }
 
     return "INVALID";
+  }
+
+  public static T PickRandomEnum<T>()
+  {
+    Array values = Enum.GetValues(typeof(T));
+    RangedInt enumRange = new RangedInt(0, values.Length);
+    int randomIndex = enumRange.RandomValue;
+    T randomEnumValue = (T)values.GetValue(randomIndex);
+
+    return randomEnumValue;
+  }
+
+  public static CreatureColor PickRandomCreatureColor()
+  {
+    return PickRandomEnum<CreatureColor>();
+  }
+
+  public static CreatureShape PickRandomCreatureShape()
+  {
+    return PickRandomEnum<CreatureShape>();
+  }
+
+  public static CreatureSize PickRandomCreatureSize()
+  {
+    return PickRandomEnum<CreatureSize>();
   }
 }
