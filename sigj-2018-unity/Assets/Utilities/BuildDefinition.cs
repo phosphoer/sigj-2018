@@ -10,7 +10,7 @@ using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
 
-[CreateAssetMenu(fileName = "new-build-definition", menuName = "Boat Game/Build Definition")]
+[CreateAssetMenu(fileName = "new-build-definition", menuName = "Build Definition")]
 public class BuildDefinition : ScriptableObject
 {
   public string LocationPathName = "relative/path/build.exe";
