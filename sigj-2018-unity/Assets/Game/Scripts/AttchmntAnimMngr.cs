@@ -9,7 +9,6 @@ public class AttchmntAnimMngr : MonoBehaviour {
 	public Vector2 AdditionalRandomScale = new Vector2(1f,1f);
 
 	Animator anim;
-	bool delaying = false;
 	float currentWait = 0f;
 	float timer = 0f;
 
@@ -25,23 +24,13 @@ public class AttchmntAnimMngr : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(delaying){
-			timer+=Time.deltaTime;
-			if(timer>=currentWait){
-				delaying = false;
-				ChooseNewAnim();
-				timer = 0f;
-			}
-		}
-		else{
-			if(anim.GetCurrentAnimatorStateInfo(0).IsName("HubState")){
-				delaying = true;
-				currentWait = Random.Range(PostAnimDelay.x,PostAnimDelay.y);
-			}
-		}
-	}
 
-	public void ChooseNewAnim(){
-		anim.SetInteger("AnimBranch",Random.Range(0,AnimCount));
+		timer+=Time.deltaTime;
+		if(timer>=currentWait){
+			currentWait = Random.Range(PostAnimDelay.x,PostAnimDelay.y);
+			anim.SetInteger("AnimBranch",Random.Range(0,AnimCount));
+			timer=0f;
+		}
+
 	}
 }
