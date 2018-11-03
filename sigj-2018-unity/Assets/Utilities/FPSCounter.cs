@@ -4,8 +4,10 @@ using System.Collections;
 
 public class FPSCounter : MonoBehaviour
 {
+  public float Fps { get { return _fps; } }
+
   [SerializeField]
-  private Text _fpsTextUI;
+  private Text _fpsTextUI = null;
 
   private float _fps;
 
@@ -18,7 +20,7 @@ public class FPSCounter : MonoBehaviour
   {
     _fps = Mathfx.Damp(_fps, 1.0f / Time.smoothDeltaTime, 0.25f, Time.deltaTime * 5.0f);
 
-    if (Input.GetKeyDown(KeyCode.F1))
+    if (Input.GetKeyDown(KeyCode.F1) && _fpsTextUI != null)
     {
       _fpsTextUI.enabled = !_fpsTextUI.enabled;
     }
@@ -28,7 +30,11 @@ public class FPSCounter : MonoBehaviour
   {
     while (gameObject.activeInHierarchy)
     {
-      _fpsTextUI.text = ((int)_fps).ToString();
+      if (_fpsTextUI != null)
+      {
+        _fpsTextUI.text = ((int)_fps).ToString();
+      }
+
       yield return new WaitForSeconds(1.0f);
     }
   }
