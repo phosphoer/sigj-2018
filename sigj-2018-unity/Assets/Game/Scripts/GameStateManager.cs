@@ -6,6 +6,7 @@ public class GameStateManager : Singleton<GameStateManager> {
   public enum GameStage
   {
     Invalid,
+    MainMenu,
     PreGame,
     Morning,
     Lunchtime,
@@ -35,6 +36,8 @@ public class GameStateManager : Singleton<GameStateManager> {
     GameStage nextGameStage = _gameStage;
 
     switch (_gameStage) {
+      case GameStage.MainMenu:
+        break;
       case GameStage.PreGame:
         break;
       case GameStage.Morning:
@@ -62,10 +65,14 @@ public class GameStateManager : Singleton<GameStateManager> {
   public void OnExitStage(GameStage oldGameStage)
   {
     switch(oldGameStage) {
-      case GameStage.PreGame: 
+      case GameStage.MainMenu: 
         {
           Destroy(_menuMenu);
           _menuMenu = null;
+        }
+        break;
+      case GameStage.PreGame: 
+        {
         }
         break;
       case GameStage.Morning: 
@@ -91,15 +98,19 @@ public class GameStateManager : Singleton<GameStateManager> {
   public void OnEnterStage(GameStage newGameStage)
   {
     switch (newGameStage) {
+      case GameStage.MainMenu: {
+          _menuMenu = (GameObject)Instantiate(MainMenuPrefab, Vector3.zero, Quaternion.identity);
+        }
+        break;
       case GameStage.PreGame: 
         {
-          _menuMenu = (GameObject)Instantiate(MainMenuPrefab, Vector3.zero, Quaternion.identity);
+          _playerController = (GameObject)Instantiate(PlayerControllerPrefab, Vector3.zero, Quaternion.identity);
+          CustomerOrderManager.Instance.OnRoundStarted();
         }
         break;
       case GameStage.Morning: 
         {
-          _playerController= (GameObject)Instantiate(PlayerControllerPrefab, Vector3.zero, Quaternion.identity);
-          CustomerOrderManager.Instance.OnRoundStarted();
+
         }
         break;
       case GameStage.Lunchtime: 

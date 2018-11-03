@@ -131,7 +131,7 @@ MonoBehaviour:
     m_Bits: 1
   _handHoverDistance: 0.2
   _handDragHeight: 2
-  _handDragSensitivity: 1
+  _handDragSensitivity: 0.1
   _handAnimateSpeed: 5
 --- !u!114 &114808963831842000
 MonoBehaviour:
@@ -150,4 +150,4 @@ MonoBehaviour:
   _panningWorldBounds:
     MinValue: -10
     MaxValue: 10
-  _panningSpeed: 15
+  _panningSpeed: 10
