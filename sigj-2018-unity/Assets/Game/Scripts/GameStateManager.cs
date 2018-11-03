@@ -13,7 +13,10 @@ public class GameStateManager : Singleton<GameStateManager> {
     PostGame
   }
 
+  public GameObject MainMenuPrefab;
+
   private GameStage _gameStage = GameStage.Invalid;
+  private GameObject _menuMenu = null;
 
   private void Awake()
   {
@@ -31,7 +34,6 @@ public class GameStateManager : Singleton<GameStateManager> {
 
     switch (_gameStage) {
       case GameStage.PreGame:
-        nextGameStage = GameStage.Morning;
         break;
       case GameStage.Morning:
         break;
@@ -46,7 +48,7 @@ public class GameStateManager : Singleton<GameStateManager> {
     SetGameStage(nextGameStage);
   }
 
-  private void SetGameStage(GameStage newGameStage)
+  public void SetGameStage(GameStage newGameStage)
   {
     if (newGameStage != _gameStage) {
       OnExitStage(_gameStage);
@@ -58,7 +60,11 @@ public class GameStateManager : Singleton<GameStateManager> {
   public void OnExitStage(GameStage oldGameStage)
   {
     switch(oldGameStage) {
-      case GameStage.PreGame:
+      case GameStage.PreGame: 
+        {
+          Destroy(_menuMenu);
+          _menuMenu = null;
+        }
         break;
       case GameStage.Morning:
         break;
@@ -74,7 +80,10 @@ public class GameStateManager : Singleton<GameStateManager> {
   public void OnEnterStage(GameStage newGameStage)
   {
     switch (newGameStage) {
-      case GameStage.PreGame:
+      case GameStage.PreGame: 
+        {
+          _menuMenu = (GameObject)Instantiate(MainMenuPrefab, Vector3.zero, Quaternion.identity);
+        }
         break;
       case GameStage.Morning:
         CustomerOrderManager.Instance.OnRoundStarted();
