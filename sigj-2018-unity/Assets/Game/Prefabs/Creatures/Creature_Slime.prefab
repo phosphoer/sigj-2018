@@ -833,7 +833,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f5d27f940fec4f5b99cf018abd989bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 0.5
+  _moveSpeed: 0.75
   _turnSpeed: 0.5
   _moveChance: 0.5
   _vigorGainRate: 0.05
@@ -891,6 +891,7 @@ MonoBehaviour:
     type: 2}
   _vigorUIRoot: {fileID: 4291489790745966}
   _visualRoot: {fileID: 4773193581948172}
+  _animator: {fileID: 95911945735835766}
 --- !u!114 &114892192150552194
 MonoBehaviour:
   m_ObjectHideFlags: 1
