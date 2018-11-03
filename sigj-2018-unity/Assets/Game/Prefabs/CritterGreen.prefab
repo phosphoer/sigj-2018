@@ -155,6 +155,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveSpeed: 0.5
   _turnSpeed: 0.5
+  _moveChance: 0.5
+  _vigorGainRate: 1
   _changeDirTimeRange:
     MinValue: 4
     MaxValue: 8
@@ -163,3 +165,45 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967291
   _obstacleAvoidDistance: 2
+  _growUpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5295598
+      value: 1.2374986
+      inSlope: 0.000023843044
+      outSlope: 0.000023843044
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.2788371
+    - serializedVersion: 3
+      time: 0.775568
+      value: 0.9988166
+      inSlope: 2.2597344
+      outSlope: 2.2597344
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.25356433
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1.177804
+      outSlope: 1.177804
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.2374409
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
