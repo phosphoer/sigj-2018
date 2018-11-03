@@ -20,15 +20,6 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
     CustomerOrderManager.Instance = this;
   }
 
-  // Use this for initialization
-  void Start () {
-  }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
   public void OnRoundStarted()
   {
     _OrdersIssued = 0;
@@ -71,8 +62,16 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
 
   public void IssueRandomOrder()
   {
+    // Create a new customer order
     CustomerOrder newOrder = CreateRandomOrder();
+
+    // Spawn a creature that corresponds to that order
+    CritterSpawner.Instance.SpawnCritter(newOrder);
+
+    // Spawn the order panel that shows what the customer wants
     SpawnOrderPanel(newOrder);
+
+    // Keep track of how many orders we issues
     ++_OrdersIssued;
   }
 
