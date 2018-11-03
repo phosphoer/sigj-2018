@@ -88,6 +88,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4344880739839650}
   - component: {fileID: 95218042590366714}
+  - component: {fileID: 114131149181397000}
   m_Layer: 0
   m_Name: Eye3
   m_TagString: Untagged
@@ -370,7 +371,7 @@ Animator:
   m_GameObject: {fileID: 1325846165086916}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 4f3ae65f84d0de741a0b638563e6b0ea, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7005f281a1552f94e901d45fc35ce4ad, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -379,3 +380,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114131149181397000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1325846165086916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1bbf6ffd78f1be4092099cc980505c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AnimCount: 2
+  PostAnimDelay: {x: 1, y: 2}
+  AdditionalRandomScale: {x: 1.5, y: 2}
