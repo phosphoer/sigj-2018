@@ -39,6 +39,9 @@ public class CritterController : MonoBehaviour
   [SerializeField]
   private Transform _visualRoot = null;
 
+  [SerializeField]
+  private Animator _animator = null;
+
   private Vector3 _desiredDirection;
   private Vector3 _moveDirection;
   private float _changeDirectionTimer;
@@ -52,6 +55,8 @@ public class CritterController : MonoBehaviour
   private const float kAgeRate = 0.03f;
   private const float kGrowAnimationDuration = 1.0f;
   private const CritterConstants.CreatureSize kMinVigorSize = CritterConstants.CreatureSize.Medium;
+
+  private static readonly int kAnimParamIsWalking = Animator.StringToHash("IsWalking");
 
   public void SetAge(float newAge, bool animate)
   {
@@ -102,6 +107,7 @@ public class CritterController : MonoBehaviour
       _changeDirectionTimer = _changeDirTimeRange.RandomValue;
       _desiredDirection = Random.onUnitSphere.WithY(0).normalized;
       _isMoving = Random.value > _moveChance;
+      _animator?.SetBool(kAnimParamIsWalking, _isMoving);
     }
 
     // Slowly change move direction towards current desired direction / rotate to face move direction
