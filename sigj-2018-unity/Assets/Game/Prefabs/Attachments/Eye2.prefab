@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4344941079346842}
   - component: {fileID: 95780427417604288}
+  - component: {fileID: 114473902010642454}
   m_Layer: 0
   m_Name: Eye2
   m_TagString: Untagged
@@ -516,7 +517,7 @@ Animator:
   m_GameObject: {fileID: 1033184192126074}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 53824693f759e5f4eaa0f26e70cad786, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b9feb6c761074b64c85df87a53197722, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -525,3 +526,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114473902010642454
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1033184192126074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1bbf6ffd78f1be4092099cc980505c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AnimCount: 3
+  PostAnimDelay: {x: 0.25, y: 1}
+  AdditionalRandomScale: {x: 1.5, y: 2}
