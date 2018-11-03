@@ -12,9 +12,18 @@ public class EggController : MonoBehaviour
   [SerializeField]
   private Rigidbody _rigidBody = null;
 
+  [SerializeField]
+  private RangedFloat _rockTimeRange = new RangedFloat(2.0f, 5.0f);
+
+  private float _rockTimer;
+
   private void Start()
   {
     StartCoroutine(SpawnAsync());
+  }
+
+  private void Update()
+  {
   }
 
   private IEnumerator SpawnAsync()
