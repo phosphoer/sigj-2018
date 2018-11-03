@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class CritterController : MonoBehaviour
 {
-  public bool IsReadyForLove => _vigorLevel >= 1;
+  public bool IsReadyForLove => _vigorLevel >= 1 && !IsMating;
   public bool IsMating => _currentMate != null;
 
   [SerializeField]
@@ -159,7 +159,7 @@ public class CritterController : MonoBehaviour
     }
 
     // If we have full vigor, look for the closest mate and go get em
-    if (IsReadyForLove && !IsMating)
+    if (IsReadyForLove)
     {
       if (_mateSearchIndex >= _instances.Count)
         _mateSearchIndex = 0;
@@ -190,7 +190,7 @@ public class CritterController : MonoBehaviour
         _desiredDirection = toMateVec.normalized;
 
         // If someone gets to our potential mate first we have to try for someone else
-        if (!_nearestMate.IsReadyForLove || _nearestMate.IsMating)
+        if (!_nearestMate.IsReadyForLove)
         {
           _nearestMate = null;
           return;
