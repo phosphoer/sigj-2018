@@ -50,7 +50,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1101352346851528}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.30577886, y: 0.2916603, z: -0.19920087}
+  m_LocalPosition: {x: -5.82, y: -4.17, z: 4.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4635569447459614}
@@ -63,7 +63,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1684363146922062}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.6553879, y: 1.4583397, z: -1.5678654}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4352227416303396}
@@ -84,7 +84,7 @@ MonoBehaviour:
   OrderPanelPrefab: {fileID: 1001486022010578, guid: c009914d78f755741973acee534fe012,
     type: 2}
   PanelListTransform: {fileID: 4352227416303396}
-  PanelOffset: 14
+  PanelOffset: 3
   OrderTimeRange:
     MinValue: 1
     MaxValue: 2
