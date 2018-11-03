@@ -25,7 +25,7 @@ public class GameStateManager : Singleton<GameStateManager> {
 
   // Use this for initialization
   void Start () {
-    SetGameStage(GameStage.PreGame);
+    SetGameStage(GameStage.Morning);
   }
 	
 	// Update is called once per frame
