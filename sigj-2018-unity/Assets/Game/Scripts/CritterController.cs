@@ -13,7 +13,7 @@ public class CritterController : MonoBehaviour
   private float _moveChance = 0.5f;
 
   [SerializeField]
-  private float _vigorGainRate = 1.0f;
+  private float _vigorGainRate = 0.05f;
 
   [SerializeField]
   private RangedFloat _changeDirTimeRange = new RangedFloat(4, 8);
