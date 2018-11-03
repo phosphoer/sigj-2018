@@ -1,8 +1,12 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CritterController : MonoBehaviour
 {
+  public bool IsReadyForLove => _vigorLevel >= 1 && !IsMating;
+  public bool IsMating => _currentMate != null;
+
   [SerializeField]
   private float _moveSpeed = 1;
 
@@ -12,8 +16,8 @@ public class CritterController : MonoBehaviour
   [SerializeField]
   private float _moveChance = 0.5f;
 
-  // [SerializeField]
-  // private float _vigorGainRate = 1.0f;
+  [SerializeField]
+  private float _vigorGainRate = 0.05f;
 
   [SerializeField]
   private RangedFloat _changeDirTimeRange = new RangedFloat(4, 8);
@@ -30,6 +34,21 @@ public class CritterController : MonoBehaviour
   [SerializeField]
   private AnimationCurve _growUpCurve = null;
 
+  [SerializeField]
+  private GameObject _mateEffectPrefab = null;
+
+  [SerializeField]
+  private VigorUI _vigorUIPrefab = null;
+
+  [SerializeField]
+  private Transform _vigorUIRoot = null;
+
+  [SerializeField]
+  private Transform _visualRoot = null;
+
+  [SerializeField]
+  private Animator _animator = null;
+
   private Vector3 _desiredDirection;
   private Vector3 _moveDirection;
   private float _changeDirectionTimer;
@@ -38,31 +57,41 @@ public class CritterController : MonoBehaviour
   private float _vigorLevel;
   private float _age;
   private CritterConstants.CreatureSize _size;
+  private VigorUI _vigorUI;
+  private int _mateSearchIndex;
+  private CritterController _nearestMate;
+  private CritterController _currentMate;
 
   private const float kAgeRate = 0.03f;
   private const float kGrowAnimationDuration = 1.0f;
+  private const float kMinMateDistance = 2.0f;
+  private const CritterConstants.CreatureSize kMinVigorSize = CritterConstants.CreatureSize.Medium;
+
+  private static readonly int kAnimParamIsWalking = Animator.StringToHash("IsWalking");
+  private static List<CritterController> _instances = new List<CritterController>();
 
   public void SetAge(float newAge, bool animate)
   {
-    if (!animate)
-    {
-      _age = newAge;
-      _size = CritterConstants.GetCreatureSizeAtAge(_age);
-      transform.localScale = Vector3.one * CritterConstants.GetCreatureSizeScale(_size);
-    }
-    else
-    {
-      _age = newAge;
-      SetSize(CritterConstants.GetCreatureSizeAtAge(_age));
-    }
+    _age = newAge;
+    SetSize(CritterConstants.GetCreatureSizeAtAge(_age), animate);
   }
 
   private void Start()
   {
+    _instances.Add(this);
+
     _desiredDirection = transform.forward;
+    _vigorUI = Instantiate(_vigorUIPrefab, _vigorUIRoot);
+    _vigorUI.transform.localPosition = Vector3.zero;
+    _vigorUI.transform.localScale = Vector3.one;
 
     // Initialize size
-    SetAge(_age, false);
+    SetAge(_age, animate: false);
+  }
+
+  private void OnDestroy()
+  {
+    _instances.Remove(this);
   }
 
   private void FixedUpdate()
@@ -80,7 +109,14 @@ public class CritterController : MonoBehaviour
     CritterConstants.CreatureSize ageNewSize = CritterConstants.GetCreatureSizeAtAge(_age);
     if (ageNewSize != _size)
     {
-      SetSize(ageNewSize);
+      SetSize(ageNewSize, animate: true);
+    }
+
+    // Gain vigor, if we're old enough
+    if ((int)_size >= (int)kMinVigorSize)
+    {
+      _vigorLevel = Mathf.Clamp01(_vigorLevel + Time.deltaTime * _vigorGainRate);
+      _vigorUI.FillPercent = _vigorLevel;
     }
 
     // Change direction sometimes
@@ -90,10 +126,15 @@ public class CritterController : MonoBehaviour
       _changeDirectionTimer = _changeDirTimeRange.RandomValue;
       _desiredDirection = Random.onUnitSphere.WithY(0).normalized;
       _isMoving = Random.value > _moveChance;
+
+      if (_animator != null)
+      {
+        _animator.SetBool(kAnimParamIsWalking, _isMoving);
+      }
     }
 
     // Slowly change move direction towards current desired direction / rotate to face move direction
-    _moveDirection = Mathfx.Damp(_moveDirection, _desiredDirection, 0.5f, Time.deltaTime * _turnSpeed);
+    _moveDirection = Mathfx.Damp(_moveDirection, _desiredDirection, 0.5f, Time.deltaTime * _turnSpeed).WithY(0);
 
     Quaternion desiredRot = Quaternion.LookRotation(_moveDirection, Vector3.up);
     _rigidBody.rotation = Mathfx.Damp(_rigidBody.rotation, desiredRot, 0.5f, Time.deltaTime * _turnSpeed);
@@ -117,24 +158,110 @@ public class CritterController : MonoBehaviour
       }
     }
 
+    // If we have full vigor, look for the closest mate and go get em
+    if (IsReadyForLove)
+    {
+      if (_mateSearchIndex >= _instances.Count)
+        _mateSearchIndex = 0;
+
+      // Find nearest available mate lazily over time
+      if (_mateSearchIndex < _instances.Count)
+      {
+        CritterController potentialMate = _instances[_mateSearchIndex];
+        if (potentialMate != this && potentialMate.IsReadyForLove)
+        {
+          float distToMate = Vector3.Distance(transform.position, potentialMate.transform.position);
+          float distToNearestMate = _nearestMate != null ? Vector3.Distance(transform.position, _nearestMate.transform.position) : Mathf.Infinity;
+          if (distToMate < distToNearestMate)
+          {
+            _nearestMate = potentialMate;
+          }
+        }
+
+        ++_mateSearchIndex;
+      }
+
+      // Move towards current desired mate 
+      if (_nearestMate != null)
+      {
+        Vector3 toMateVec = _nearestMate.transform.position - transform.position;
+        _changeDirectionTimer = 1;
+        _isMoving = true;
+        _desiredDirection = toMateVec.normalized;
+
+        // If someone gets to our potential mate first we have to try for someone else
+        if (!_nearestMate.IsReadyForLove)
+        {
+          _nearestMate = null;
+          return;
+        }
+
+        // If we get close enough, begin the process 
+        float distToMate = toMateVec.magnitude;
+        if (distToMate < kMinMateDistance)
+        {
+          MateWith(_nearestMate, isLeader: true);
+        }
+      }
+    }
+
     Debug.DrawRay(transform.position, _desiredDirection, Color.blue);
   }
 
-  private void SetSize(CritterConstants.CreatureSize newSize)
+  private void MateWith(CritterController critter, bool isLeader)
+  {
+    _currentMate = critter;
+    _isMoving = false;
+
+    GameObject mateFx = Instantiate(_mateEffectPrefab, transform);
+    mateFx.transform.localPosition = Vector3.zero;
+
+    if (isLeader)
+    {
+      _nearestMate.MateWith(this, isLeader: false);
+      StartCoroutine(MateAsync());
+    }
+  }
+
+  private void StopMating()
+  {
+    _currentMate = null;
+    _vigorLevel = 0;
+    _changeDirectionTimer = 0;
+  }
+
+  private void SetSize(CritterConstants.CreatureSize newSize, bool animate)
   {
     _size = newSize;
-    StartCoroutine(UpdateSizeAsync());
+    _vigorUI.gameObject.SetActive(((int)_size >= (int)kMinVigorSize));
+
+    if (animate)
+    {
+      StartCoroutine(UpdateSizeAsync());
+    }
+    else
+    {
+      _visualRoot.localScale = Vector3.one * CritterConstants.GetCreatureSizeScale(_size);
+    }
+  }
+
+  private IEnumerator MateAsync()
+  {
+    yield return new WaitForSeconds(3.0f);
+
+    _currentMate.StopMating();
+    StopMating();
   }
 
   private IEnumerator UpdateSizeAsync()
   {
-    Vector3 startScale = transform.localScale;
+    Vector3 startScale = _visualRoot.localScale;
     Vector3 endScale = Vector3.one * CritterConstants.GetCreatureSizeScale(_size);
     for (float time = 0; time < kGrowAnimationDuration; time += Time.deltaTime)
     {
       float t = time / kGrowAnimationDuration;
       float tCurve = _growUpCurve.Evaluate(t);
-      transform.localScale = Vector3.LerpUnclamped(startScale, endScale, tCurve);
+      _visualRoot.localScale = Vector3.LerpUnclamped(startScale, endScale, tCurve);
       yield return null;
     }
   }

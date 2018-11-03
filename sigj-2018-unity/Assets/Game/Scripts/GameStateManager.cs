@@ -6,6 +6,7 @@ public class GameStateManager : Singleton<GameStateManager> {
   public enum GameStage
   {
     Invalid,
+    MainMenu,
     PreGame,
     Morning,
     Lunchtime,
@@ -13,10 +14,12 @@ public class GameStateManager : Singleton<GameStateManager> {
     PostGame
   }
 
+  public GameObject PlayerControllerPrefab;
   public GameObject MainMenuPrefab;
 
   private GameStage _gameStage = GameStage.Invalid;
   private GameObject _menuMenu = null;
+  private GameObject _playerController = null;
 
   private void Awake()
   {
@@ -25,7 +28,7 @@ public class GameStateManager : Singleton<GameStateManager> {
 
   // Use this for initialization
   void Start () {
-    SetGameStage(GameStage.Morning);
+    SetGameStage(GameStage.PreGame);
   }
 	
 	// Update is called once per frame
@@ -33,6 +36,8 @@ public class GameStateManager : Singleton<GameStateManager> {
     GameStage nextGameStage = _gameStage;
 
     switch (_gameStage) {
+      case GameStage.MainMenu:
+        break;
       case GameStage.PreGame:
         break;
       case GameStage.Morning:
@@ -60,17 +65,30 @@ public class GameStateManager : Singleton<GameStateManager> {
   public void OnExitStage(GameStage oldGameStage)
   {
     switch(oldGameStage) {
-      case GameStage.PreGame: 
+      case GameStage.MainMenu: 
         {
           Destroy(_menuMenu);
           _menuMenu = null;
         }
         break;
-      case GameStage.Morning:
+      case GameStage.PreGame: 
+        {
+        }
         break;
-      case GameStage.Lunchtime:
+      case GameStage.Morning: 
+        {
+          Destroy(_playerController);
+          _playerController = null;
+        }
         break;
-      case GameStage.Afternoon:
+      case GameStage.Lunchtime: {
+          // TODO: Destroy lunchtime UI 
+        }
+        break;
+      case GameStage.Afternoon: {
+          Destroy(_playerController);
+          _playerController = null;
+        }
         break;
       case GameStage.PostGame:
         break;
@@ -80,20 +98,36 @@ public class GameStateManager : Singleton<GameStateManager> {
   public void OnEnterStage(GameStage newGameStage)
   {
     switch (newGameStage) {
-      case GameStage.PreGame: 
-        {
+      case GameStage.MainMenu: {
           _menuMenu = (GameObject)Instantiate(MainMenuPrefab, Vector3.zero, Quaternion.identity);
         }
         break;
-      case GameStage.Morning:
-        CustomerOrderManager.Instance.OnRoundStarted();
+      case GameStage.PreGame: 
+        {
+          _playerController = (GameObject)Instantiate(PlayerControllerPrefab, Vector3.zero, Quaternion.identity);
+          CustomerOrderManager.Instance.OnRoundStarted();
+        }
         break;
-      case GameStage.Lunchtime:
+      case GameStage.Morning: 
+        {
+
+        }
         break;
-      case GameStage.Afternoon:
+      case GameStage.Lunchtime: 
+        {
+          //TODO: Spawn lunch time UI
+        }
         break;
-      case GameStage.PostGame:
-        CustomerOrderManager.Instance.OnRoundCompleted();
+      case GameStage.Afternoon: 
+        {
+          _playerController = (GameObject)Instantiate(PlayerControllerPrefab, Vector3.zero, Quaternion.identity);
+        }
+        break;
+      case GameStage.PostGame: 
+        {
+          CustomerOrderManager.Instance.OnRoundCompleted();
+          //TODO: Spawn post game UI
+        }
         break;
     }
   }
