@@ -12,8 +12,8 @@ public class CritterController : MonoBehaviour
   [SerializeField]
   private float _moveChance = 0.5f;
 
-  // [SerializeField]
-  // private float _vigorGainRate = 1.0f;
+  [SerializeField]
+  private float _vigorGainRate = 1.0f;
 
   [SerializeField]
   private RangedFloat _changeDirTimeRange = new RangedFloat(4, 8);
@@ -30,6 +30,15 @@ public class CritterController : MonoBehaviour
   [SerializeField]
   private AnimationCurve _growUpCurve = null;
 
+  [SerializeField]
+  private VigorUI _vigorUIPrefab = null;
+
+  [SerializeField]
+  private Transform _vigorUIRoot = null;
+
+  [SerializeField]
+  private Transform _visualRoot = null;
+
   private Vector3 _desiredDirection;
   private Vector3 _moveDirection;
   private float _changeDirectionTimer;
@@ -38,31 +47,27 @@ public class CritterController : MonoBehaviour
   private float _vigorLevel;
   private float _age;
   private CritterConstants.CreatureSize _size;
+  private VigorUI _vigorUI;
 
   private const float kAgeRate = 0.03f;
   private const float kGrowAnimationDuration = 1.0f;
+  private const CritterConstants.CreatureSize kMinVigorSize = CritterConstants.CreatureSize.Medium;
 
   public void SetAge(float newAge, bool animate)
   {
-    if (!animate)
-    {
-      _age = newAge;
-      _size = CritterConstants.GetCreatureSizeAtAge(_age);
-      transform.localScale = Vector3.one * CritterConstants.GetCreatureSizeScale(_size);
-    }
-    else
-    {
-      _age = newAge;
-      SetSize(CritterConstants.GetCreatureSizeAtAge(_age));
-    }
+    _age = newAge;
+    SetSize(CritterConstants.GetCreatureSizeAtAge(_age), animate);
   }
 
   private void Start()
   {
     _desiredDirection = transform.forward;
+    _vigorUI = Instantiate(_vigorUIPrefab, _vigorUIRoot);
+    _vigorUI.transform.localPosition = Vector3.zero;
+    _vigorUI.transform.localScale = Vector3.one;
 
     // Initialize size
-    SetAge(_age, false);
+    SetAge(_age, animate: false);
   }
 
   private void FixedUpdate()
@@ -80,7 +85,14 @@ public class CritterController : MonoBehaviour
     CritterConstants.CreatureSize ageNewSize = CritterConstants.GetCreatureSizeAtAge(_age);
     if (ageNewSize != _size)
     {
-      SetSize(ageNewSize);
+      SetSize(ageNewSize, animate: true);
+    }
+
+    // Gain vigor, if we're old enough
+    if ((int)_size >= (int)kMinVigorSize)
+    {
+      _vigorLevel = Mathf.Clamp01(_vigorLevel + Time.deltaTime * _vigorGainRate);
+      _vigorUI.FillPercent = _vigorLevel;
     }
 
     // Change direction sometimes
@@ -120,21 +132,30 @@ public class CritterController : MonoBehaviour
     Debug.DrawRay(transform.position, _desiredDirection, Color.blue);
   }
 
-  private void SetSize(CritterConstants.CreatureSize newSize)
+  private void SetSize(CritterConstants.CreatureSize newSize, bool animate)
   {
     _size = newSize;
-    StartCoroutine(UpdateSizeAsync());
+    _vigorUI.gameObject.SetActive(((int)_size >= (int)kMinVigorSize));
+
+    if (animate)
+    {
+      StartCoroutine(UpdateSizeAsync());
+    }
+    else
+    {
+      _visualRoot.localScale = Vector3.one * CritterConstants.GetCreatureSizeScale(_size);
+    }
   }
 
   private IEnumerator UpdateSizeAsync()
   {
-    Vector3 startScale = transform.localScale;
+    Vector3 startScale = _visualRoot.localScale;
     Vector3 endScale = Vector3.one * CritterConstants.GetCreatureSizeScale(_size);
     for (float time = 0; time < kGrowAnimationDuration; time += Time.deltaTime)
     {
       float t = time / kGrowAnimationDuration;
       float tCurve = _growUpCurve.Evaluate(t);
-      transform.localScale = Vector3.LerpUnclamped(startScale, endScale, tCurve);
+      _visualRoot.localScale = Vector3.LerpUnclamped(startScale, endScale, tCurve);
       yield return null;
     }
   }
