@@ -85,6 +85,8 @@ public class HandDragController : MonoBehaviour
       _initialDragValue = _currentDraggable.drag;
       _currentDraggable.drag = 10;
       _handObject.gameObject.SetActive(false);
+      Cursor.visible = false;
+      Cursor.lockState = CursorLockMode.Confined;
     }
   }
 
@@ -95,6 +97,8 @@ public class HandDragController : MonoBehaviour
       _currentDraggable.drag = _initialDragValue;
       _currentDraggable = null;
       _handObject.gameObject.SetActive(true);
+      Cursor.visible = true;
+      Cursor.lockState = CursorLockMode.None;
     }
   }
 }
