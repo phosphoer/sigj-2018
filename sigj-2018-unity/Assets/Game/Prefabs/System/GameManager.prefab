@@ -163,6 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9edab9287282047428d576cc290d3e77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerControllerPrefab: {fileID: 0}
+  PlayerControllerPrefab: {fileID: 1214567969576102, guid: 6d5cdef94e9b04e2ea8fbf44b142f3db,
+    type: 2}
   MainMenuPrefab: {fileID: 1761125485014802, guid: 8e88fe6585887c44dbb167062e0961b6,
     type: 2}
