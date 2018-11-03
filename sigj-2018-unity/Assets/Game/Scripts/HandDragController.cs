@@ -37,11 +37,18 @@ public class HandDragController : MonoBehaviour
 
   private void Update()
   {
+    if (!Rewired.ReInput.isReady)
+    {
+      return;
+    }
+
+    Rewired.Player player = Rewired.ReInput.players.GetPlayer(0);
+
     if (IsDragging)
     {
       float distanceScale = Vector3.Distance(Camera.main.transform.position, _currentDraggable.position);
-      float horizontalAxis = Input.GetAxis("Mouse X") * Time.deltaTime * _handDragSensitivity;
-      float verticalAxis = Input.GetAxis("Mouse Y") * Time.deltaTime * _handDragSensitivity;
+      float horizontalAxis = player.GetAxis("CursorX") * Time.deltaTime * _handDragSensitivity;
+      float verticalAxis = player.GetAxis("CursorY") * Time.deltaTime * _handDragSensitivity;
       _targetHandPos += Camera.main.transform.right.WithY(0).normalized * horizontalAxis * distanceScale;
       _targetHandPos += Camera.main.transform.forward.WithY(0).normalized * verticalAxis * distanceScale;
       _targetHandPos.y = _handDragHeight;
@@ -55,14 +62,14 @@ public class HandDragController : MonoBehaviour
       {
         _targetHandPos = hitInfo.point + hitInfo.normal * _handHoverDistance;
 
-        if (Input.GetMouseButtonDown(0))
+        if (player.GetButtonDown("Select"))
         {
           StartGrab(hitInfo);
         }
       }
     }
 
-    if (Input.GetMouseButtonUp(0))
+    if (player.GetButtonUp("Select"))
     {
       StopGrab();
     }
