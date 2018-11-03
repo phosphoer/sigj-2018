@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class CritterController : MonoBehaviour
 {
   public bool IsReadyForLove => _vigorLevel >= 1;
+  public bool IsMating => _currentMate != null;
 
   [SerializeField]
   private float _moveSpeed = 1;
@@ -34,6 +35,9 @@ public class CritterController : MonoBehaviour
   private AnimationCurve _growUpCurve = null;
 
   [SerializeField]
+  private GameObject _mateEffectPrefab = null;
+
+  [SerializeField]
   private VigorUI _vigorUIPrefab = null;
 
   [SerializeField]
@@ -56,6 +60,7 @@ public class CritterController : MonoBehaviour
   private VigorUI _vigorUI;
   private int _mateSearchIndex;
   private CritterController _nearestMate;
+  private CritterController _currentMate;
 
   private const float kAgeRate = 0.03f;
   private const float kGrowAnimationDuration = 1.0f;
@@ -154,7 +159,7 @@ public class CritterController : MonoBehaviour
     }
 
     // If we have full vigor, look for the closest mate and go get em
-    if (IsReadyForLove)
+    if (IsReadyForLove && !IsMating)
     {
       if (_mateSearchIndex >= _instances.Count)
         _mateSearchIndex = 0;
@@ -172,26 +177,57 @@ public class CritterController : MonoBehaviour
             _nearestMate = potentialMate;
           }
         }
+
+        ++_mateSearchIndex;
       }
 
       // Move towards current desired mate 
-      // if (_nearestMate != null)
-      // {
-      //   Vector3 toMateVec = _nearestMate.transform.position - transform.position;
-      //   _changeDirectionTimer = 1;
-      //   _isMoving = true;
-      //   _desiredDirection = toMateVec.normalized;
+      if (_nearestMate != null)
+      {
+        Vector3 toMateVec = _nearestMate.transform.position - transform.position;
+        _changeDirectionTimer = 1;
+        _isMoving = true;
+        _desiredDirection = toMateVec.normalized;
 
-      //   // If we get close enough, begin the process 
-      //   float distToMate = toMateVec.magnitude;
-      //   if (distToMate < kMinMateDistance)
-      //   {
-      //     _isMoving = false;
-      //   }
-      // }
+        // If someone gets to our potential mate first we have to try for someone else
+        if (!_nearestMate.IsReadyForLove || _nearestMate.IsMating)
+        {
+          _nearestMate = null;
+          return;
+        }
+
+        // If we get close enough, begin the process 
+        float distToMate = toMateVec.magnitude;
+        if (distToMate < kMinMateDistance)
+        {
+          MateWith(_nearestMate, isLeader: true);
+        }
+      }
     }
 
     Debug.DrawRay(transform.position, _desiredDirection, Color.blue);
+  }
+
+  private void MateWith(CritterController critter, bool isLeader)
+  {
+    _currentMate = critter;
+    _isMoving = false;
+
+    GameObject mateFx = Instantiate(_mateEffectPrefab, transform);
+    mateFx.transform.localPosition = Vector3.zero;
+
+    if (isLeader)
+    {
+      _nearestMate.MateWith(this, isLeader: false);
+      StartCoroutine(MateAsync());
+    }
+  }
+
+  private void StopMating()
+  {
+    _currentMate = null;
+    _vigorLevel = 0;
+    _changeDirectionTimer = 0;
   }
 
   private void SetSize(CritterConstants.CreatureSize newSize, bool animate)
@@ -207,6 +243,14 @@ public class CritterController : MonoBehaviour
     {
       _visualRoot.localScale = Vector3.one * CritterConstants.GetCreatureSizeScale(_size);
     }
+  }
+
+  private IEnumerator MateAsync()
+  {
+    yield return new WaitForSeconds(3.0f);
+
+    _currentMate.StopMating();
+    StopMating();
   }
 
   private IEnumerator UpdateSizeAsync()
