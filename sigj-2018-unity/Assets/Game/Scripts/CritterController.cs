@@ -35,6 +35,9 @@ public class CritterController : MonoBehaviour
   private AnimationCurve _growUpCurve = null;
 
   [SerializeField]
+  private EggController _eggPrefab = null;
+
+  [SerializeField]
   private GameObject _mateEffectPrefab = null;
 
   [SerializeField]
@@ -98,6 +101,7 @@ public class CritterController : MonoBehaviour
   {
     if (_isMoving)
     {
+      float moveSpeed = _moveSpeed * _visualRoot.localScale.x;
       _rigidBody.AddForce(_moveDirection.normalized * _moveSpeed, ForceMode.Force);
     }
   }
@@ -248,6 +252,10 @@ public class CritterController : MonoBehaviour
   private IEnumerator MateAsync()
   {
     yield return new WaitForSeconds(3.0f);
+
+    EggController egg = Instantiate(_eggPrefab);
+    egg.transform.position = (transform.position + _currentMate.transform.position) / 2;
+    egg.transform.rotation = Random.rotationUniform;
 
     _currentMate.StopMating();
     StopMating();

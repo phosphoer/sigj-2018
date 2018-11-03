@@ -887,6 +887,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _eggPrefab: {fileID: 114004026556876082, guid: 0e67a01bdce6e4591b844071cb99f8c0,
+    type: 2}
   _mateEffectPrefab: {fileID: 1583502172690360, guid: be62efa4d3a7e4394b54aec3f404ac70,
     type: 2}
   _vigorUIPrefab: {fileID: 114191291499199196, guid: bb2c4f90a43214ab1af25714e483c1cb,
