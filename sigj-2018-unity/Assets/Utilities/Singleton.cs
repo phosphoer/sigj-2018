@@ -16,7 +16,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
       return instance;
     }
-    set
+    protected set
     {
       instance = value;
     }
