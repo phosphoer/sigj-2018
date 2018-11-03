@@ -15,9 +15,13 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
 
   private List<GameObject> CustomerOrderPanelList = new List<GameObject>();
 
+  private void Awake()
+  {
+    CustomerOrderManager.Instance = this;
+  }
+
   // Use this for initialization
   void Start () {
-    OnRoundStarted();
   }
 	
 	// Update is called once per frame
