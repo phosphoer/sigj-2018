@@ -25,6 +25,7 @@ public class HandDragController : MonoBehaviour
   private Vector3 _targetHandPos;
   private Rigidbody _currentDraggable;
   private float _initialDragValue;
+  private Vector3 _dragStartCameraPos;
 
   private void FixedUpdate()
   {
@@ -49,9 +50,12 @@ public class HandDragController : MonoBehaviour
       float distanceScale = Vector3.Distance(Camera.main.transform.position, _currentDraggable.position);
       float horizontalAxis = player.GetAxis("CursorX") * Time.deltaTime * _handDragSensitivity;
       float verticalAxis = player.GetAxis("CursorY") * Time.deltaTime * _handDragSensitivity;
+      Vector3 cameraMovement = Camera.main.transform.position - _dragStartCameraPos;
       _targetHandPos += Camera.main.transform.right.WithY(0).normalized * horizontalAxis * distanceScale;
       _targetHandPos += Camera.main.transform.forward.WithY(0).normalized * verticalAxis * distanceScale;
+      _targetHandPos += cameraMovement;
       _targetHandPos.y = _handDragHeight;
+      _dragStartCameraPos = Camera.main.transform.position;
     }
     else
     {
@@ -85,6 +89,7 @@ public class HandDragController : MonoBehaviour
       _initialDragValue = _currentDraggable.drag;
       _currentDraggable.drag = 10;
       _handObject.gameObject.SetActive(false);
+      _dragStartCameraPos = Camera.main.transform.position;
       Cursor.visible = false;
       Cursor.lockState = CursorLockMode.Confined;
     }
