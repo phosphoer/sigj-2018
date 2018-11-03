@@ -13,10 +13,12 @@ public class GameStateManager : Singleton<GameStateManager> {
     PostGame
   }
 
+  public GameObject PlayerControllerPrefab;
   public GameObject MainMenuPrefab;
 
   private GameStage _gameStage = GameStage.Invalid;
   private GameObject _menuMenu = null;
+  private GameObject _playerController = null;
 
   private void Awake()
   {
@@ -25,7 +27,7 @@ public class GameStateManager : Singleton<GameStateManager> {
 
   // Use this for initialization
   void Start () {
-    SetGameStage(GameStage.Morning);
+    SetGameStage(GameStage.PreGame);
   }
 	
 	// Update is called once per frame
@@ -66,11 +68,20 @@ public class GameStateManager : Singleton<GameStateManager> {
           _menuMenu = null;
         }
         break;
-      case GameStage.Morning:
+      case GameStage.Morning: 
+        {
+          Destroy(_playerController);
+          _playerController = null;
+        }
         break;
-      case GameStage.Lunchtime:
+      case GameStage.Lunchtime: {
+          // TODO: Destroy lunchtime UI 
+        }
         break;
-      case GameStage.Afternoon:
+      case GameStage.Afternoon: {
+          Destroy(_playerController);
+          _playerController = null;
+        }
         break;
       case GameStage.PostGame:
         break;
@@ -85,15 +96,27 @@ public class GameStateManager : Singleton<GameStateManager> {
           _menuMenu = (GameObject)Instantiate(MainMenuPrefab, Vector3.zero, Quaternion.identity);
         }
         break;
-      case GameStage.Morning:
-        CustomerOrderManager.Instance.OnRoundStarted();
+      case GameStage.Morning: 
+        {
+          _playerController= (GameObject)Instantiate(PlayerControllerPrefab, Vector3.zero, Quaternion.identity);
+          CustomerOrderManager.Instance.OnRoundStarted();
+        }
         break;
-      case GameStage.Lunchtime:
+      case GameStage.Lunchtime: 
+        {
+          //TODO: Spawn lunch time UI
+        }
         break;
-      case GameStage.Afternoon:
+      case GameStage.Afternoon: 
+        {
+          _playerController = (GameObject)Instantiate(PlayerControllerPrefab, Vector3.zero, Quaternion.identity);
+        }
         break;
-      case GameStage.PostGame:
-        CustomerOrderManager.Instance.OnRoundCompleted();
+      case GameStage.PostGame: 
+        {
+          CustomerOrderManager.Instance.OnRoundCompleted();
+          //TODO: Spawn post game UI
+        }
         break;
     }
   }
