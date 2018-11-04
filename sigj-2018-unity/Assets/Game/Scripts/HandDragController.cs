@@ -29,6 +29,7 @@ public class HandDragController : MonoBehaviour
   private Rigidbody _currentDraggable;
   private float _initialDragValue;
   private Vector3 _dragStartCameraPos;
+  private bool _isRotating;
 
   private void FixedUpdate()
   {
@@ -36,6 +37,11 @@ public class HandDragController : MonoBehaviour
     {
       Vector3 toHand = _targetHandPos - _currentDraggable.position;
       _currentDraggable.AddForce(toHand * 100);
+
+      if (_isRotating)
+      {
+        _currentDraggable.AddRelativeTorque(0, 1.0f, 0, ForceMode.Force);
+      }
     }
   }
 
@@ -66,6 +72,8 @@ public class HandDragController : MonoBehaviour
       _targetHandPos += cameraMovement;
       _targetHandPos.y = _handDragHeight;
       _dragStartCameraPos = Camera.main.transform.position;
+
+      _isRotating = player.GetButton("Context");
     }
     else
     {
