@@ -13,6 +13,7 @@ ModelImporter:
     100014: joint5
     100016: joint6
     100018: joint7
+    100020: polySurface1
     400000: Horn4
     400002: //RootNode
     400004: ikHandle1
@@ -23,9 +24,13 @@ ModelImporter:
     400014: joint5
     400016: joint6
     400018: joint7
+    400020: polySurface1
     2300000: Horn4
+    2300002: polySurface1
     3300000: Horn4
+    3300002: polySurface1
     4300000: Horn4
+    4300002: polySurface1
     7400000: Take 001
     9500000: //RootNode
     13700000: Horn4
