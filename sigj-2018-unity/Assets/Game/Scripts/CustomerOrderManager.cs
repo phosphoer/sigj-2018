@@ -10,12 +10,16 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
   public RangedFloat OrderTimeRange = new RangedFloat(5.0f, 10.0f);
   public RangedInt OrderDesiredChanges = new RangedInt(2, 2);
   public RangedInt DesiredAttachmentCount = new RangedInt(0, 5);
-  public int TotalOrders = 5;
+  public int TotalActiveOrders = 5;
+  public GameObject GoodOrderEffectPrefab;
+  public GameObject BadOrderEffectPrefab;
 
   private int _ordersIssued = 0;
   private IEnumerator _ordersTimer;
   private CustomerOrderPanel _selectedOrderPanel = null;
   private List<GameObject> _customerOrderPanelList = new List<GameObject>();
+  private List<CustomerOrder> _completedOrdersList = new List<CustomerOrder>();
+  private OutHatchController _outHatchController = null;
 
   private void Awake()
   {
@@ -53,15 +57,16 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
 
   IEnumerator IssueOrderTimer()
   {
-    while (_ordersIssued < TotalOrders)
+    // StopOrderTimer() will kill this coroutine at the end of the round
+    while (true)
     {
       yield return new WaitForSeconds(OrderTimeRange.RandomValue);
-      print("Adding a new random order");
-      IssueRandomOrder();
-    }
 
-    print("Issued all orders for the round");
-    yield return null;
+      if (_customerOrderPanelList.Count < TotalActiveOrders) {
+        print("Adding a new random order");
+        IssueRandomOrder();
+      }
+    }
   }
 
   public void IssueRandomOrder()
@@ -88,11 +93,11 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
     _customerOrderPanelList.Clear();
   }
 
-  Vector3 GetNextPanelStartLocation()
+  Vector3 GetPanelSlotLocation(int slotIndex)
   {
     Vector3 panelListRight = PanelListTransform.rotation * Vector3.right;
 
-    return PanelListTransform.position + PanelOffset * panelListRight * (float)_customerOrderPanelList.Count;
+    return PanelListTransform.position + PanelOffset * panelListRight * (float)slotIndex;
   }
 
   CustomerOrder CreateRandomOrder()
@@ -118,7 +123,7 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
         case CustomerDesire.DesireType.ChangeAttachments: 
           {
             CreatureAttachmentDesire newDesire = new CreatureAttachmentDesire();
-            newDesire.AttachmentType = CritterSpawner.Instance.PickRandomAttachmentDescriptor();
+            newDesire.AttachmentDescriptor = CritterSpawner.Instance.PickRandomAttachmentDescriptor();
             newDesire.Count= DesiredAttachmentCount.RandomValue;
 
             newOrder.CustomerDesires[desireIndex] = newDesire;
@@ -157,7 +162,7 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
   void SpawnOrderPanel(CustomerOrder Order)
   {
     // Instantiate the wreck game object at the same position we are at
-    GameObject orderPanelObject = (GameObject)Instantiate(OrderPanelPrefab, GetNextPanelStartLocation(), PanelListTransform.rotation);
+    GameObject orderPanelObject = (GameObject)Instantiate(OrderPanelPrefab, GetPanelSlotLocation(_customerOrderPanelList.Count), PanelListTransform.rotation);
     CustomerOrderPanel orderPanelComponent = orderPanelObject.GetComponent<CustomerOrderPanel>();
 
     if (orderPanelComponent != null)
@@ -167,9 +172,65 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
     }
   }
 
+  void RebuildOrderPanelLayout()
+  {
+    for (int slotIndex= 0; slotIndex < _customerOrderPanelList.Count; ++slotIndex) {
+      _customerOrderPanelList[slotIndex].transform.position = GetPanelSlotLocation(slotIndex);
+    }
+  }
+
   public void OnOrderPanelClicked(CustomerOrderPanel panel)
   {
     SetSelectedPanel(panel);
+  }
+
+  public void RegisterOutHatchController(OutHatchController controller)
+  {
+    _outHatchController = controller;
+  }
+
+  public void OnCreatureDeposited(CritterController critter)
+  {
+    GameObject despawnEffectPrefab = BadOrderEffectPrefab;
+
+    if (_selectedOrderPanel != null) {
+      // Get the order we are supposed to be fulfilling
+      CustomerOrder order= _selectedOrderPanel.GetCustomerOrder();
+
+      // Get the game object that owns the panel
+      GameObject panelGameObject = _selectedOrderPanel.gameObject;
+
+      // Remove the panel's GameObject from panel list
+      _customerOrderPanelList.Remove(panelGameObject);
+
+      // Deselect this panel 
+      // - closes the out hatch
+      // - invalidates _selectedOrderPanel
+      SetSelectedPanel(null);
+
+      // Apply the creature too the order
+      if (order.TrySatisfyDesireWithCreatureDescriptor(critter.GetDNA())) {
+        despawnEffectPrefab = GoodOrderEffectPrefab;
+      }
+
+      // Add the order to the completed order list
+      _completedOrdersList.Add(order);
+
+      // Destroy the panel
+      Destroy(panelGameObject);
+
+      // Fix up the layout of the remaining panels
+      RebuildOrderPanelLayout();
+    }
+
+    // Play the appropriate effect
+    if (despawnEffectPrefab != null) {
+      Transform critterTransform = critter.gameObject.transform;
+      Instantiate(despawnEffectPrefab, critterTransform.position, critterTransform.rotation);
+    }
+
+    // Destroy the creature deposited in the hatch
+    Destroy(critter.gameObject);
   }
 
   private void SetSelectedPanel(CustomerOrderPanel panel)
@@ -184,6 +245,17 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
       }
 
       _selectedOrderPanel = panel;
+    }
+    else {
+      if (_selectedOrderPanel != null) {
+        _selectedOrderPanel.SetHighlightEnabled(false);
+        _selectedOrderPanel = null;
+      }
+    }
+
+    if (_outHatchController != null) {
+      bool bOpenHatch = _selectedOrderPanel != null;
+      _outHatchController.SetOpenState(bOpenHatch);
     }
   }
 }

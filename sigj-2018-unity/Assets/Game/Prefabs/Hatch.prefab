@@ -191,6 +191,8 @@ GameObject:
   - component: {fileID: 33733006214272732}
   - component: {fileID: 23591259707543254}
   - component: {fileID: 95073238997657280}
+  - component: {fileID: 114323499815121228}
+  - component: {fileID: 65588999100024536}
   m_Layer: 0
   m_Name: Hatch
   m_TagString: Untagged
@@ -226,8 +228,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1945733344067154}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: -3.008, y: 1.96, z: 11.226}
-  m_LocalScale: {x: 0.22623229, y: 0.22623229, z: 0.22623229}
+  m_LocalPosition: {x: 2.903, y: 1.96, z: 11.226}
+  m_LocalScale: {x: 0.22623, y: 0.22623, z: 0.22623}
   m_Children:
   - {fileID: 4557337974173088}
   - {fileID: 4027069062028084}
@@ -541,7 +543,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: ef162237e84e1b040a333253d27a1e93, type: 2}
+  - {fileID: 2100000, guid: 3e86363fe17b08140b89fc87e0f14a92, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -681,7 +683,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: ef162237e84e1b040a333253d27a1e93, type: 2}
+  - {fileID: 2100000, guid: 3e86363fe17b08140b89fc87e0f14a92, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -783,6 +785,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 13.395218, y: 8.613441, z: 0.6570165}
   m_Center: {x: 0, y: 4.145402, z: 0}
+--- !u!65 &65588999100024536
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1945733344067154}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 16.066525, y: 11.3608885, z: 8.934221}
+  m_Center: {x: 0, y: 5.6804442, z: -3.05}
 --- !u!95 &95073238997657280
 Animator:
   serializedVersion: 3
@@ -801,3 +815,14 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114323499815121228
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1945733344067154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe22d3651ca09204d9f991a1061c9c16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

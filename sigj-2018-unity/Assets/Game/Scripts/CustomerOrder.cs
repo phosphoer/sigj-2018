@@ -6,6 +6,7 @@ using UnityEngine;
 public class CustomerDesire
 {
   public enum DesireType { Nothing, ChangeColor, ChangeShape, ChangeSize, ChangeAttachments };
+  public bool DesireMet = false;
 
   public virtual DesireType GetDesireType() {
     return DesireType.Nothing;
@@ -13,6 +14,11 @@ public class CustomerDesire
 
   public virtual string ToUIString() {
     return "";
+  }
+
+  public virtual bool TrySatisfyDesireWithCreatureDescriptor(CreatureDescriptor creatureDNA)
+  {
+    return false;
   }
 }
 
@@ -30,6 +36,12 @@ public class CustomerColorDesire : CustomerDesire
   {
     return string.Format("Color: {0}", CritterConstants.GetCreatureColorDisplayString(DesiredColor));
   }
+
+  public override bool TrySatisfyDesireWithCreatureDescriptor(CreatureDescriptor creatureDNA)
+  {
+    DesireMet = creatureDNA.Color == DesiredColor;
+    return DesireMet;
+  }
 }
 
 [System.Serializable]
@@ -45,6 +57,12 @@ public class CustomerShapeDesire : CustomerDesire
   public override string ToUIString()
   {
     return string.Format("Shape: {0}", CritterConstants.GetCreatureShapeDisplayString(DesiredShape));
+  }
+
+  public override bool TrySatisfyDesireWithCreatureDescriptor(CreatureDescriptor creatureDNA)
+  {
+    DesireMet = creatureDNA.Shape == DesiredShape;
+    return DesireMet;
   }
 }
 
@@ -62,12 +80,18 @@ public class CustomerSizeDesire : CustomerDesire
   {
     return string.Format("Size: {0}", CritterConstants.GetCreatureSizeDisplayString(DesiredSize));
   }
+
+  public override bool TrySatisfyDesireWithCreatureDescriptor(CreatureDescriptor creatureDNA)
+  {
+    DesireMet = creatureDNA.Size == DesiredSize;
+    return DesireMet;
+  }
 }
 
 [System.Serializable]
 public class CreatureAttachmentDesire : CustomerDesire
 {
-  public CreatureAttachmentDescriptor AttachmentType;
+  public CreatureAttachmentDescriptor AttachmentDescriptor;
   public int Count;
 
   public override DesireType GetDesireType()
@@ -78,15 +102,28 @@ public class CreatureAttachmentDesire : CustomerDesire
   public override string ToUIString()
   {
     if (Count > 1) {
-      return string.Format("{0} {1}", Count, AttachmentType.UIPluralName);
+      return string.Format("{0} {1}", Count, AttachmentDescriptor.UIPluralName);
     }
     else if (Count == 1) {
-      return string.Format("1 {0}", AttachmentType.UISingularName);
+      return string.Format("1 {0}", AttachmentDescriptor.UISingularName);
     }
     else 
     {
-      return string.Format("No {0}", AttachmentType.UIPluralName);
+      return string.Format("No {0}", AttachmentDescriptor.UIPluralName);
     }
+  }
+
+  public override bool TrySatisfyDesireWithCreatureDescriptor(CreatureDescriptor creatureDNA)
+  {
+    int UnmetCount = Count;
+    for (int attachmentIndex= 0; attachmentIndex < creatureDNA.AttachmentTypes.Length && UnmetCount > 0; ++attachmentIndex) {
+      if (creatureDNA.AttachmentTypes[attachmentIndex].AttachmentType == AttachmentDescriptor.AttachmentType) {
+        --UnmetCount;
+      }
+    }
+
+    DesireMet = UnmetCount <= 0;
+    return DesireMet;
   }
 }
 
@@ -177,4 +214,17 @@ public class CustomerOrder {
   public int OrderNumber;
   public CreatureDescriptor SpawnDescriptor;
   public CustomerDesire[] CustomerDesires = new CustomerDesire[0];
+
+  public bool TrySatisfyDesireWithCreatureDescriptor(CreatureDescriptor creatureDNA)
+  {
+    bool bAllDesiresSatisfied = true;
+
+    for (int DesireIndex= 0; DesireIndex < CustomerDesires.Length; ++DesireIndex) {
+      if (!CustomerDesires[DesireIndex].TrySatisfyDesireWithCreatureDescriptor(creatureDNA)) {
+        bAllDesiresSatisfied = false;
+      }
+    }
+
+    return bAllDesiresSatisfied;
+  }
 }

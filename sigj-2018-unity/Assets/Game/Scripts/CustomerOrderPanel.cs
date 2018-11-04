@@ -41,6 +41,11 @@ public class CustomerOrderPanel : MonoBehaviour, IPointerClickHandler
     _textMesh.SetText(PanelStringBuilder);
   }
 
+  public CustomerOrder GetCustomerOrder()
+  {
+    return _order;
+  }
+
   public void SetHighlightEnabled(bool bEnabled)
   {
     if (_highlight != null) {
