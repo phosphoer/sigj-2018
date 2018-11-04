@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class VigorUI : MonoBehaviour
+public class ProgressBarUI : MonoBehaviour
 {
   public float FillPercent
   {

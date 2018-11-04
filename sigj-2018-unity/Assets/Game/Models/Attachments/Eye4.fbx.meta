@@ -1,53 +1,28 @@
 fileFormatVersion: 2
-guid: 84cbdc395d4463f44bc0a40c270c83b4
+guid: 9403123058fd99c4495b37b684f6f012
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: attach17
-    100002: attach18
-    100004: attach19
-    100006: attach20
-    100008: attach21
-    100010: attach22
-    100012: attach23
-    100014: attach24
-    100016: attach25
-    100018: //RootNode
-    100020: CreatureBody
-    100022: CreatureRoot2
-    100024: joint10
-    100026: joint11
-    100028: joint12
-    100030: joint13
-    100032: nurbsCircle1
-    100034: nurbsCircle2
-    100036: nurbsCircle3
-    100038: nurbsCircle4
-    400000: attach17
-    400002: attach18
-    400004: attach19
-    400006: attach20
-    400008: attach21
-    400010: attach22
-    400012: attach23
-    400014: attach24
-    400016: attach25
-    400018: //RootNode
-    400020: CreatureBody
-    400022: CreatureRoot2
-    400024: joint10
-    400026: joint11
-    400028: joint12
-    400030: joint13
-    400032: nurbsCircle1
-    400034: nurbsCircle2
-    400036: nurbsCircle3
-    400038: nurbsCircle4
-    4300000: CreatureBody
-    7400000: Slide
-    7400002: Idle
+    100000: //RootNode
+    100002: eyeBall
+    100004: eyePolyp
+    100006: stalk
+    400000: //RootNode
+    400002: eyeBall
+    400004: eyePolyp
+    400006: stalk
+    2300000: eyeBall
+    2300002: eyePolyp
+    2300004: stalk
+    3300000: eyeBall
+    3300002: eyePolyp
+    3300004: stalk
+    4300000: eyePolyp
+    4300002: eyeBall
+    4300004: stalk
+    7400000: LookAround1
+    7400002: LookAround2
     9500000: //RootNode
-    13700000: CreatureBody
   externalObjects: {}
   materials:
     importMaterials: 0
@@ -77,7 +52,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Slide
+      name: LookAround1
       takeName: Take 001
       firstFrame: 1
       lastFrame: 24
@@ -87,7 +62,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -105,7 +80,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Idle
+      name: LookAround2
       takeName: Take 001
       firstFrame: 25
       lastFrame: 48
@@ -115,7 +90,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -155,7 +130,7 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.01
+    previousCalculatedGlobalScale: 1
     hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
