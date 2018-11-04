@@ -7,6 +7,7 @@ public class AttchmntAnimMngr : MonoBehaviour {
 	public int AnimCount = 3;
 	public Vector2 PostAnimDelay = new Vector2(.25f,1f);
 	public Vector2 AdditionalRandomScale = new Vector2(1f,1f);
+	public Vector2 AnimSpeedScaleRange = new Vector2(1f,1f);
 
 	Animator anim;
 	float currentWait = 0f;
@@ -20,6 +21,7 @@ public class AttchmntAnimMngr : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		currentWait = Random.Range(PostAnimDelay.x,PostAnimDelay.y);
+		anim.speed = Random.Range(AnimSpeedScaleRange.x,AnimSpeedScaleRange.y);
 	}
 	
 	// Update is called once per frame
