@@ -15,24 +15,26 @@ public class AttchmntAnimMngr : MonoBehaviour {
 
 	void Awake(){
 		transform.localScale *= Random.Range(AdditionalRandomScale.x,AdditionalRandomScale.y);
-		anim = GetComponent<Animator>();
+		if(GetComponent<Animator>())anim = GetComponent<Animator>();
 	}
 
 	// Use this for initialization
 	void Start () {
-		currentWait = Random.Range(PostAnimDelay.x,PostAnimDelay.y);
-		anim.speed = Random.Range(AnimSpeedScaleRange.x,AnimSpeedScaleRange.y);
+		if(anim){
+			currentWait = Random.Range(PostAnimDelay.x,PostAnimDelay.y);
+			anim.speed = Random.Range(AnimSpeedScaleRange.x,AnimSpeedScaleRange.y);
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
-		timer+=Time.deltaTime;
-		if(timer>=currentWait){
-			currentWait = Random.Range(PostAnimDelay.x,PostAnimDelay.y);
-			anim.SetInteger("AnimBranch",Random.Range(0,AnimCount));
-			timer=0f;
+		if(anim){
+			timer+=Time.deltaTime;
+			if(timer>=currentWait){
+				currentWait = Random.Range(PostAnimDelay.x,PostAnimDelay.y);
+				anim.SetInteger("AnimBranch",Random.Range(0,AnimCount));
+				timer=0f;
+			}
 		}
-
 	}
 }

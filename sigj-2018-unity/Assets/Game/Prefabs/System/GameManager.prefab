@@ -245,6 +245,14 @@ MonoBehaviour:
     - {fileID: 1095695966083496, guid: 7e783b274dc137e44858317550f143c7, type: 2}
     - {fileID: 1289408657962644, guid: 9963d892eae42374ba4f35e9122e3e80, type: 2}
     - {fileID: 1233031063465576, guid: e748c751a3151a748b29c82a39cd080d, type: 2}
+  - AttachmentType: Mouth
+    UISingularName: Mouth
+    UIPluralName: Chompers
+    MaxAllowedPitchAngle: 45
+    Variations:
+    - {fileID: 1073591508607460, guid: 777a714fe999a844d80df5beac47c0bf, type: 2}
+    - {fileID: 1383691871191674, guid: cdb22b081a810bf43b652e671bbdc2a4, type: 2}
+    - {fileID: 1963550540632634, guid: ecdc9af723c848548927cb317989a90c, type: 2}
 --- !u!114 &114985277355525826
 MonoBehaviour:
   m_ObjectHideFlags: 1

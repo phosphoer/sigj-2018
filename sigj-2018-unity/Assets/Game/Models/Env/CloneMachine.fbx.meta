@@ -28,6 +28,7 @@ ModelImporter:
     100044: polySurface33
     100046: polySurface4
     100048: pCylinder1
+    100050: polySurface41
     400000: //RootNode
     400002: pHelix1
     400004: pHelix2
@@ -53,6 +54,7 @@ ModelImporter:
     400044: polySurface33
     400046: polySurface4
     400048: pCylinder1
+    400050: polySurface41
     2300000: pHelix1
     2300002: pHelix2
     2300004: polySurface14
@@ -75,6 +77,7 @@ ModelImporter:
     2300038: polySurface32
     2300040: polySurface33
     2300042: pCylinder1
+    2300044: polySurface41
     3300000: pHelix1
     3300002: pHelix2
     3300004: polySurface14
@@ -97,6 +100,7 @@ ModelImporter:
     3300038: polySurface32
     3300040: polySurface33
     3300042: pCylinder1
+    3300044: polySurface41
     4300000: polySurface14
     4300002: polySurface16
     4300004: polySurface17
@@ -119,6 +123,7 @@ ModelImporter:
     4300038: pHelix1
     4300040: pHelix2
     4300042: pCylinder1
+    4300044: polySurface41
   externalObjects: {}
   materials:
     importMaterials: 0

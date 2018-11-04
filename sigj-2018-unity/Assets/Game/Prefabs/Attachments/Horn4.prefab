@@ -37,6 +37,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4396623478637366}
+  - component: {fileID: 114006666173599550}
   - component: {fileID: 95622551558293666}
   m_Layer: 0
   m_Name: Horn4
@@ -161,6 +162,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114006666173599550
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1692605159173326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1bbf6ffd78f1be4092099cc980505c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AnimCount: 0
+  PostAnimDelay: {x: 0.25, y: 1}
+  AdditionalRandomScale: {x: 0.8, y: 1.2}
+  AnimSpeedScaleRange: {x: 1, y: 1}
 --- !u!114 &114672921628526262
 MonoBehaviour:
   m_ObjectHideFlags: 1
