@@ -6,11 +6,13 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
 {
   public GameObject OrderPanelPrefab;
   public Transform PanelListTransform;
+  public Transform PanelListStartAnchor;
   public float PanelOffset = 13;
   public RangedFloat OrderTimeRange = new RangedFloat(5.0f, 10.0f);
   public RangedInt OrderDesiredChanges = new RangedInt(2, 2);
   public RangedInt DesiredAttachmentCount = new RangedInt(0, 5);
   public int TotalActiveOrders = 5;
+  public AnimationCurve PanelDehydrateHeightCurve;
 
   private int _ordersIssued = 0;
   private bool aOpenHatch = false;
@@ -25,6 +27,16 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
   private void Awake()
   {
     CustomerOrderManager.Instance = this;
+  }
+
+  private void Update()
+  {
+    for (int i = 0; i < _customerOrderPanelList.Count; ++i)
+    {
+      Vector3 panelDesiredPos = GetPanelSlotLocation(i);
+      GameObject panelObj = _customerOrderPanelList[i];
+      panelObj.transform.position = Mathfx.Damp(panelObj.transform.position, panelDesiredPos, 0.5f, Time.deltaTime);
+    }
   }
 
   public void OnRoundStarted()
@@ -64,7 +76,8 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
     {
       yield return new WaitForSeconds(OrderTimeRange.RandomValue);
 
-      if (_customerOrderPanelList.Count < TotalActiveOrders) {
+      if (_customerOrderPanelList.Count < TotalActiveOrders)
+      {
         print("Adding a new random order");
         IssueRandomOrder();
       }
@@ -121,20 +134,22 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
     ArrayUtilities.KnuthShuffle<CustomerDesire.DesireType>(desiredChangeSequence);
 
     newOrder.CustomerDesires = new CustomerDesire[numDesiredChanges];
-    for (int desireIndex= 0; desireIndex < numDesiredChanges; ++desireIndex) {
+    for (int desireIndex = 0; desireIndex < numDesiredChanges; ++desireIndex)
+    {
 
       CustomerDesire.DesireType desiredChangeType = desiredChangeSequence[desireIndex];
-      switch (desiredChangeType) {
-        case CustomerDesire.DesireType.ChangeAttachments: 
+      switch (desiredChangeType)
+      {
+        case CustomerDesire.DesireType.ChangeAttachments:
           {
             CreatureAttachmentDesire newDesire = new CreatureAttachmentDesire();
             newDesire.AttachmentDescriptor = CritterSpawner.Instance.PickRandomAttachmentDescriptor();
-            newDesire.Count= DesiredAttachmentCount.RandomValue;
+            newDesire.Count = DesiredAttachmentCount.RandomValue;
 
             newOrder.CustomerDesires[desireIndex] = newDesire;
           }
           break;
-        case CustomerDesire.DesireType.ChangeColor: 
+        case CustomerDesire.DesireType.ChangeColor:
           {
             CustomerColorDesire newDesire = new CustomerColorDesire();
             newDesire.DesiredColor = CritterConstants.PickRandomCreatureColor();
@@ -142,7 +157,7 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
             newOrder.CustomerDesires[desireIndex] = newDesire;
           }
           break;
-        case CustomerDesire.DesireType.ChangeShape: 
+        case CustomerDesire.DesireType.ChangeShape:
           {
             CustomerShapeDesire newDesire = new CustomerShapeDesire();
             newDesire.DesiredShape = CritterConstants.PickRandomCreatureShape();
@@ -150,7 +165,7 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
             newOrder.CustomerDesires[desireIndex] = newDesire;
           }
           break;
-        case CustomerDesire.DesireType.ChangeSize: 
+        case CustomerDesire.DesireType.ChangeSize:
           {
             CustomerSizeDesire newDesire = new CustomerSizeDesire();
             newDesire.DesiredSize = CritterConstants.PickRandomCreatureSize();
@@ -166,8 +181,8 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
 
   void SpawnOrderPanel(CustomerOrder Order)
   {
-    // Instantiate the wreck game object at the same position we are at
-    GameObject orderPanelObject = (GameObject)Instantiate(OrderPanelPrefab, GetPanelSlotLocation(_customerOrderPanelList.Count), PanelListTransform.rotation);
+    // Create a panel at the initial location for them
+    GameObject orderPanelObject = (GameObject)Instantiate(OrderPanelPrefab, PanelListStartAnchor.position, PanelListStartAnchor.rotation);
     CustomerOrderPanel orderPanelComponent = orderPanelObject.GetComponent<CustomerOrderPanel>();
 
     if (orderPanelComponent != null)
@@ -179,7 +194,8 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
 
   void RebuildOrderPanelLayout()
   {
-    for (int slotIndex= 0; slotIndex < _customerOrderPanelList.Count; ++slotIndex) {
+    for (int slotIndex = 0; slotIndex < _customerOrderPanelList.Count; ++slotIndex)
+    {
       _customerOrderPanelList[slotIndex].transform.position = GetPanelSlotLocation(slotIndex);
     }
   }
@@ -203,9 +219,10 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
   {
     bool bOrderSatisfied = false;
 
-    if (_selectedOrderPanel != null) {
+    if (_selectedOrderPanel != null)
+    {
       // Get the order we are supposed to be fulfilling
-      CustomerOrder order= _selectedOrderPanel.GetCustomerOrder();
+      CustomerOrder order = _selectedOrderPanel.GetCustomerOrder();
 
       // Get the game object that owns the panel
       GameObject panelGameObject = _selectedOrderPanel.gameObject;
@@ -219,20 +236,18 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
       SetSelectedPanel(null);
 
       // Apply the creature too the order
-      bOrderSatisfied= order.TrySatisfyDesireWithCreatureDescriptor(critter.GetDNA());
+      bOrderSatisfied = order.TrySatisfyDesireWithCreatureDescriptor(critter.GetDNA());
 
       // Add the order to the completed order list
       _completedOrdersList.Add(order);
 
       // Destroy the panel
-      Destroy(panelGameObject);
-
-      // Fix up the layout of the remaining panels
-      RebuildOrderPanelLayout();
+      StartCoroutine(DehydrateOrderPanelAsync(panelGameObject));
     }
 
     // Play the appropriate effect
-    if (_outHatchController != null) {
+    if (_outHatchController != null)
+    {
       _outHatchController.OnCrittedScored(bOrderSatisfied);
     }
 
@@ -256,27 +271,50 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
 	}
   }
   
+  private IEnumerator DehydrateOrderPanelAsync(GameObject panelObj)
+  {
+    float animDuration = 5.0f;
+    Vector3 startPos = panelObj.transform.position;
+    Vector3 endPos = panelObj.transform.position.WithZ(-10).WithY(0);
+    for (float time = 0; time < animDuration; time += Time.deltaTime)
+    {
+      float t = Mathfx.Hermite(0, 1, time / animDuration);
+      float heightT = PanelDehydrateHeightCurve.Evaluate(t);
+      panelObj.transform.position = Vector3.Lerp(startPos, endPos, t).WithY(Mathf.Lerp(startPos.y, endPos.y, heightT));
+      panelObj.transform.localRotation = Quaternion.Euler(heightT * 90, 0, 0);
+      yield return null;
+    }
+
+    Destroy(panelObj);
+  }
+
   private void SetSelectedPanel(CustomerOrderPanel panel)
   {
-    if (panel != _selectedOrderPanel) {
-      if (_selectedOrderPanel != null) {
+    if (panel != _selectedOrderPanel)
+    {
+      if (_selectedOrderPanel != null)
+      {
         _selectedOrderPanel.SetHighlightEnabled(false);
       }
 
-      if (panel != null) {
+      if (panel != null)
+      {
         panel.SetHighlightEnabled(true);
       }
 
       _selectedOrderPanel = panel;
     }
-    else {
-      if (_selectedOrderPanel != null) {
+    else
+    {
+      if (_selectedOrderPanel != null)
+      {
         _selectedOrderPanel.SetHighlightEnabled(false);
         _selectedOrderPanel = null;
       }
     }
 
-    if (_outHatchController != null) {
+    if (_outHatchController != null)
+    {
       bool bOpenHatch = _selectedOrderPanel != null;
       _outHatchController.SetOpenState(bOpenHatch);
     }	

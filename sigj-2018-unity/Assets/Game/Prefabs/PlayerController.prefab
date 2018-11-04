@@ -124,8 +124,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   _handHoverDistance: 0.2
-  _handDragHeight: 2
-  _handDragSensitivity: 0.1
+  _handDragHeight: 1.5
+  _handDragSensitivity: 0.15
   _handAnimateSpeed: 5
 --- !u!114 &114808963831842000
 MonoBehaviour:

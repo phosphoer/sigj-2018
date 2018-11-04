@@ -11,8 +11,9 @@ public class CustomerOrderPanel : MonoBehaviour, IPointerClickHandler
   private TMPro.TextMeshPro _textMesh;
   private GameObject _highlight;
 
-	// Use this for initialization
-	void Awake() {
+  // Use this for initialization
+  void Awake()
+  {
     _textMesh = GetComponent<TMPro.TextMeshPro>();
   }
 
@@ -21,11 +22,6 @@ public class CustomerOrderPanel : MonoBehaviour, IPointerClickHandler
     _highlight = this.transform.Find("HighlightPlane").gameObject;
     SetHighlightEnabled(false);
   }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
   public void AssignCustomerOrder(CustomerOrder InOrder)
   {
@@ -34,7 +30,8 @@ public class CustomerOrderPanel : MonoBehaviour, IPointerClickHandler
     StringBuilder PanelStringBuilder = new StringBuilder();
     PanelStringBuilder.AppendLine(string.Format("Order: {0}", _order.OrderNumber));
 
-    for (int desireIndex= 0; desireIndex < _order.CustomerDesires.Length; ++desireIndex) {
+    for (int desireIndex = 0; desireIndex < _order.CustomerDesires.Length; ++desireIndex)
+    {
       PanelStringBuilder.AppendLine(_order.CustomerDesires[desireIndex].ToUIString());
     }
 
@@ -48,7 +45,8 @@ public class CustomerOrderPanel : MonoBehaviour, IPointerClickHandler
 
   public void SetHighlightEnabled(bool bEnabled)
   {
-    if (_highlight != null) {
+    if (_highlight != null)
+    {
       _highlight.SetActive(bEnabled);
     }
   }

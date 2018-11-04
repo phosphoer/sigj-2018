@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4243931057653420}
   - component: {fileID: 114828370983283008}
+  - component: {fileID: 114587672350933754}
   m_Layer: 0
   m_Name: Mouth1
   m_TagString: Untagged
@@ -113,6 +114,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1349373649138404}
   m_Mesh: {fileID: 4300000, guid: 5aa02247f1fc35640a949c80f5b062d9, type: 3}
+--- !u!114 &114587672350933754
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1073591508607460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f3caf472e524dcf920fac67a42b94e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114828370983283008
 MonoBehaviour:
   m_ObjectHideFlags: 1

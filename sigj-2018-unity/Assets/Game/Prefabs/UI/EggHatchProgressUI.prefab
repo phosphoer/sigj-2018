@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4423082875305108}
   - component: {fileID: 33500111232411016}
   - component: {fileID: 23682303029929180}
-  - component: {fileID: 65856059506779060}
   m_Layer: 0
   m_Name: BarBackground
   m_TagString: Untagged
@@ -71,7 +70,6 @@ GameObject:
   - component: {fileID: 4925640491133130}
   - component: {fileID: 33706835856506618}
   - component: {fileID: 23278771178152990}
-  - component: {fileID: 65589764168261058}
   m_Layer: 0
   m_Name: BarFill
   m_TagString: Untagged
@@ -218,30 +216,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1946966813930162}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65589764168261058
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1946966813930162}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65856059506779060
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1202113044863996}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114166352697821568
 MonoBehaviour:
   m_ObjectHideFlags: 1
