@@ -385,8 +385,8 @@ MonoBehaviour:
   CustomerOrderPrefab: {fileID: 1001486022010578, guid: c009914d78f755741973acee534fe012,
     type: 2}
   PanelListStartAnchor: {fileID: 224804703991571234}
-  SpawnOrderDelay: 0.75
-  PanelXOffset: 0.6
+  SpawnOrderDelay: 0.5
+  PanelXOffset: 0.3
   PanelZOffset: -0.1
 --- !u!114 &114511229267551278
 MonoBehaviour:
