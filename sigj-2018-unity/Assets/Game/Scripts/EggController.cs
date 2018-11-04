@@ -37,10 +37,15 @@ public class EggController : MonoBehaviour
   private float _hatchTimeTotal;
   private ProgressBarUI _hatchProgressUI;
   private CreatureDescriptor _critterDNA;
+  private Material _materialInstance;
 
   public void SetDNA(CreatureDescriptor DNA)
   {
     _critterDNA = DNA;
+
+    Renderer r = GetComponentInChildren<Renderer>();
+    _materialInstance = r.material;
+    _materialInstance.color = CritterConstants.GetCreatureColorValue(_critterDNA.Color);
   }
 
   public CreatureDescriptor GetDNA()
@@ -51,6 +56,11 @@ public class EggController : MonoBehaviour
   private void Start()
   {
     StartCoroutine(SpawnAsync());
+  }
+
+  private void OnDestroy()
+  {
+    Destroy(_materialInstance);
   }
 
   private void Update()
