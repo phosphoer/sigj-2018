@@ -27,6 +27,7 @@ public class DuplicateZone : MonoBehaviour
 
   private float _coolDown;
   private int _roundedCoolDown;
+  private bool _isDuplicating;
 
   private void Start()
   {
@@ -40,15 +41,17 @@ public class DuplicateZone : MonoBehaviour
 
   private void Update()
   {
-    _coolDown = Mathf.Max(_coolDown - Time.deltaTime, 0);
-
-    if (_coolDownText != null)
+    if (!_isDuplicating)
     {
-      int roundedTime = Mathf.RoundToInt(_coolDown);
-      if (roundedTime != _roundedCoolDown)
+      _coolDown = Mathf.Max(_coolDown - Time.deltaTime, 0);
+      if (_coolDownText != null)
       {
-        _roundedCoolDown = roundedTime;
-        _coolDownText.text = roundedTime > 0 ? roundedTime.ToString() : "Ready";
+        int roundedTime = Mathf.CeilToInt(_coolDown);
+        if (roundedTime != _roundedCoolDown)
+        {
+          _roundedCoolDown = roundedTime;
+          _coolDownText.text = roundedTime > 0 ? roundedTime.ToString() : "Ready";
+        }
       }
     }
   }
@@ -68,6 +71,11 @@ public class DuplicateZone : MonoBehaviour
 
   private IEnumerator DuplicateAsync(Duplicatable duplicatable)
   {
+    _isDuplicating = true;
+
+    if (_coolDownText != null)
+      _coolDownText.text = "Clone";
+
     if (_duplicateEffectToggle != null)
       _duplicateEffectToggle.SetActive(true);
 
@@ -82,9 +90,14 @@ public class DuplicateZone : MonoBehaviour
     dupe.transform.SetPositionAndRotation(_duplicateSpawnAnchor.position, _duplicateSpawnAnchor.rotation);
     dupe.transform.SetParent(duplicatable.transform.parent);
 
+    if (_coolDownText != null)
+      _coolDownText.text = "Done";
+
     yield return new WaitForSeconds(1.0f);
 
     if (_duplicateEffectToggle != null)
       _duplicateEffectToggle.SetActive(false);
+
+    _isDuplicating = false;
   }
 }
