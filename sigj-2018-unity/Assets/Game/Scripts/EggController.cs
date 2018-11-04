@@ -36,6 +36,17 @@ public class EggController : MonoBehaviour
   private bool _isSpawned;
   private float _hatchTimeTotal;
   private ProgressBarUI _hatchProgressUI;
+  private CreatureDescriptor _critterDNA;
+
+  public void SetDNA(CreatureDescriptor DNA)
+  {
+    _critterDNA = DNA;
+  }
+
+  public CreatureDescriptor GetDNA()
+  {
+    return _critterDNA;
+  }
 
   private void Start()
   {
@@ -102,6 +113,10 @@ public class EggController : MonoBehaviour
     yield return new WaitForSeconds(1.0f);
     Instantiate(_hatchEffectPrefab, transform.position, Quaternion.identity);
 
+    // Spawn the new creature using the DNA contained in the Egg
+    CritterSpawner.Instance?.SpawnCritter(_critterDNA, transform);
+
+    // Destroy the egg
     Destroy(gameObject);
   }
 }

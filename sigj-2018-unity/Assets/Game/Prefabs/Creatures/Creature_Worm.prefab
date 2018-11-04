@@ -331,7 +331,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4526175240580032}
   - component: {fileID: 95206885649772716}
-  - component: {fileID: 114632389005052258}
+  - component: {fileID: 114716243245394614}
   m_Layer: 0
   m_Name: Creature_WormVisual
   m_TagString: Untagged
@@ -828,7 +828,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fabc882627bc62e418162bbdad26af25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114632389005052258
+--- !u!114 &114716243245394614
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -836,9 +836,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1793627427310248}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 847eb7495d46f0d4a8e56954fefab3c0, type: 3}
+  m_Script: {fileID: 11500000, guid: 536b92ebc3d57b24aae53270dac619fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Attachments:
+  - {fileID: 1808815493896016, guid: 54552bfa8787a61429910a34234236f5, type: 2}
+  - {fileID: 1033184192126074, guid: 3a32c9240308fb640a821d19d807cd74, type: 2}
+  - {fileID: 1325846165086916, guid: 1e6d4e49d737ae944a3fa7d39ca75157, type: 2}
+  - {fileID: 1199698425894318, guid: 1638c90612adf2c4489dc8e8437f92d4, type: 2}
+  - {fileID: 1071446038087946, guid: 53fe44def49b5c946b1aeb4eddfc2230, type: 2}
+  - {fileID: 1981829689635144, guid: 183c69732536fe54785af3db8ef1318e, type: 2}
+  - {fileID: 1812629989393566, guid: 5718c9116a60a5641903f226bddf9051, type: 2}
+  - {fileID: 1880709768592516, guid: a8660503747eeca4ca1128c4590cfc1a, type: 2}
   ScaleMinMax: {x: 120, y: 80}
   RotateMinMax: {x: 0, y: 90}
 --- !u!114 &114851983327610728
