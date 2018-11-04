@@ -55,7 +55,8 @@ public class DuplicateZone : MonoBehaviour
 
   private IEnumerator DuplicateAsync(Duplicatable duplicatable)
   {
-    _duplicateEffectToggle?.SetActive(true);
+    if (_duplicateEffectToggle != null)
+      _duplicateEffectToggle.SetActive(true);
 
     yield return new WaitForSeconds(1.0f);
 
@@ -70,6 +71,7 @@ public class DuplicateZone : MonoBehaviour
 
     yield return new WaitForSeconds(1.0f);
 
-    _duplicateEffectToggle?.SetActive(false);
+    if (_duplicateEffectToggle != null)
+      _duplicateEffectToggle.SetActive(false);
   }
 }
