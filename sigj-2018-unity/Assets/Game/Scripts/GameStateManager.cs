@@ -20,6 +20,7 @@ public class GameStateManager : Singleton<GameStateManager> {
   private GameStage _gameStage = GameStage.Invalid;
   private GameObject _menuMenu = null;
   private GameObject _playerController = null;
+  private GameClockController _gameClockController= null;
 
   private void Awake()
   {
@@ -28,7 +29,7 @@ public class GameStateManager : Singleton<GameStateManager> {
 
   // Use this for initialization
   void Start () {
-    SetGameStage(GameStage.PreGame);
+    SetGameStage(GameStage.MainMenu);
   }
 	
 	// Update is called once per frame
@@ -37,14 +38,36 @@ public class GameStateManager : Singleton<GameStateManager> {
 
     switch (_gameStage) {
       case GameStage.MainMenu:
+        //TODO: Remove this
+        nextGameStage= GameStage.PreGame;
         break;
       case GameStage.PreGame:
+        if (_gameClockController != null) {
+          if (_gameClockController.HasPregameFinished()) {
+            nextGameStage = GameStage.Morning;
+          }
+        }
         break;
       case GameStage.Morning:
+        if (_gameClockController != null) {
+          if (_gameClockController.HasMorningFinished()) {
+            nextGameStage = GameStage.Lunchtime;
+          }
+        }
         break;
       case GameStage.Lunchtime:
+        if (_gameClockController != null) {
+          if (_gameClockController.HasMorningFinished()) {
+            nextGameStage = GameStage.Afternoon;
+          }
+        }
         break;
       case GameStage.Afternoon:
+        if (_gameClockController != null) {
+          if (_gameClockController.HasWorkdayFinished()) {
+            nextGameStage = GameStage.PostGame;
+          }
+        }
         break;
       case GameStage.PostGame:
         break;
@@ -60,6 +83,11 @@ public class GameStateManager : Singleton<GameStateManager> {
       OnEnterStage(newGameStage);
       _gameStage = newGameStage;
     }
+  }
+
+  public void RegisterGameClockController(GameClockController clockController)
+  {
+    _gameClockController = clockController;
   }
 
   public void OnExitStage(GameStage oldGameStage)
@@ -106,6 +134,10 @@ public class GameStateManager : Singleton<GameStateManager> {
         {
           _playerController = (GameObject)Instantiate(PlayerControllerPrefab, Vector3.zero, Quaternion.identity);
           CustomerOrderManager.Instance.OnRoundStarted();
+
+          if (_gameClockController != null) {
+            _gameClockController.StartClock();
+          }
         }
         break;
       case GameStage.Morning: 
@@ -125,6 +157,10 @@ public class GameStateManager : Singleton<GameStateManager> {
         break;
       case GameStage.PostGame: 
         {
+          if (_gameClockController != null) {
+            _gameClockController.StopClock();
+          }
+
           CustomerOrderManager.Instance.OnRoundCompleted();
           //TODO: Spawn post game UI
         }
