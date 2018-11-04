@@ -4,43 +4,28 @@ using UnityEngine;
 
 public class InHatchController : MonoBehaviour
 {
-  public GameObject GoodOrderLight;
-  public GameObject BadOrderLight;
-  public GameObject GoodOrderEffectPrefab;
-  public GameObject BadOrderEffectPrefab;
-  public Transform OrderEffectTransform;
-
+  public float HatchCheckDelay = 1.0f;
+  public bool bRecentSpawn = false;
+  public bool bCreatureBlocking = false;
   private Animator _animator;
 
   void Start()
   {
     CustomerOrderManager.Instance.RegisterInHatchController(this);
     _animator = GetComponent<Animator>();
-    TurnOffLights();
+    SetOpenState(false);
+    StartCoroutine(CloseHatchAsync());
   }
 
-  private void OnTriggerEnter(Collider other)
+  private void OnTriggerStay(Collider other)
   {
-    CritterController Critter = other.GetComponentInParent<CritterController>();
-    if (Critter != null)
-    {
-      CustomerOrderManager.Instance.OnCreatureDeposited(Critter);
-    }
+    bCreatureBlocking = other.GetComponentInParent<CritterController>() != null;
   }
 
-  public void OnCrittedScored(bool bOrderSatisfied)
+  public void OnCreatureSpawned()
   {
-    GameObject EffectPrefab = bOrderSatisfied ? GoodOrderEffectPrefab : BadOrderEffectPrefab;
-    GameObject OrderLight = bOrderSatisfied ? GoodOrderLight : BadOrderLight;
-
-    if (EffectPrefab != null) {
-      Instantiate(EffectPrefab, OrderEffectTransform.position, OrderEffectTransform.rotation);
-    }
-
-    if (OrderLight != null) {
-      OrderLight.SetActive(true);
-      StartCoroutine(TurnOffLightsAsync());
-    }
+    SetOpenState(true);
+    bRecentSpawn = true;
   }
 
   public void SetOpenState(bool bIsOpen)
@@ -48,19 +33,14 @@ public class InHatchController : MonoBehaviour
     _animator.SetBool("IsOpen", bIsOpen);
   }
 
-  private IEnumerator TurnOffLightsAsync()
+  private IEnumerator CloseHatchAsync()
   {
-    yield return new WaitForSeconds(1.0f);
+    while (true) {
+      yield return new WaitForSeconds(HatchCheckDelay);
 
-    TurnOffLights();
-  }
-
-  private void TurnOffLights()
-  {
-    if (GoodOrderLight != null)
-      GoodOrderLight.SetActive(false);
-
-    if (BadOrderLight != null)
-      BadOrderLight.SetActive(false);
+      SetOpenState(bRecentSpawn || bCreatureBlocking);
+      bRecentSpawn = false;
+      bCreatureBlocking = false;
+    }
   }
 }

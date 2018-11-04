@@ -15,7 +15,6 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
   public AnimationCurve PanelDehydrateHeightCurve;
 
   private int _ordersIssued = 0;
-  private bool aOpenHatch = false;
 
   private IEnumerator _ordersTimer;
   private CustomerOrderPanel _selectedOrderPanel = null;
@@ -43,7 +42,6 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
   {
     _ordersIssued = 0;
     ClearOrders();
-	ToggleInHatch();
     StartOrderTimer();
   }
 
@@ -85,12 +83,12 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
   }
 
   public void IssueRandomOrder()
-  {
-	//Open the In Hatch
-	ToggleInHatch();
-	
+  {	
     // Create a new customer order
     CustomerOrder newOrder = CreateRandomOrder();
+
+    // Notify the InHatch that a creature spawned
+    _inHatchController.OnCreatureSpawned();
 	
     // Spawn a creature that corresponds to that order
     CritterSpawner.Instance?.SpawnCritter(newOrder.SpawnDescriptor, null);
@@ -253,22 +251,6 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
 
     // Destroy the creature deposited in the hatch
     Destroy(critter.gameObject);
-  }
-
-  private void ToggleInHatch() {
-	  
-    if (_inHatchController != null) {
-		//Open the hatch if it's closed
-		if (aOpenHatch) {
-			_inHatchController.SetOpenState(false);
-			aOpenHatch = false;
-		}
-		//Close the hatch if it's open
-		else{
-			_inHatchController.SetOpenState(true);
-			aOpenHatch = true;
-		}
-	}
   }
   
   private IEnumerator DehydrateOrderPanelAsync(GameObject panelObj)

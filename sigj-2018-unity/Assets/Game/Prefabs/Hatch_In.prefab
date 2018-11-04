@@ -255,8 +255,8 @@ GameObject:
   - component: {fileID: 33686227306832908}
   - component: {fileID: 23365030493878332}
   - component: {fileID: 95070934863774344}
-  - component: {fileID: 114378096920779240}
   - component: {fileID: 65064758902108194}
+  - component: {fileID: 114496942128797568}
   m_Layer: 0
   m_Name: Hatch_In
   m_TagString: Untagged
@@ -593,7 +593,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: ee5efd32b08804b40b542c676c7fb2e4, type: 2}
+  - {fileID: 2100000, guid: 4bcfaba0242967646b0a1a537111ea8e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -733,7 +733,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3e86363fe17b08140b89fc87e0f14a92, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -987,8 +987,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 16.066525, y: 11.3608885, z: 8.934221}
-  m_Center: {x: 0, y: 5.6804442, z: -3.05}
+  m_Size: {x: 16.066525, y: 11.3608885, z: 20}
+  m_Center: {x: 0, y: 5.6804442, z: 3.08}
 --- !u!65 &65298641239907176
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -1019,7 +1019,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114378096920779240
+--- !u!114 &114496942128797568
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1027,11 +1027,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1990453146014014}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe22d3651ca09204d9f991a1061c9c16, type: 3}
+  m_Script: {fileID: 11500000, guid: 60e26beacb0a5b24c8c83e05e0cd2f53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GoodOrderLight: {fileID: 0}
-  BadOrderLight: {fileID: 0}
-  GoodOrderEffectPrefab: {fileID: 0}
-  BadOrderEffectPrefab: {fileID: 0}
-  OrderEffectTransform: {fileID: 0}
+  HatchCheckDelay: 1
+  bRecentSpawn: 0
+  bCreatureBlocking: 0
