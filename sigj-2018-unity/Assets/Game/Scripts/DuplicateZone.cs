@@ -19,9 +19,11 @@ public class DuplicateZone : MonoBehaviour
   [SerializeField]
   private ImpactReaction _duplicateTrigger = null;
 
-
   [SerializeField]
   private float _coolDownTime = 10.0f;
+
+  [SerializeField]
+  private TMPro.TMP_Text _coolDownText = null;
 
   private float _coolDown;
 
@@ -37,7 +39,13 @@ public class DuplicateZone : MonoBehaviour
 
   private void Update()
   {
-    _coolDown -= Time.deltaTime;
+    _coolDown = Mathf.Max(_coolDown - Time.deltaTime, 0);
+
+    if (_coolDownText != null)
+    {
+      int roundedTime = Mathf.RoundToInt(_coolDown);
+      _coolDownText.text = roundedTime > 0 ? roundedTime.ToString() : "Ready";
+    }
   }
 
   private void OnDuplicateTrigger(GameObject other, bool isTrigger)
