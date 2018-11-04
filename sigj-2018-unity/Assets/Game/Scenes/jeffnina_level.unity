@@ -780,11 +780,6 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
-<<<<<<< HEAD
-    - target: {fileID: 1909881492600504, guid: aaf09c54f92d77c4d89ac1ad14cdb04a, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-=======
     - target: {fileID: 23621618024040906, guid: aaf09c54f92d77c4d89ac1ad14cdb04a,
         type: 2}
       propertyPath: m_Materials.Array.data[0]
@@ -799,7 +794,6 @@ Prefab:
         type: 2}
       propertyPath: m_Center.x
       value: 0.5376162
->>>>>>> origin/master
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aaf09c54f92d77c4d89ac1ad14cdb04a, type: 2}
