@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class OutHatchController : MonoBehaviour
 {
+  public GameObject GoodOrderLight;
+  public GameObject BadOrderLight;
+  public GameObject GoodOrderEffectPrefab;
+  public GameObject BadOrderEffectPrefab;
+  public Transform OrderEffectTransform;
 
   private Animator _animator;
 
@@ -11,6 +16,7 @@ public class OutHatchController : MonoBehaviour
   {
     CustomerOrderManager.Instance.RegisterOutHatchController(this);
     _animator = GetComponent<Animator>();
+    TurnOffLights();
   }
 
   private void OnTriggerEnter(Collider other)
@@ -22,8 +28,39 @@ public class OutHatchController : MonoBehaviour
     }
   }
 
+  public void OnCrittedScored(bool bOrderSatisfied)
+  {
+    GameObject EffectPrefab = bOrderSatisfied ? GoodOrderEffectPrefab : BadOrderEffectPrefab;
+    GameObject OrderLight = bOrderSatisfied ? GoodOrderLight : BadOrderLight;
+
+    if (EffectPrefab != null) {
+      Instantiate(EffectPrefab, OrderEffectTransform.position, OrderEffectTransform.rotation);
+    }
+
+    if (OrderLight != null) {
+      OrderLight.SetActive(true);
+      StartCoroutine(TurnOffLightsAsync());
+    }
+  }
+
   public void SetOpenState(bool bIsOpen)
   {
     _animator.SetBool("IsOpen", bIsOpen);
+  }
+
+  private IEnumerator TurnOffLightsAsync()
+  {
+    yield return new WaitForSeconds(1.0f);
+
+    TurnOffLights();
+  }
+
+  private void TurnOffLights()
+  {
+    if (GoodOrderLight != null)
+      GoodOrderLight.SetActive(false);
+
+    if (BadOrderLight != null)
+      BadOrderLight.SetActive(false);
   }
 }

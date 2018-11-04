@@ -11,8 +11,6 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
   public RangedInt OrderDesiredChanges = new RangedInt(2, 2);
   public RangedInt DesiredAttachmentCount = new RangedInt(0, 5);
   public int TotalActiveOrders = 5;
-  public GameObject GoodOrderEffectPrefab;
-  public GameObject BadOrderEffectPrefab;
 
   private int _ordersIssued = 0;
   private IEnumerator _ordersTimer;
@@ -191,7 +189,7 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
 
   public void OnCreatureDeposited(CritterController critter)
   {
-    GameObject despawnEffectPrefab = BadOrderEffectPrefab;
+    bool bOrderSatisfied = false;
 
     if (_selectedOrderPanel != null) {
       // Get the order we are supposed to be fulfilling
@@ -209,9 +207,7 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
       SetSelectedPanel(null);
 
       // Apply the creature too the order
-      if (order.TrySatisfyDesireWithCreatureDescriptor(critter.GetDNA())) {
-        despawnEffectPrefab = GoodOrderEffectPrefab;
-      }
+      bOrderSatisfied= order.TrySatisfyDesireWithCreatureDescriptor(critter.GetDNA());
 
       // Add the order to the completed order list
       _completedOrdersList.Add(order);
@@ -224,9 +220,8 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
     }
 
     // Play the appropriate effect
-    if (despawnEffectPrefab != null) {
-      Transform critterTransform = critter.gameObject.transform;
-      Instantiate(despawnEffectPrefab, critterTransform.position, critterTransform.rotation);
+    if (_outHatchController != null) {
+      _outHatchController.OnCrittedScored(bOrderSatisfied);
     }
 
     // Destroy the creature deposited in the hatch
