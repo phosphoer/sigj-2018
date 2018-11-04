@@ -81,28 +81,29 @@ public class CritterSpawner : Singleton<CritterSpawner>
     }
   }
 
-  public GameObject[] PickNRandomAttachmentPrefabs()
+  public void PickNRandomAttachmentPrefabs(CreatureDescriptor newDescriptor)
   {
     int DescriptorCount = AttachmentDatabase.Length;
 
     if (DescriptorCount > 0) 
     {
       int AttachmentCount = SpawnAttachmentCount.RandomValue;
-      GameObject[] Attachments = new GameObject[AttachmentCount];
+      newDescriptor.Attachments = new GameObject[AttachmentCount];
+      newDescriptor.AttachmentTypes = new CreatureAttachmentDescriptor[AttachmentCount];
 
       for (int AttachmentIndex = 0; AttachmentIndex < AttachmentCount; ++AttachmentIndex) 
       {
         CreatureAttachmentDescriptor Descriptor = PickRandomAttachmentDescriptor();
         int VariationIndex = Random.Range(0, Descriptor.Variations.Length);
 
-        Attachments[AttachmentIndex] = Descriptor.Variations[VariationIndex];
+        newDescriptor.Attachments[AttachmentIndex] = Descriptor.Variations[VariationIndex];
+        newDescriptor.AttachmentTypes[AttachmentIndex] = Descriptor;
       }
-
-      return Attachments;
     }
     else
     {
-      return new GameObject[0];
+      newDescriptor.Attachments= new GameObject[0];
+      newDescriptor.AttachmentTypes = new CreatureAttachmentDescriptor[0];
     }
   }
 }

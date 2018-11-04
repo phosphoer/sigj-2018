@@ -269,15 +269,18 @@ public class CritterController : MonoBehaviour
   {
     yield return new WaitForSeconds(3.0f);
 
-    EggController egg = Instantiate(_eggPrefab);
-    egg.transform.position = (transform.position + _currentMate.transform.position) / 2;
-    egg.transform.rotation = Random.rotationUniform;
+    if (_currentMate != null) {
+      EggController egg = Instantiate(_eggPrefab);
+      egg.transform.position = (transform.position + _currentMate.transform.position) / 2;
+      egg.transform.rotation = Random.rotationUniform;
 
-    // Mix the DNA from the two parents and store in the child
-    CreatureDescriptor childDNA = CreatureDescriptor.CreateCreatureDescriptorFromParents(this, _currentMate);
-    egg.SetDNA(childDNA);
+      // Mix the DNA from the two parents and store in the child
+      CreatureDescriptor childDNA = CreatureDescriptor.CreateCreatureDescriptorFromParents(this, _currentMate);
+      egg.SetDNA(childDNA);
 
-    _currentMate.StopMating();
+      _currentMate.StopMating();
+    }
+
     StopMating();
   }
 

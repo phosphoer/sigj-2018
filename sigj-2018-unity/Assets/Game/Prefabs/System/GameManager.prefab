@@ -219,6 +219,7 @@ MonoBehaviour:
   - AttachmentType: Eye
     UISingularName: Eye
     UIPluralName: Eyes
+    MaxAllowedPitchAngle: 90
     Variations:
     - {fileID: 1808815493896016, guid: 54552bfa8787a61429910a34234236f5, type: 2}
     - {fileID: 1033184192126074, guid: 3a32c9240308fb640a821d19d807cd74, type: 2}
@@ -227,15 +228,25 @@ MonoBehaviour:
   - AttachmentType: Horn
     UISingularName: Horn
     UIPluralName: Horns
+    MaxAllowedPitchAngle: 90
     Variations:
     - {fileID: 1071446038087946, guid: 53fe44def49b5c946b1aeb4eddfc2230, type: 2}
     - {fileID: 1981829689635144, guid: 183c69732536fe54785af3db8ef1318e, type: 2}
     - {fileID: 1812629989393566, guid: 5718c9116a60a5641903f226bddf9051, type: 2}
-  - AttachmentType: Tentacle
-    UISingularName: Tentacle
-    UIPluralName: Tentacles
+  - AttachmentType: Limb
+    UISingularName: Limb
+    UIPluralName: Limbs
+    MaxAllowedPitchAngle: 90
     Variations:
     - {fileID: 1880709768592516, guid: a8660503747eeca4ca1128c4590cfc1a, type: 2}
+    - {fileID: 1245097582312892, guid: b6b2a1e9c119f38419554b6d7adf3833, type: 2}
+  - AttachmentType: Wing
+    UISingularName: Wing
+    UIPluralName: Wings
+    MaxAllowedPitchAngle: 45
+    Variations:
+    - {fileID: 1495114308866938, guid: 71ada3f736369714e85afd5338ab04f9, type: 2}
+    - {fileID: 1095695966083496, guid: 7e783b274dc137e44858317550f143c7, type: 2}
 --- !u!114 &114985277355525826
 MonoBehaviour:
   m_ObjectHideFlags: 1
