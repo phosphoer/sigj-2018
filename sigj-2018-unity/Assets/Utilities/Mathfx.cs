@@ -190,3 +190,36 @@ public static class VectorExtensions
     return v;
   }
 }
+
+public static class ArrayUtilities
+{
+  public static void KnuthShuffle<T>(T[] array)
+  {
+    for (int index = 0; index < array.Length; index++) {
+      T tmp = array[index];
+      int randomIndex = Random.Range(index, array.Length);
+      array[index] = array[randomIndex];
+      array[randomIndex] = tmp;
+    }
+  }
+
+  public static int[] MakeIntSequence(int StartValue, int EndValue)
+  {
+    int arrayLength = EndValue - StartValue + 1;
+    int[] intList = new int[arrayLength];
+
+    for (int arrayIndex = 0; arrayIndex < arrayLength; ++arrayIndex) {
+      intList[arrayIndex] = StartValue + arrayIndex;
+    }
+
+    return intList;
+  }
+
+  public static int[] MakeShuffledIntSequence(int StartValue, int EndValue)
+  {
+    int[] Sequence = MakeIntSequence(StartValue, EndValue);
+    KnuthShuffle<int>(Sequence);
+
+    return Sequence;
+  }
+}

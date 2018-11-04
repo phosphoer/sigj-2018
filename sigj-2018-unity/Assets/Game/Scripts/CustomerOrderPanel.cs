@@ -24,9 +24,10 @@ public class CustomerOrderPanel : MonoBehaviour {
 
     StringBuilder PanelStringBuilder = new StringBuilder();
     PanelStringBuilder.AppendLine(string.Format("Order: {0}", Order.OrderNumber));
-    PanelStringBuilder.AppendLine(string.Format("Shape: {0}", CritterConstants.GetCreatureShapeDisplayString(Order.DesiredShape)));
-    PanelStringBuilder.AppendLine(string.Format("Color: {0}", CritterConstants.GetCreatureColorDisplayString(Order.DesiredColor)));
-    PanelStringBuilder.AppendLine(string.Format("Size: {0}", CritterConstants.GetCreatureSizeDisplayString(Order.DesiredSize)));
+
+    for (int desireIndex= 0; desireIndex < Order.CustomerDesires.Length; ++desireIndex) {
+      PanelStringBuilder.AppendLine(Order.CustomerDesires[desireIndex].ToUIString());
+    }
 
     TextMesh.SetText(PanelStringBuilder);
   }

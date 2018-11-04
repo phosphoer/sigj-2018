@@ -179,68 +179,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &253137281 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1684363146922062, guid: ac05268ba18c2f449b5d7b4119e0fe2d,
-    type: 2}
-  m_PrefabInternal: {fileID: 1621547906}
---- !u!114 &253137282
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 253137281}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b92bb38b4e998148bdc4f79e7767403, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SpawnLocationTransform: {fileID: 991482050}
-  CritterCloudPrefab: {fileID: 1301356815966828, guid: eccd69d4971143d41a6b9412f827dea7,
-    type: 2}
-  CritterPeanutPrefab: {fileID: 1079224452630186, guid: e61d11985c1c4eb47bd0c451693e194e,
-    type: 2}
-  CritterSlimePrefab: {fileID: 1668212365951002, guid: 75790536fdf5472458b6d3a6c295415b,
-    type: 2}
-  CritterSpherePrefab: {fileID: 1108301474205390, guid: a4bc9cb203b4fcd4a93924e0645b07c2,
-    type: 2}
-  CritterStarPrefab: {fileID: 1267009104033742, guid: 16e280eadb4ed8040ac1de96b3e4d3f2,
-    type: 2}
-  CritterWormPrefab: {fileID: 1603165656076230, guid: ee842453de4ffee4e9f76d183ba2d6c9,
-    type: 2}
---- !u!4 &253137285 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4635569447459614, guid: ac05268ba18c2f449b5d7b4119e0fe2d,
-    type: 2}
-  m_PrefabInternal: {fileID: 1621547906}
---- !u!1 &991482049
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 991482050}
-  m_Layer: 0
-  m_Name: CritterSpawnLocation
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &991482050
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 991482049}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.75, y: 0, z: 3.54}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 253137285}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1168861910
 Prefab:
   m_ObjectHideFlags: 0
@@ -384,12 +322,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114985277355525826, guid: ac05268ba18c2f449b5d7b4119e0fe2d,
-        type: 2}
-      propertyPath: PlayerControllerPrefab
-      value: 
-      objectReference: {fileID: 1214567969576102, guid: 6d5cdef94e9b04e2ea8fbf44b142f3db,
-        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac05268ba18c2f449b5d7b4119e0fe2d, type: 2}
   m_IsPrefabAsset: 0
