@@ -272,5 +272,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AnimCount: 3
   PostAnimDelay: {x: 0.25, y: 1}
-  AdditionalRandomScale: {x: 0.75, y: 0.8}
+  AdditionalRandomScale: {x: 0.5, y: 0.75}
   AnimSpeedScaleRange: {x: 1, y: 1}
