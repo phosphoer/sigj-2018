@@ -168,7 +168,7 @@ public class GameStateManager : Singleton<GameStateManager> {
 
           CustomerOrderManager.Instance.OnRoundCompleted();
 
-          _endMenu = (GameObject)Instantiate(EndMenuPrefab, Vector3.zero, Quaternion.identity);
+          _endMenu = (GameObject)Instantiate(EndMenuPrefab, new Vector3(0.0f, 2.65f, -3.24f), Quaternion.identity);
         }
         break;
     }
