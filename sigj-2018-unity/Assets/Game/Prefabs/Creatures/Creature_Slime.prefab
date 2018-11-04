@@ -252,8 +252,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4740960026110042}
   - component: {fileID: 95911945735835766}
-  - component: {fileID: 114082144550039946}
   - component: {fileID: 135744360850407572}
+  - component: {fileID: 114767399913814388}
   m_Layer: 0
   m_Name: Creature_SlimeVisual
   m_TagString: Untagged
@@ -272,6 +272,7 @@ GameObject:
   - component: {fileID: 114799037413541204}
   - component: {fileID: 54548229933930044}
   - component: {fileID: 114107108615962388}
+  - component: {fileID: 114256308292487474}
   m_Layer: 0
   m_Name: Creature_Slime
   m_TagString: Untagged
@@ -726,26 +727,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114082144550039946
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1664752310346474}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 536b92ebc3d57b24aae53270dac619fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Attachments:
-  - {fileID: 1808815493896016, guid: 54552bfa8787a61429910a34234236f5, type: 2}
-  - {fileID: 1033184192126074, guid: 3a32c9240308fb640a821d19d807cd74, type: 2}
-  - {fileID: 1325846165086916, guid: 1e6d4e49d737ae944a3fa7d39ca75157, type: 2}
-  - {fileID: 1071446038087946, guid: 53fe44def49b5c946b1aeb4eddfc2230, type: 2}
-  - {fileID: 1981829689635144, guid: 183c69732536fe54785af3db8ef1318e, type: 2}
-  - {fileID: 1812629989393566, guid: 5718c9116a60a5641903f226bddf9051, type: 2}
-  ScaleMinMax: {x: 120, y: 80}
-  RotateMinMax: {x: 0, y: 90}
 --- !u!114 &114107108615962388
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -790,6 +771,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fabc882627bc62e418162bbdad26af25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114256308292487474
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1668212365951002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beb52f8c1f27547df9c57e0e517a1d84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duplicatePrefab: {fileID: 11400000, guid: 21cf48be2209c4e55851b4503e9a46fa, type: 2}
 --- !u!114 &114309265351827548
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -834,6 +827,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fabc882627bc62e418162bbdad26af25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114767399913814388
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1664752310346474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 847eb7495d46f0d4a8e56954fefab3c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ScaleMinMax: {x: 120, y: 80}
+  RotateMinMax: {x: 0, y: 90}
 --- !u!114 &114799037413541204
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -908,6 +914,7 @@ MonoBehaviour:
   _vigorUIRoot: {fileID: 4291489790745966}
   _visualRoot: {fileID: 4773193581948172}
   _animator: {fileID: 95911945735835766}
+  _duplicatable: {fileID: 114256308292487474}
 --- !u!114 &114892192150552194
 MonoBehaviour:
   m_ObjectHideFlags: 1

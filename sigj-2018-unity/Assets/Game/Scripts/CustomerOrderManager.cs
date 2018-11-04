@@ -8,6 +8,8 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
   public Transform PanelListTransform;
   public float PanelOffset = 13;
   public RangedFloat OrderTimeRange = new RangedFloat(5.0f, 10.0f);
+  public RangedInt OrderDesiredChanges = new RangedInt(2, 2);
+  public RangedInt DesiredAttachmentCount = new RangedInt(0, 5);
   public int TotalOrders = 5;
 
   private int _OrdersIssued = 0;
@@ -68,7 +70,7 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
     CustomerOrder newOrder = CreateRandomOrder();
 
     // Spawn a creature that corresponds to that order
-    CritterSpawner.Instance?.SpawnCritter(newOrder);
+    CritterSpawner.Instance?.SpawnCritter(newOrder.SpawnDescriptor);
 
     // Spawn the order panel that shows what the customer wants
     SpawnOrderPanel(newOrder);
@@ -93,15 +95,75 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
     return PanelListTransform.position + PanelOffset * panelListRight * (float)CustomerOrderPanelList.Count;
   }
 
+  CreatureDescriptor CreateRandomCreatureDescriptor()
+  {
+    CreatureDescriptor newDescriptor = new CreatureDescriptor();
+    newDescriptor.Color = CritterConstants.PickRandomCreatureColor();
+    newDescriptor.Shape = CritterConstants.PickRandomCreatureShape();
+    newDescriptor.Size = CritterConstants.PickRandomCreatureSize();
+
+    if (CritterSpawner.Instance != null) {
+      newDescriptor.Attachments = CritterSpawner.Instance.PickNRandomAttachmentPrefabs();
+    }
+
+    return newDescriptor;
+  }
+
   CustomerOrder CreateRandomOrder()
   {
-    CustomerOrder newOrder = new CustomerOrder
-    {
-      OrderNumber = _OrdersIssued + 1,
-      DesiredColor = CritterConstants.PickRandomCreatureColor(),
-      DesiredShape = CritterConstants.PickRandomCreatureShape(),
-      DesiredSize = CritterConstants.PickRandomCreatureSize()
-    };
+    CustomerOrder newOrder = new CustomerOrder();
+    newOrder.OrderNumber = _OrdersIssued + 1;
+    newOrder.SpawnDescriptor = CreateRandomCreatureDescriptor();
+
+    int numDesiredChanges = OrderDesiredChanges.RandomValue;
+
+    CustomerDesire.DesireType[] desiredChangeSequence = new CustomerDesire.DesireType[4] {
+      CustomerDesire.DesireType.ChangeColor,
+      CustomerDesire.DesireType.ChangeShape,
+      CustomerDesire.DesireType.ChangeSize,
+      CustomerDesire.DesireType.ChangeAttachments };
+    ArrayUtilities.KnuthShuffle<CustomerDesire.DesireType>(desiredChangeSequence);
+
+    newOrder.CustomerDesires = new CustomerDesire[numDesiredChanges];
+    for (int desireIndex= 0; desireIndex < numDesiredChanges; ++desireIndex) {
+
+      CustomerDesire.DesireType desiredChangeType = desiredChangeSequence[desireIndex];
+      switch (desiredChangeType) {
+        case CustomerDesire.DesireType.ChangeAttachments: 
+          {
+            CreatureAttachmentDesire newDesire = new CreatureAttachmentDesire();
+            newDesire.AttachmentType = CritterSpawner.Instance.PickRandomAttachmentDescriptor();
+            newDesire.Count= DesiredAttachmentCount.RandomValue;
+
+            newOrder.CustomerDesires[desireIndex] = newDesire;
+          }
+          break;
+        case CustomerDesire.DesireType.ChangeColor: 
+          {
+            CustomerColorDesire newDesire = new CustomerColorDesire();
+            newDesire.DesiredColor = CritterConstants.PickRandomCreatureColor();
+
+            newOrder.CustomerDesires[desireIndex] = newDesire;
+          }
+          break;
+        case CustomerDesire.DesireType.ChangeShape: 
+          {
+            CustomerShapeDesire newDesire = new CustomerShapeDesire();
+            newDesire.DesiredShape = CritterConstants.PickRandomCreatureShape();
+
+            newOrder.CustomerDesires[desireIndex] = newDesire;
+          }
+          break;
+        case CustomerDesire.DesireType.ChangeSize: 
+          {
+            CustomerSizeDesire newDesire = new CustomerSizeDesire();
+            newDesire.DesiredSize = CritterConstants.PickRandomCreatureSize();
+
+            newOrder.CustomerDesires[desireIndex] = newDesire;
+          }
+          break;
+      }
+    }
 
     return newOrder;
   }
