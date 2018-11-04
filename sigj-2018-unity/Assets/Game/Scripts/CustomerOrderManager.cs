@@ -13,11 +13,14 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
   public int TotalActiveOrders = 5;
 
   private int _ordersIssued = 0;
+  private bool aOpenHatch = false;
+
   private IEnumerator _ordersTimer;
   private CustomerOrderPanel _selectedOrderPanel = null;
   private List<GameObject> _customerOrderPanelList = new List<GameObject>();
   private List<CustomerOrder> _completedOrdersList = new List<CustomerOrder>();
   private OutHatchController _outHatchController = null;
+  private InHatchController _inHatchController = null;
 
   private void Awake()
   {
@@ -28,6 +31,7 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
   {
     _ordersIssued = 0;
     ClearOrders();
+	ToggleInHatch();
     StartOrderTimer();
   }
 
@@ -69,9 +73,12 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
 
   public void IssueRandomOrder()
   {
+	//Open the In Hatch
+	ToggleInHatch();
+	
     // Create a new customer order
     CustomerOrder newOrder = CreateRandomOrder();
-
+	
     // Spawn a creature that corresponds to that order
     CritterSpawner.Instance?.SpawnCritter(newOrder.SpawnDescriptor, null);
 
@@ -186,6 +193,11 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
   {
     _outHatchController = controller;
   }
+  
+  public void RegisterInHatchController(InHatchController controller)
+  {
+    _inHatchController = controller;
+  }
 
   public void OnCreatureDeposited(CritterController critter)
   {
@@ -228,6 +240,22 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
     Destroy(critter.gameObject);
   }
 
+  private void ToggleInHatch() {
+	  
+    if (_inHatchController != null) {
+		//Open the hatch if it's closed
+		if (aOpenHatch) {
+			_inHatchController.SetOpenState(false);
+			aOpenHatch = false;
+		}
+		//Close the hatch if it's open
+		else{
+			_inHatchController.SetOpenState(true);
+			aOpenHatch = true;
+		}
+	}
+  }
+  
   private void SetSelectedPanel(CustomerOrderPanel panel)
   {
     if (panel != _selectedOrderPanel) {
@@ -251,6 +279,6 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
     if (_outHatchController != null) {
       bool bOpenHatch = _selectedOrderPanel != null;
       _outHatchController.SetOpenState(bOpenHatch);
-    }
+    }	
   }
 }
