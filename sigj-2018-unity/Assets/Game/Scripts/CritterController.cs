@@ -178,8 +178,11 @@ public class CritterController : MonoBehaviour
     // Slowly change move direction towards current desired direction / rotate to face move direction
     _moveDirection = Mathfx.Damp(_moveDirection, _desiredDirection, 0.5f, Time.deltaTime * _turnSpeed).WithY(0);
 
-    Quaternion desiredRot = Quaternion.LookRotation(_moveDirection, Vector3.up);
-    _rigidBody.rotation = Mathfx.Damp(_rigidBody.rotation, desiredRot, 0.5f, Time.deltaTime * _turnSpeed);
+    if (_moveDirection.magnitude > 0.1f)
+    {
+      Quaternion desiredRot = Quaternion.LookRotation(_moveDirection, Vector3.up);
+      _rigidBody.rotation = Mathfx.Damp(_rigidBody.rotation, desiredRot, 0.5f, Time.deltaTime * _turnSpeed);
+    }
 
     // Occaisonally raycast for obstacles
     _obstacleRaycastTimer -= Time.deltaTime;

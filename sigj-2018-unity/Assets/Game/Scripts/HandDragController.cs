@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class HandDragController : MonoBehaviour
 {
-  public bool IsDragging => _currentDraggable != null;
+  public bool IsDragging { get; private set; }
 
   [SerializeField]
   private Transform _handObject = null;
@@ -47,6 +47,13 @@ public class HandDragController : MonoBehaviour
 
     if (IsDragging)
     {
+      // If current dragged thing was destroyed, cancel drag
+      if (_currentDraggable == null)
+      {
+        StopDrag();
+        return;
+      }
+
       float distanceScale = Vector3.Distance(Camera.main.transform.position, _currentDraggable.position);
       float horizontalAxis = player.GetAxis("CursorX") * Time.deltaTime * _handDragSensitivity;
       float verticalAxis = player.GetAxis("CursorY") * Time.deltaTime * _handDragSensitivity;
@@ -68,23 +75,24 @@ public class HandDragController : MonoBehaviour
 
         if (player.GetButtonDown("Select"))
         {
-          StartGrab(hitInfo);
+          StartDrag(hitInfo);
         }
       }
     }
 
     if (player.GetButtonUp("Select"))
     {
-      StopGrab();
+      StopDrag();
     }
 
     _handObject.transform.position = Mathfx.Damp(_handObject.transform.position, _targetHandPos, 0.5f, Time.deltaTime * _handAnimateSpeed);
   }
 
-  private void StartGrab(RaycastHit forHitInfo)
+  private void StartDrag(RaycastHit forHitInfo)
   {
     if (forHitInfo.rigidbody != null && !forHitInfo.rigidbody.isKinematic)
     {
+      IsDragging = true;
       _currentDraggable = forHitInfo.rigidbody;
       _initialDragValue = _currentDraggable.drag;
       _currentDraggable.drag = 10;
@@ -94,14 +102,16 @@ public class HandDragController : MonoBehaviour
     }
   }
 
-  private void StopGrab()
+  private void StopDrag()
   {
     if (_currentDraggable != null)
     {
       _currentDraggable.drag = _initialDragValue;
-      _currentDraggable = null;
-      Cursor.visible = true;
-      Cursor.lockState = CursorLockMode.None;
     }
+
+    IsDragging = false;
+    _currentDraggable = null;
+    Cursor.visible = true;
+    Cursor.lockState = CursorLockMode.None;
   }
 }
