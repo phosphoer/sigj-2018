@@ -67,6 +67,7 @@ public class CritterController : MonoBehaviour
   private int _mateSearchIndex;
   private CritterController _nearestMate;
   private CritterController _currentMate;
+  private CreatureDescriptor _critterDNA;
 
   private const float kAgeRate = 0.03f;
   private const float kGrowAnimationDuration = 1.0f;
@@ -75,6 +76,16 @@ public class CritterController : MonoBehaviour
 
   private static readonly int kAnimParamIsWalking = Animator.StringToHash("IsWalking");
   private static List<CritterController> _instances = new List<CritterController>();
+
+  public void SetDNA(CreatureDescriptor DNA)
+  {
+    _critterDNA = DNA;
+  }
+
+  public CreatureDescriptor GetDNA()
+  {
+    return _critterDNA;
+  }
 
   public void SetAge(float newAge, bool animate)
   {
@@ -279,6 +290,10 @@ public class CritterController : MonoBehaviour
     EggController egg = Instantiate(_eggPrefab);
     egg.transform.position = (transform.position + _currentMate.transform.position) / 2;
     egg.transform.rotation = Random.rotationUniform;
+
+    // Mix the DNA from the two parents and store in the child
+    CreatureDescriptor childDNA = CreatureDescriptor.CreateCreatureDescriptorFromParents(this, _currentMate);
+    egg.SetDNA(childDNA);
 
     _currentMate.StopMating();
     StopMating();

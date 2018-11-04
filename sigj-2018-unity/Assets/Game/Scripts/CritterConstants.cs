@@ -102,7 +102,7 @@ public static class CritterConstants
       case CreatureSize.Medium:
         return 0.6f;
       case CreatureSize.Large:
-        return 1.0f;
+        return 0.8f;
     }
 
     return 1.0f;

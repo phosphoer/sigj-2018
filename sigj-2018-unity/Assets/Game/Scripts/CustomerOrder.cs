@@ -97,6 +97,59 @@ public class CreatureDescriptor
   public CritterConstants.CreatureShape Shape= CritterConstants.CreatureShape.FloatingOrb;
   public CritterConstants.CreatureSize Size= CritterConstants.CreatureSize.Small;
   public GameObject[] Attachments = new GameObject[0];
+
+  public static CreatureDescriptor CreateRandomCreatureDescriptor()
+  {
+    CreatureDescriptor newDescriptor = new CreatureDescriptor();
+    newDescriptor.Color = CritterConstants.PickRandomCreatureColor();
+    newDescriptor.Shape = CritterConstants.PickRandomCreatureShape();
+    newDescriptor.Size = CritterConstants.PickRandomCreatureSize();
+
+    if (CritterSpawner.Instance != null) {
+      newDescriptor.Attachments = CritterSpawner.Instance.PickNRandomAttachmentPrefabs();
+    }
+
+    return newDescriptor;
+  }
+
+  public static CreatureDescriptor CreateCreatureDescriptorFromParents(CritterController parent0, CritterController parent1)
+  {
+    CreatureDescriptor parentDNA0 = parent0.GetDNA();
+    CreatureDescriptor parentDNA1 = parent1.GetDNA();
+    CreatureDescriptor childDNA = new CreatureDescriptor();
+
+    // Randomly pick a color from one of the parents
+    childDNA.Color = Random.Range(0, 1) == 0 ? parentDNA0.Color : parentDNA1.Color;
+
+    // Randomly pick a shape from one of the parents
+    childDNA.Shape = Random.Range(0, 1) == 0 ? parentDNA0.Shape : parentDNA1.Shape;
+
+    // Always start small
+    childDNA.Size = CritterConstants.CreatureSize.Small; 
+
+    // Combine the attachment from both parents into one big list
+    List<GameObject> combinedParentAttachments = new List<GameObject>();
+    combinedParentAttachments.AddRange(parentDNA0.Attachments);
+    combinedParentAttachments.AddRange(parentDNA1.Attachments);
+
+    // Create a shuffled index into the combined attachent list
+    int[] shuffledParentAttachmentIndices= ArrayUtilities.MakeShuffledIntSequence(0, combinedParentAttachments.Count - 1);
+
+    // Decide how many attachments the child will have
+    //  1 -> SpawnAttachmentCount
+    // but no more than parents had available to draw from
+    int childAttachmentCount = System.Math.Min(System.Math.Max(CritterSpawner.Instance.SpawnAttachmentCount.RandomValue, 1), combinedParentAttachments.Count);
+
+    // Fill in the child attachment list using the shuffled indices
+    childDNA.Attachments = new GameObject[childAttachmentCount];
+    for (int childAttachmentIndex= 0; childAttachmentIndex < childAttachmentCount; ++childAttachmentIndex) {
+      int randomAttachmentIndex = shuffledParentAttachmentIndices[childAttachmentIndex];
+
+      childDNA.Attachments[childAttachmentIndex] = combinedParentAttachments[randomAttachmentIndex];
+    }
+
+    return childDNA;
+  }
 }
 
 [System.Serializable]

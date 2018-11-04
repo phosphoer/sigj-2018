@@ -22,13 +22,21 @@ public class CritterSpawner : Singleton<CritterSpawner>
     CritterSpawner.Instance = this;
   }
 
-  public GameObject SpawnCritter(CreatureDescriptor SpawnDescriptor)
+  public GameObject SpawnCritter(CreatureDescriptor SpawnDescriptor, Transform SpawnTransformOverride)
   {
     GameObject CritterPrefab = GetCritterPrefab(SpawnDescriptor.Shape);
     GameObject NewCritter = null;
 
     if (CritterPrefab != null) {
-      NewCritter = Instantiate(CritterPrefab, SpawnLocationTransform.position, SpawnLocationTransform.rotation);
+      Transform InitialTransform= SpawnTransformOverride != null ? SpawnTransformOverride : SpawnLocationTransform;
+
+      NewCritter = Instantiate(CritterPrefab, InitialTransform.position, InitialTransform.rotation);
+
+      CritterController ChildController= NewCritter.GetComponentInChildren<CritterController>();
+      if (ChildController != null) {
+        // Record the spawn descriptor (its "DNA") on the critter 
+        ChildController.SetDNA(SpawnDescriptor);
+      }
 
       // Spawn attachments on the critter
       CritterAttachmentManager AttachmentManager= NewCritter.GetComponentInChildren<CritterAttachmentManager>();

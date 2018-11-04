@@ -11,13 +11,17 @@ public class DuplicateZone : MonoBehaviour
   private Transform _duplicateEffectSpawnAnchor = null;
 
   [SerializeField]
+  private GameObject _duplicateEffectToggle = null;
+
+  [SerializeField]
   private Transform _duplicateSpawnAnchor = null;
 
   [SerializeField]
   private ImpactReaction _duplicateTrigger = null;
 
+
   [SerializeField]
-  private float _coolDownTime = 3.0f;
+  private float _coolDownTime = 10.0f;
 
   private float _coolDown;
 
@@ -44,12 +48,30 @@ public class DuplicateZone : MonoBehaviour
       if (duplicatable != null)
       {
         _coolDown = _coolDownTime;
-        Instantiate(_duplicateEffectPrefab, _duplicateEffectSpawnAnchor.position, _duplicateEffectSpawnAnchor.rotation);
-
-        GameObject dupe = duplicatable.CreateDuplicate();
-        dupe.transform.SetPositionAndRotation(_duplicateSpawnAnchor.position, _duplicateSpawnAnchor.rotation);
-        dupe.transform.SetParent(duplicatable.transform.parent);
+        StartCoroutine(DuplicateAsync(duplicatable));
       }
     }
+  }
+
+  private IEnumerator DuplicateAsync(Duplicatable duplicatable)
+  {
+    if (_duplicateEffectToggle != null)
+      _duplicateEffectToggle.SetActive(true);
+
+    yield return new WaitForSeconds(1.0f);
+
+    if (_duplicateEffectPrefab != null)
+    {
+      Instantiate(_duplicateEffectPrefab, _duplicateEffectSpawnAnchor.position, _duplicateEffectSpawnAnchor.rotation);
+    }
+
+    GameObject dupe = duplicatable.CreateDuplicate();
+    dupe.transform.SetPositionAndRotation(_duplicateSpawnAnchor.position, _duplicateSpawnAnchor.rotation);
+    dupe.transform.SetParent(duplicatable.transform.parent);
+
+    yield return new WaitForSeconds(1.0f);
+
+    if (_duplicateEffectToggle != null)
+      _duplicateEffectToggle.SetActive(false);
   }
 }
