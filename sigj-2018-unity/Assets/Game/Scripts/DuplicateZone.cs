@@ -26,6 +26,7 @@ public class DuplicateZone : MonoBehaviour
   private TMPro.TMP_Text _coolDownText = null;
 
   private float _coolDown;
+  private int _roundedCoolDown;
 
   private void Start()
   {
@@ -44,7 +45,11 @@ public class DuplicateZone : MonoBehaviour
     if (_coolDownText != null)
     {
       int roundedTime = Mathf.RoundToInt(_coolDown);
-      _coolDownText.text = roundedTime > 0 ? roundedTime.ToString() : "Ready";
+      if (roundedTime != _roundedCoolDown)
+      {
+        _roundedCoolDown = roundedTime;
+        _coolDownText.text = roundedTime > 0 ? roundedTime.ToString() : "Ready";
+      }
     }
   }
 
