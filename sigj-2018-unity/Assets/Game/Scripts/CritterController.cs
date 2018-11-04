@@ -137,6 +137,14 @@ public class CritterController : MonoBehaviour
     Destroy(_critterMaterialInstance);
   }
 
+  public static void DestroyAllCreatures()
+  {
+    for(int creatureIndex= 0; creatureIndex < _instances.Count; ++creatureIndex) {
+      Destroy(_instances[creatureIndex].gameObject);
+    }
+    _instances.Clear();
+  }
+
   private void FixedUpdate()
   {
     if (_isMoving)

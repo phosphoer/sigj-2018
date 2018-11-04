@@ -16,9 +16,11 @@ public class GameStateManager : Singleton<GameStateManager> {
 
   public GameObject PlayerControllerPrefab;
   public GameObject MainMenuPrefab;
+  public GameObject EndMenuPrefab;
 
   private GameStage _gameStage = GameStage.Invalid;
-  private GameObject _menuMenu = null;
+  private GameObject _mainMenu = null;
+  private GameObject _endMenu = null;
   private GameObject _playerController = null;
   private GameClockController _gameClockController= null;
 
@@ -93,8 +95,8 @@ public class GameStateManager : Singleton<GameStateManager> {
     switch(oldGameStage) {
       case GameStage.MainMenu: 
         {
-          Destroy(_menuMenu);
-          _menuMenu = null;
+          Destroy(_mainMenu);
+          _mainMenu = null;
         }
         break;
       case GameStage.PreGame: 
@@ -116,7 +118,10 @@ public class GameStateManager : Singleton<GameStateManager> {
           _playerController = null;
         }
         break;
-      case GameStage.PostGame:
+      case GameStage.PostGame: {
+          Destroy(_endMenu);
+          _endMenu = null;
+        }
         break;
     }
   }
@@ -125,7 +130,7 @@ public class GameStateManager : Singleton<GameStateManager> {
   {
     switch (newGameStage) {
       case GameStage.MainMenu: {
-          _menuMenu = (GameObject)Instantiate(MainMenuPrefab, Vector3.zero, Quaternion.identity);
+          _mainMenu = (GameObject)Instantiate(MainMenuPrefab, Vector3.zero, Quaternion.identity);
         }
         break;
       case GameStage.PreGame: 
@@ -155,12 +160,15 @@ public class GameStateManager : Singleton<GameStateManager> {
         break;
       case GameStage.PostGame: 
         {
+          CritterController.DestroyAllCreatures();
+
           if (_gameClockController != null) {
             _gameClockController.StopClock();
           }
 
           CustomerOrderManager.Instance.OnRoundCompleted();
-          //TODO: Spawn post game UI
+
+          _endMenu = (GameObject)Instantiate(EndMenuPrefab, Vector3.zero, Quaternion.identity);
         }
         break;
     }
