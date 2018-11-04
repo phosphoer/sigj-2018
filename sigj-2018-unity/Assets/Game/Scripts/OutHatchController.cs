@@ -19,7 +19,7 @@ public class OutHatchController : MonoBehaviour {
 
   private void OnTriggerEnter(Collider other)
   {
-    CritterController Critter= other.gameObject.GetComponent<CritterController>();
+    CritterController Critter= other.gameObject.GetComponentInChildren<CritterController>();
     if (Critter != null) {
       CustomerOrderManager.Instance.OnCreatureDeposited(Critter);
     }
