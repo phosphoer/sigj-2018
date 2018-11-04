@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 4990147207393040}
   - component: {fileID: 54382386974539464}
   - component: {fileID: 136271208821384388}
+  - component: {fileID: 114427815430672504}
   m_Layer: 0
   m_Name: Potion
   m_TagString: Untagged
@@ -127,9 +128,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1587250835288780}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.93, y: 2.51, z: -3.73}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -11.166, y: 3.717, z: -2.58}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_Children:
   - {fileID: 4727693885462708}
   m_Father: {fileID: 0}
@@ -276,6 +277,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &114427815430672504
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1587250835288780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c10606e004154964a9b69506cfd19d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Description: Looks kinda like an unfinished game mechanic...
 --- !u!114 &114430705117959660
 MonoBehaviour:
   m_ObjectHideFlags: 1
