@@ -396,7 +396,10 @@ GameObject:
   - component: {fileID: 4508967092072828}
   - component: {fileID: 33117119388572408}
   - component: {fileID: 23034979402922024}
-  - component: {fileID: 64484141577691822}
+  - component: {fileID: 65622923482871356}
+  - component: {fileID: 65824189576647752}
+  - component: {fileID: 65647514645526196}
+  - component: {fileID: 65037527865789568}
   m_Layer: 0
   m_Name: BellChamber
   m_TagString: Untagged
@@ -1723,8 +1726,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1610179620332446}
   m_Mesh: {fileID: 4300024, guid: b45e33251bbb0d443a13c69b37703413, type: 3}
---- !u!64 &64484141577691822
-MeshCollider:
+--- !u!65 &65037527865789568
+BoxCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -1732,11 +1735,45 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300014, guid: b45e33251bbb0d443a13c69b37703413, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 2.759223, y: 4.320839, z: 0.68353724}
+  m_Center: {x: -0.08410897, y: 2.1604195, z: -1.197038}
+--- !u!65 &65622923482871356
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1852116654925416}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.759223, y: 2.2789383, z: 2.7851434}
+  m_Center: {x: -0.08410897, y: 3.1813698, z: -0.14623515}
+--- !u!65 &65647514645526196
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1852116654925416}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.44565848, y: 4.3125544, z: 2.7929628}
+  m_Center: {x: 1.072673, y: 2.1562772, z: -0.14232457}
+--- !u!65 &65824189576647752
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1852116654925416}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.44565848, y: 4.320839, z: 2.8439972}
+  m_Center: {x: -1.2399999, y: 2.1604195, z: -0.16784191}
 --- !u!108 &108095908677233304
 Light:
   m_ObjectHideFlags: 1
