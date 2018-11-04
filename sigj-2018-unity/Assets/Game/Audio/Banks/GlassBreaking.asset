@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a304fc70ef8047e682c3deb848e11e6, type: 3}
+  m_Name: GlassBreaking
+  m_EditorClassIdentifier: 
+  AudioClips:
+  - {fileID: 8300000, guid: 29d4af27bcff5b943adc7ee886a025d8, type: 3}
+  - {fileID: 8300000, guid: 2386f36dccf3dd64b9acdb7fbdb89f3f, type: 3}
+  - {fileID: 8300000, guid: f4a532ea97778884e959451a19022fa2, type: 3}
+  - {fileID: 8300000, guid: df5a8ab98b1c9564c9ff6e62de964efe, type: 3}
+  IsSpatial: 0
+  MaxDistance: 100
+  MinDistance: 10
+  VolumeScale: 1
+  IsLooping: 0
+  AudioMixerGroup: {fileID: 0}
