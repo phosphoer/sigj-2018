@@ -584,7 +584,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1301356815966828}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -7.5}
+  m_LocalPosition: {x: 0, y: 0.962, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4821232411313430}
@@ -1336,7 +1336,6 @@ MonoBehaviour:
   _vigorUIRoot: {fileID: 4919782195413722}
   _visualRoot: {fileID: 4821232411313430}
   _animator: {fileID: 95950281364852018}
-  _duplicatable: {fileID: 114333654349599582}
 --- !u!114 &114173170922958578
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1526,8 +1525,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.7520782
-  m_Center: {x: -0.33, y: 0.17, z: 0}
+  m_Radius: 1.42
+  m_Center: {x: -0.01, y: 0.47, z: 0}
 --- !u!198 &198118018132045098
 ParticleSystem:
   m_ObjectHideFlags: 1
