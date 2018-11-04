@@ -131,6 +131,21 @@ public static class CritterConstants
     return 1.0f;
   }
 
+  public static float GetCreatureAgeAtSize(CreatureSize size)
+  {
+    switch (size)
+    {
+      case CreatureSize.Small:
+        return 0.0f;
+      case CreatureSize.Medium:
+        return 0.33f;
+      case CreatureSize.Large:
+        return 0.66f;
+    }
+
+    return 0.0f;
+  }
+
   public static CreatureSize GetCreatureSizeAtAge(float age)
   {
     if (age >= 0.66f)

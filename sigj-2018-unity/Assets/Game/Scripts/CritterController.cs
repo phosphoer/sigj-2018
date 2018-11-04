@@ -98,6 +98,8 @@ public class CritterController : MonoBehaviour
         r.sharedMaterial = _critterMaterialInstance;
       }
     }
+
+    SetAge(CritterConstants.GetCreatureAgeAtSize(_critterDNA.Size), animate: false);
   }
 
   public CreatureDescriptor GetDNA()

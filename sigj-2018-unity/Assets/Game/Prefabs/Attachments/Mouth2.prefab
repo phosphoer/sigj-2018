@@ -54,6 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4157323494401746}
   - component: {fileID: 114411736516269184}
+  - component: {fileID: 114990079691903444}
   m_Layer: 0
   m_Name: Mouth2
   m_TagString: Untagged
@@ -274,3 +275,14 @@ MonoBehaviour:
   PostAnimDelay: {x: 0.25, y: 1}
   AdditionalRandomScale: {x: 0.5, y: 0.75}
   AnimSpeedScaleRange: {x: 1, y: 1}
+--- !u!114 &114990079691903444
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1383691871191674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f3caf472e524dcf920fac67a42b94e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
