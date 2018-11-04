@@ -70,7 +70,7 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
     CustomerOrder newOrder = CreateRandomOrder();
 
     // Spawn a creature that corresponds to that order
-    CritterSpawner.Instance?.SpawnCritter(newOrder.SpawnDescriptor);
+    CritterSpawner.Instance?.SpawnCritter(newOrder.SpawnDescriptor, null);
 
     // Spawn the order panel that shows what the customer wants
     SpawnOrderPanel(newOrder);
@@ -95,25 +95,11 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
     return PanelListTransform.position + PanelOffset * panelListRight * (float)CustomerOrderPanelList.Count;
   }
 
-  CreatureDescriptor CreateRandomCreatureDescriptor()
-  {
-    CreatureDescriptor newDescriptor = new CreatureDescriptor();
-    newDescriptor.Color = CritterConstants.PickRandomCreatureColor();
-    newDescriptor.Shape = CritterConstants.PickRandomCreatureShape();
-    newDescriptor.Size = CritterConstants.PickRandomCreatureSize();
-
-    if (CritterSpawner.Instance != null) {
-      newDescriptor.Attachments = CritterSpawner.Instance.PickNRandomAttachmentPrefabs();
-    }
-
-    return newDescriptor;
-  }
-
   CustomerOrder CreateRandomOrder()
   {
     CustomerOrder newOrder = new CustomerOrder();
     newOrder.OrderNumber = _OrdersIssued + 1;
-    newOrder.SpawnDescriptor = CreateRandomCreatureDescriptor();
+    newOrder.SpawnDescriptor = CreatureDescriptor.CreateRandomCreatureDescriptor();
 
     int numDesiredChanges = OrderDesiredChanges.RandomValue;
 
