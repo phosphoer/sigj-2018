@@ -1118,6 +1118,7 @@ MonoBehaviour:
   AnimCount: 4
   PostAnimDelay: {x: 2, y: 3}
   AdditionalRandomScale: {x: 0.5, y: 0.75}
+  AnimSpeedScaleRange: {x: 0.85, y: 1.1}
 --- !u!137 &137575303525568410
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

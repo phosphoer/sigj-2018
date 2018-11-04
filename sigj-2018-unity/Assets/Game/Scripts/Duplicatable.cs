@@ -9,8 +9,17 @@ public class Duplicatable : MonoBehaviour
 
   public GameObject CreateDuplicate()
   {
-    GameObject dupe = Instantiate(_duplicatePrefab.Prefab);
-    dupe.transform.SetParent(transform.parent);
+    CritterController critter = GetComponent<CritterController>();
+    GameObject dupe;
+    if (critter != null)
+    {
+      dupe = CritterSpawner.Instance.SpawnCritter(critter.GetDNA(), null);
+    }
+    else
+    {
+      dupe = Instantiate(_duplicatePrefab.Prefab);
+      dupe.transform.SetParent(transform.parent);
+    }
 
     Duplicated?.Invoke(dupe);
     return dupe;

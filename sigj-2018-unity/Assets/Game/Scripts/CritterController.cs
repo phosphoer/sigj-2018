@@ -52,9 +52,6 @@ public class CritterController : MonoBehaviour
   [SerializeField]
   private Animator _animator = null;
 
-  [SerializeField]
-  private Duplicatable _duplicatable = null;
-
   private Vector3 _desiredDirection;
   private Vector3 _moveDirection;
   private float _changeDirectionTimer;
@@ -106,7 +103,6 @@ public class CritterController : MonoBehaviour
     _instances.Add(this);
 
     _desiredDirection = transform.forward;
-    _duplicatable.Duplicated += OnDuplicated;
 
     // Initialize size
     SetAge(_age, animate: false);
@@ -114,7 +110,6 @@ public class CritterController : MonoBehaviour
 
   private void OnDestroy()
   {
-    _duplicatable.Duplicated -= OnDuplicated;
     _instances.Remove(this);
   }
 
@@ -231,19 +226,6 @@ public class CritterController : MonoBehaviour
     }
 
     Debug.DrawRay(transform.position, _desiredDirection, Color.blue);
-  }
-
-  private void OnDuplicated(GameObject dupe)
-  {
-    CritterController critter = dupe.GetComponent<CritterController>();
-    if (critter == null)
-    {
-      Debug.LogError("Somehow a duplicated critter didn't have a CritterController");
-      return;
-    }
-
-    // TODO: Do some stuff to apply this critters genes to duplicate
-    // ...
   }
 
   private void MateWith(CritterController critter, bool isLeader)
