@@ -26,6 +26,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1489849896219846
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4092154655034756}
+  m_Layer: 0
+  m_Name: CritterSpawnLocation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1684363146922062
 GameObject:
   m_ObjectHideFlags: 0
@@ -36,6 +51,7 @@ GameObject:
   - component: {fileID: 4635569447459614}
   - component: {fileID: 114316259798896536}
   - component: {fileID: 114985277355525826}
+  - component: {fileID: 114903810465877312}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -60,6 +76,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4092154655034756
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1489849896219846}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.75, y: 0, z: 3.54}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4635569447459614}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4352227416303396
 Transform:
   m_ObjectHideFlags: 1
@@ -93,11 +122,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1684363146922062}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 10, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4462546028992096}
   - {fileID: 4352227416303396}
+  - {fileID: 4092154655034756}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -151,7 +181,61 @@ MonoBehaviour:
   OrderTimeRange:
     MinValue: 1
     MaxValue: 2
+  OrderDesiredChanges:
+    MinValue: 2
+    MaxValue: 2
+  DesiredAttachmentCount:
+    MinValue: 0
+    MaxValue: 5
   TotalOrders: 5
+--- !u!114 &114903810465877312
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1684363146922062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b92bb38b4e998148bdc4f79e7767403, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnLocationTransform: {fileID: 4092154655034756}
+  SpawnAttachmentCount:
+    MinValue: 0
+    MaxValue: 5
+  CritterCloudPrefab: {fileID: 1301356815966828, guid: eccd69d4971143d41a6b9412f827dea7,
+    type: 2}
+  CritterPeanutPrefab: {fileID: 1079224452630186, guid: e61d11985c1c4eb47bd0c451693e194e,
+    type: 2}
+  CritterSlimePrefab: {fileID: 1668212365951002, guid: 75790536fdf5472458b6d3a6c295415b,
+    type: 2}
+  CritterSpherePrefab: {fileID: 1108301474205390, guid: a4bc9cb203b4fcd4a93924e0645b07c2,
+    type: 2}
+  CritterStarPrefab: {fileID: 1267009104033742, guid: 16e280eadb4ed8040ac1de96b3e4d3f2,
+    type: 2}
+  CritterWormPrefab: {fileID: 1603165656076230, guid: ee842453de4ffee4e9f76d183ba2d6c9,
+    type: 2}
+  AttachmentDatabase:
+  - AttachmentType: Eye
+    UISingularName: Eye
+    UIPluralName: Eyes
+    Variations:
+    - {fileID: 1808815493896016, guid: 54552bfa8787a61429910a34234236f5, type: 2}
+    - {fileID: 1033184192126074, guid: 3a32c9240308fb640a821d19d807cd74, type: 2}
+    - {fileID: 1325846165086916, guid: 1e6d4e49d737ae944a3fa7d39ca75157, type: 2}
+    - {fileID: 1199698425894318, guid: 1638c90612adf2c4489dc8e8437f92d4, type: 2}
+  - AttachmentType: Horn
+    UISingularName: Horn
+    UIPluralName: Horns
+    Variations:
+    - {fileID: 1071446038087946, guid: 53fe44def49b5c946b1aeb4eddfc2230, type: 2}
+    - {fileID: 1981829689635144, guid: 183c69732536fe54785af3db8ef1318e, type: 2}
+    - {fileID: 1812629989393566, guid: 5718c9116a60a5641903f226bddf9051, type: 2}
+  - AttachmentType: Tentacle
+    UISingularName: Tentacle
+    UIPluralName: Tentacles
+    Variations:
+    - {fileID: 1880709768592516, guid: a8660503747eeca4ca1128c4590cfc1a, type: 2}
 --- !u!114 &114985277355525826
 MonoBehaviour:
   m_ObjectHideFlags: 1
