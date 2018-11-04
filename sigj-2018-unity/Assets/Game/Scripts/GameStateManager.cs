@@ -196,7 +196,7 @@ public class GameStateManager : Singleton<GameStateManager>
           AudioManager.Instance.FadeOutSound(gameObject, MusicGameLoop, 3.0f);
           //TODO: Spawn post game UI
 
-          _endMenu = (GameObject)Instantiate(EndMenuPrefab, new Vector3(0.0f, 2.65f, -3.24f), Quaternion.identity);
+          _endMenu = (GameObject)Instantiate(EndMenuPrefab, new Vector3(Camera.main.gameObject.transform.position.x, 2.65f, -3.24f), Quaternion.identity);
         }
         break;
     }
