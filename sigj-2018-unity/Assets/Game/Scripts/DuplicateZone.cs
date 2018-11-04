@@ -90,6 +90,9 @@ public class DuplicateZone : MonoBehaviour
     dupe.transform.SetPositionAndRotation(_duplicateSpawnAnchor.position, _duplicateSpawnAnchor.rotation);
     dupe.transform.SetParent(duplicatable.transform.parent);
 
+    if (_coolDownText != null)
+      _coolDownText.text = "Done";
+
     yield return new WaitForSeconds(1.0f);
 
     if (_duplicateEffectToggle != null)
