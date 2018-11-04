@@ -58,12 +58,12 @@ public class DuplicateZone : MonoBehaviour
     if (_duplicateEffectToggle != null)
       _duplicateEffectToggle.SetActive(true);
 
-    yield return new WaitForSeconds(3.0f);
-
     if (_duplicateEffectPrefab != null)
     {
       Instantiate(_duplicateEffectPrefab, _duplicateEffectSpawnAnchor.position, _duplicateEffectSpawnAnchor.rotation);
     }
+
+    yield return new WaitForSeconds(3.0f);
 
     GameObject dupe = duplicatable.CreateDuplicate();
     dupe.transform.SetPositionAndRotation(_duplicateSpawnAnchor.position, _duplicateSpawnAnchor.rotation);
