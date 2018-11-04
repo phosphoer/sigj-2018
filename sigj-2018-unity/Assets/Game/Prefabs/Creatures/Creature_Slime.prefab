@@ -272,6 +272,7 @@ GameObject:
   - component: {fileID: 114799037413541204}
   - component: {fileID: 54548229933930044}
   - component: {fileID: 114107108615962388}
+  - component: {fileID: 114256308292487474}
   m_Layer: 0
   m_Name: Creature_Slime
   m_TagString: Untagged
@@ -790,6 +791,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fabc882627bc62e418162bbdad26af25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114256308292487474
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1668212365951002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beb52f8c1f27547df9c57e0e517a1d84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duplicatePrefab: {fileID: 11400000, guid: 21cf48be2209c4e55851b4503e9a46fa, type: 2}
 --- !u!114 &114309265351827548
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -908,6 +921,7 @@ MonoBehaviour:
   _vigorUIRoot: {fileID: 4291489790745966}
   _visualRoot: {fileID: 4773193581948172}
   _animator: {fileID: 95911945735835766}
+  _duplicatable: {fileID: 114256308292487474}
 --- !u!114 &114892192150552194
 MonoBehaviour:
   m_ObjectHideFlags: 1

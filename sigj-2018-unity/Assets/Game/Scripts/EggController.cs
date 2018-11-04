@@ -70,7 +70,7 @@ public class EggController : MonoBehaviour
   {
     _visualRoot.SetActive(false);
     _rigidBody.isKinematic = true;
-    GameObject spawnFx = Instantiate(_spawnEffectPrefab, transform.position, Quaternion.identity);
+    Instantiate(_spawnEffectPrefab, transform.position, Quaternion.identity);
 
     yield return new WaitForSeconds(1.0f);
 
@@ -100,7 +100,7 @@ public class EggController : MonoBehaviour
     }
 
     yield return new WaitForSeconds(1.0f);
-    GameObject hatchFx = Instantiate(_hatchEffectPrefab, transform.position, Quaternion.identity);
+    Instantiate(_hatchEffectPrefab, transform.position, Quaternion.identity);
 
     Destroy(gameObject);
   }

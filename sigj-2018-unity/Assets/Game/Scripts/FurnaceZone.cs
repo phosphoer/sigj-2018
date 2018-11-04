@@ -29,8 +29,7 @@ public class FurnaceZone : MonoBehaviour
     if (destroyable != null)
     {
       Destroy(destroyable.gameObject);
-
-      GameObject burnFx = Instantiate(_burninateEffectPrefab, _burnEffectSpawnAnchor.position, _burnEffectSpawnAnchor.rotation);
+      Instantiate(_burninateEffectPrefab, _burnEffectSpawnAnchor.position, _burnEffectSpawnAnchor.rotation);
     }
   }
 }

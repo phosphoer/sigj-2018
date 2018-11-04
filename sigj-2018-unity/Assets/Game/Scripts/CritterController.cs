@@ -52,6 +52,9 @@ public class CritterController : MonoBehaviour
   [SerializeField]
   private Animator _animator = null;
 
+  [SerializeField]
+  private Duplicatable _duplicatable = null;
+
   private Vector3 _desiredDirection;
   private Vector3 _moveDirection;
   private float _changeDirectionTimer;
@@ -79,14 +82,20 @@ public class CritterController : MonoBehaviour
     SetSize(CritterConstants.GetCreatureSizeAtAge(_age), animate);
   }
 
+  private void Awake()
+  {
+    _vigorUI = Instantiate(_vigorUIPrefab, _vigorUIRoot);
+    _vigorUI.transform.localPosition = Vector3.zero;
+    _vigorUI.transform.localScale = Vector3.one;
+    _vigorUI.gameObject.SetActive(false);
+  }
+
   private void Start()
   {
     _instances.Add(this);
 
     _desiredDirection = transform.forward;
-    _vigorUI = Instantiate(_vigorUIPrefab, _vigorUIRoot);
-    _vigorUI.transform.localPosition = Vector3.zero;
-    _vigorUI.transform.localScale = Vector3.one;
+    _duplicatable.Duplicated += OnDuplicated;
 
     // Initialize size
     SetAge(_age, animate: false);
@@ -94,6 +103,7 @@ public class CritterController : MonoBehaviour
 
   private void OnDestroy()
   {
+    _duplicatable.Duplicated -= OnDuplicated;
     _instances.Remove(this);
   }
 
@@ -102,7 +112,7 @@ public class CritterController : MonoBehaviour
     if (_isMoving)
     {
       float moveSpeed = _moveSpeed * _visualRoot.localScale.x;
-      _rigidBody.AddForce(_moveDirection.normalized * _moveSpeed, ForceMode.Force);
+      _rigidBody.AddForce(_moveDirection.normalized * moveSpeed, ForceMode.Force);
     }
   }
 
@@ -210,6 +220,19 @@ public class CritterController : MonoBehaviour
     }
 
     Debug.DrawRay(transform.position, _desiredDirection, Color.blue);
+  }
+
+  private void OnDuplicated(GameObject dupe)
+  {
+    CritterController critter = dupe.GetComponent<CritterController>();
+    if (critter == null)
+    {
+      Debug.LogError("Somehow a duplicated critter didn't have a CritterController");
+      return;
+    }
+
+    // TODO: Do some stuff to apply this critters genes to duplicate
+    // ...
   }
 
   private void MateWith(CritterController critter, bool isLeader)
