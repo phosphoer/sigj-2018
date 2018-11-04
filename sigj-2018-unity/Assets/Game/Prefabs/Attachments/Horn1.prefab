@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4757359693022382}
+  - component: {fileID: 114942260798378916}
   m_Layer: 0
   m_Name: Horn1
   m_TagString: Untagged
@@ -142,6 +143,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1265932516324452}
   m_Mesh: {fileID: 4300000, guid: 494443c63fb029441a0e6d3cc5315a1e, type: 3}
+--- !u!114 &114942260798378916
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1071446038087946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1bbf6ffd78f1be4092099cc980505c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AnimCount: 0
+  PostAnimDelay: {x: 0.25, y: 1}
+  AdditionalRandomScale: {x: 0.8, y: 1.2}
+  AnimSpeedScaleRange: {x: 1, y: 1}
 --- !u!114 &114948961932833974
 MonoBehaviour:
   m_ObjectHideFlags: 1
