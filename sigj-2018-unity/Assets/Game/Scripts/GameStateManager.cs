@@ -17,11 +17,13 @@ public class GameStateManager : Singleton<GameStateManager>
 
   public GameObject PlayerControllerPrefab;
   public GameObject MainMenuPrefab;
+  public GameObject EndMenuPrefab;
   public SoundBank MusicMenuLoop;
   public SoundBank MusicGameLoop;
 
   private GameStage _gameStage = GameStage.Invalid;
-  private GameObject _menuMenu = null;
+  private GameObject _mainMenu = null;
+  private GameObject _endMenu = null;
   private GameObject _playerController = null;
   private GameClockController _gameClockController = null;
 
@@ -109,9 +111,9 @@ public class GameStateManager : Singleton<GameStateManager>
     {
       case GameStage.MainMenu:
         {
-          Destroy(_menuMenu);
-          _menuMenu = null;
           AudioManager.Instance.FadeOutSound(gameObject, MusicMenuLoop, 3.0f);
+          Destroy(_mainMenu);
+          _mainMenu = null;
         }
         break;
       case GameStage.PreGame:
@@ -136,6 +138,10 @@ public class GameStateManager : Singleton<GameStateManager>
         }
         break;
       case GameStage.PostGame:
+        {
+          Destroy(_endMenu);
+          _endMenu = null;
+        }
         break;
     }
   }
@@ -146,7 +152,7 @@ public class GameStateManager : Singleton<GameStateManager>
     {
       case GameStage.MainMenu:
         {
-          _menuMenu = (GameObject)Instantiate(MainMenuPrefab, Vector3.zero, Quaternion.identity);
+          _mainMenu = (GameObject)Instantiate(MainMenuPrefab, Vector3.zero, Quaternion.identity);
           AudioManager.Instance.FadeInSound(gameObject, MusicMenuLoop, 3.0f);
         }
         break;
@@ -179,6 +185,8 @@ public class GameStateManager : Singleton<GameStateManager>
         break;
       case GameStage.PostGame:
         {
+          CritterController.DestroyAllCreatures();
+
           if (_gameClockController != null)
           {
             _gameClockController.StopClock();
@@ -187,6 +195,8 @@ public class GameStateManager : Singleton<GameStateManager>
           CustomerOrderManager.Instance.OnRoundCompleted();
           AudioManager.Instance.FadeOutSound(gameObject, MusicGameLoop, 3.0f);
           //TODO: Spawn post game UI
+
+          _endMenu = (GameObject)Instantiate(EndMenuPrefab, Vector3.zero, Quaternion.identity);
         }
         break;
     }
