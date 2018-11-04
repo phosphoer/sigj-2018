@@ -1333,5 +1333,7 @@ MonoBehaviour:
     type: 2}
   MainMenuPrefab: {fileID: 1761125485014802, guid: 8e88fe6585887c44dbb167062e0961b6,
     type: 2}
+  MusicMenuLoop: {fileID: 11400000, guid: 756c382cc7023400b934ffddecab5563, type: 2}
+  MusicGameLoop: {fileID: 11400000, guid: 188ea78e9016b4bcba5adecb684c3ca2, type: 2}
   EndMenuPrefab: {fileID: 1774870260790096, guid: de54c595da11927498c6939e91a1f7c3,
     type: 2}

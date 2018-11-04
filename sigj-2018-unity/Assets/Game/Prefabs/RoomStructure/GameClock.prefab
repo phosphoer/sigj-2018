@@ -606,7 +606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0fd2ef0426035d44b98aa7eec31dc4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TotalRoundTimeSeconds: 30
+  TotalRoundTimeSeconds: 90
 --- !u!136 &136321970939858122
 CapsuleCollider:
   m_ObjectHideFlags: 1
