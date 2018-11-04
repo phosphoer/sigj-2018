@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 4764881850547316}
   - component: {fileID: 33827196461823944}
   - component: {fileID: 23447714140477986}
+  - component: {fileID: 114405823770505322}
   m_Layer: 0
   m_Name: pPyramid18
   m_TagString: Untagged
@@ -619,7 +620,6 @@ MonoBehaviour:
   _moveSpeed: 0.75
   _turnSpeed: 0.5
   _moveChance: 0.5
-  _vigorGainRate: 0.05
   _changeDirTimeRange:
     MinValue: 4
     MaxValue: 8
@@ -679,7 +679,17 @@ MonoBehaviour:
   _vigorUIRoot: {fileID: 4211432003993670}
   _visualRoot: {fileID: 4577673774926582}
   _animator: {fileID: 95521702636472110}
-  _duplicatable: {fileID: 114470450653310038}
+--- !u!114 &114405823770505322
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1326960141250428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f3caf472e524dcf920fac67a42b94e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114470450653310038
 MonoBehaviour:
   m_ObjectHideFlags: 1

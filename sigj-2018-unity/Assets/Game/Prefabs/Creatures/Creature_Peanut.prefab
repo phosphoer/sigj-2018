@@ -312,6 +312,7 @@ GameObject:
   - component: {fileID: 4498251460075370}
   - component: {fileID: 33264415829640106}
   - component: {fileID: 23588088919278652}
+  - component: {fileID: 114487620062866780}
   m_Layer: 0
   m_Name: CreatureBody
   m_TagString: Untagged
@@ -929,7 +930,6 @@ MonoBehaviour:
   _moveSpeed: 0.5
   _turnSpeed: 1
   _moveChance: 0.5
-  _vigorGainRate: 0.05
   _changeDirTimeRange:
     MinValue: 4
     MaxValue: 8
@@ -989,7 +989,6 @@ MonoBehaviour:
   _vigorUIRoot: {fileID: 4820666382280744}
   _visualRoot: {fileID: 4992739217621282}
   _animator: {fileID: 95688322020625494}
-  _duplicatable: {fileID: 114781543333084604}
 --- !u!114 &114349885762998670
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1021,6 +1020,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fabc882627bc62e418162bbdad26af25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114487620062866780
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1597994433607262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f3caf472e524dcf920fac67a42b94e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114493526299640938

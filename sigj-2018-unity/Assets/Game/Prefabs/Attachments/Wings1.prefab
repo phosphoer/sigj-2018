@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: 4747736660494438}
   - component: {fileID: 33582682965735972}
   - component: {fileID: 23547956476444768}
+  - component: {fileID: 114571884140980478}
   m_Layer: 0
   m_Name: wing2
   m_TagString: Untagged
@@ -118,7 +119,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 3e86363fe17b08140b89fc87e0f14a92, type: 2}
+  - {fileID: 2100000, guid: ef162237e84e1b040a333253d27a1e93, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -163,6 +164,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114571884140980478
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1838769787380770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f3caf472e524dcf920fac67a42b94e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114948663989126654
 MonoBehaviour:
   m_ObjectHideFlags: 1
