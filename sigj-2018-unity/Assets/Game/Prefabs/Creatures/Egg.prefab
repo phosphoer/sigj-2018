@@ -172,8 +172,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spawnEffectPrefab: {fileID: 1002762850934402, guid: 5f8544cb032bd4cfb8e15cd610bfd62f,
     type: 2}
+  _hatchEffectPrefab: {fileID: 1001873759241202, guid: 57d756d92352e4aee8ab8276e7b1daa1,
+    type: 2}
+  _hatchProgressUIPrefab: {fileID: 114166352697821568, guid: 544c3919d16fe454dbeaa31aa5c6945d,
+    type: 2}
+  _hatchScaleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.69799817
+      value: 1.1547763
+      inSlope: -0.08594765
+      outSlope: -0.08594765
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.24099389
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1.7729582
+      outSlope: 1.7729582
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.19356652
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _visualRoot: {fileID: 1026754953172348}
   _rigidBody: {fileID: 54796075606860844}
+  _rockTimeRange:
+    MinValue: 2
+    MaxValue: 5
+  _hatchTimeRange:
+    MinValue: 15
+    MaxValue: 20
 --- !u!136 &136718747510562406
 CapsuleCollider:
   m_ObjectHideFlags: 1

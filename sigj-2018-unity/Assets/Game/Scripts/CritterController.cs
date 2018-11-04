@@ -41,7 +41,7 @@ public class CritterController : MonoBehaviour
   private GameObject _mateEffectPrefab = null;
 
   [SerializeField]
-  private VigorUI _vigorUIPrefab = null;
+  private ProgressBarUI _vigorUIPrefab = null;
 
   [SerializeField]
   private Transform _vigorUIRoot = null;
@@ -60,7 +60,7 @@ public class CritterController : MonoBehaviour
   private float _vigorLevel;
   private float _age;
   private CritterConstants.CreatureSize _size;
-  private VigorUI _vigorUI;
+  private ProgressBarUI _vigorUI;
   private int _mateSearchIndex;
   private CritterController _nearestMate;
   private CritterController _currentMate;
