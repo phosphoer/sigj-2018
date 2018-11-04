@@ -271,6 +271,7 @@ GameObject:
   - component: {fileID: 4862780320413824}
   - component: {fileID: 114799037413541204}
   - component: {fileID: 54548229933930044}
+  - component: {fileID: 114107108615962388}
   m_Layer: 0
   m_Name: Creature_Slime
   m_TagString: Untagged
@@ -745,6 +746,17 @@ MonoBehaviour:
   - {fileID: 1812629989393566, guid: 5718c9116a60a5641903f226bddf9051, type: 2}
   ScaleMinMax: {x: 120, y: 80}
   RotateMinMax: {x: 0, y: 90}
+--- !u!114 &114107108615962388
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1668212365951002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 273d8c2535bea4d26921e3d2f281db54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114183480498201762
 MonoBehaviour:
   m_ObjectHideFlags: 1
