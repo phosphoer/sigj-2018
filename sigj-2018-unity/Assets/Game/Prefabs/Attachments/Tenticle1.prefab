@@ -1088,7 +1088,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AnimCount: 4
   PostAnimDelay: {x: 0.25, y: 1}
-  AdditionalRandomScale: {x: 1, y: 1}
+  AdditionalRandomScale: {x: 0.25, y: 0.5}
 --- !u!137 &137575303525568410
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
