@@ -214,6 +214,9 @@ MonoBehaviour:
   _rockTimeRange:
     MinValue: 2
     MaxValue: 5
+  _rockStrengthRange:
+    MinValue: 0.25
+    MaxValue: 0.5
   _hatchTimeRange:
     MinValue: 15
     MaxValue: 20
