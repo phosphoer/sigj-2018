@@ -63,7 +63,7 @@ public class CritterController : MonoBehaviour
   private CritterController _currentMate;
   private CreatureDescriptor _critterDNA;
 
-  private const float kAgeRate = 0.03f;
+  private const float kAgeRate = 0.02f;
   private const float kGrowAnimationDuration = 1.0f;
   private const float kMinMateDistance = 2.0f;
   private const float kVigorGainRate = 0.02f;
