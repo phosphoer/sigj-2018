@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 4849967304204900}
   - component: {fileID: 33398908636390042}
   - component: {fileID: 23156156356892574}
+  - component: {fileID: 114259953194900006}
   m_Layer: 0
   m_Name: pSphere11
   m_TagString: Untagged
@@ -89,6 +90,7 @@ GameObject:
   - component: {fileID: 4967265082754696}
   - component: {fileID: 33484348636157204}
   - component: {fileID: 23684225119460346}
+  - component: {fileID: 114042933749273388}
   m_Layer: 0
   m_Name: pSphere8
   m_TagString: Untagged
@@ -151,7 +153,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1963550540632634}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 1.73, z: -3.726}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children:
   - {fileID: 4967265082754696}
@@ -498,6 +500,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114042933749273388
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1813119243771418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f3caf472e524dcf920fac67a42b94e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114064641451021798
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -513,6 +526,17 @@ MonoBehaviour:
   PostAnimDelay: {x: 1, y: 2}
   AdditionalRandomScale: {x: 0.75, y: 0.8}
   AnimSpeedScaleRange: {x: 1, y: 1}
+--- !u!114 &114259953194900006
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1281658753060870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f3caf472e524dcf920fac67a42b94e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114512281728167032
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -1398,7 +1398,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: ef162237e84e1b040a333253d27a1e93, type: 2}
+  - {fileID: 2100000, guid: 259c8245c6469b94f927d8de9b605f14, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1748,8 +1748,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.759223, y: 2.2789383, z: 2.7851434}
-  m_Center: {x: -0.08410897, y: 3.1813698, z: -0.14623515}
+  m_Size: {x: 4.002679, y: 1.8596032, z: 2.7851434}
+  m_Center: {x: 0.5376162, y: 3.3910375, z: -0.14623515}
 --- !u!65 &65647514645526196
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -1910,7 +1910,7 @@ MonoBehaviour:
   _duplicateEffectToggle: {fileID: 1909881492600504}
   _duplicateSpawnAnchor: {fileID: 4793510237600030}
   _duplicateTrigger: {fileID: 114028162750089016}
-  _coolDownTime: 10
+  _coolDownTime: 30
   _coolDownText: {fileID: 114560988266016030}
 --- !u!114 &114488057932959448
 MonoBehaviour:

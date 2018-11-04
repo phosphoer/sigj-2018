@@ -124,7 +124,8 @@ public class EggController : MonoBehaviour
     Instantiate(_hatchEffectPrefab, transform.position, Quaternion.identity);
 
     // Spawn the new creature using the DNA contained in the Egg
-    CritterSpawner.Instance?.SpawnCritter(_critterDNA, transform);
+    GameObject childCreature = CritterSpawner.Instance.SpawnCritter(_critterDNA, transform);
+    childCreature.transform.rotation = Quaternion.identity;
 
     // Destroy the egg
     Destroy(gameObject);
