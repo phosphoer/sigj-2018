@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+  - enabled: 0
+    path: Assets/Game/Scenes/main.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Game/Scenes/jeffnina_level.unity
+    guid: f0af7a53c491bae48baa4bb876e019d3
   m_configObjects: {}
