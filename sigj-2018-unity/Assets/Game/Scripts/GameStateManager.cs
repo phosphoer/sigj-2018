@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameStateManager : Singleton<GameStateManager> {
+public class GameStateManager : Singleton<GameStateManager>
+{
   public enum GameStage
   {
     Invalid,
@@ -17,12 +18,14 @@ public class GameStateManager : Singleton<GameStateManager> {
   public GameObject PlayerControllerPrefab;
   public GameObject MainMenuPrefab;
   public GameObject EndMenuPrefab;
+  public SoundBank MusicMenuLoop;
+  public SoundBank MusicGameLoop;
 
   private GameStage _gameStage = GameStage.Invalid;
   private GameObject _mainMenu = null;
   private GameObject _endMenu = null;
   private GameObject _playerController = null;
-  private GameClockController _gameClockController= null;
+  private GameClockController _gameClockController = null;
 
   private void Awake()
   {
@@ -30,41 +33,52 @@ public class GameStateManager : Singleton<GameStateManager> {
   }
 
   // Use this for initialization
-  void Start () {
+  void Start()
+  {
     SetGameStage(GameStage.MainMenu);
   }
-	
-	// Update is called once per frame
-	void Update () {
+
+  // Update is called once per frame
+  void Update()
+  {
     GameStage nextGameStage = _gameStage;
 
-    switch (_gameStage) {
+    switch (_gameStage)
+    {
       case GameStage.MainMenu:
         break;
       case GameStage.PreGame:
-        if (_gameClockController != null) {
-          if (_gameClockController.HasPregameFinished()) {
+        if (_gameClockController != null)
+        {
+          if (_gameClockController.HasPregameFinished())
+          {
             nextGameStage = GameStage.Morning;
           }
         }
         break;
       case GameStage.Morning:
-        if (_gameClockController != null) {
-          if (_gameClockController.HasMorningFinished()) {
+        if (_gameClockController != null)
+        {
+          if (_gameClockController.HasMorningFinished())
+          {
             nextGameStage = GameStage.Lunchtime;
           }
         }
         break;
       case GameStage.Lunchtime:
-        if (_gameClockController != null) {
-          if (_gameClockController.HasMorningFinished()) {
+        if (_gameClockController != null)
+        {
+          if (_gameClockController.HasMorningFinished())
+          {
             nextGameStage = GameStage.Afternoon;
           }
         }
         break;
       case GameStage.Afternoon:
-        if (_gameClockController != null) {
-          if (_gameClockController.HasWorkdayFinished()) {
+        if (_gameClockController != null)
+        {
+          if (_gameClockController.HasWorkdayFinished())
+          {
             nextGameStage = GameStage.PostGame;
           }
         }
@@ -78,7 +92,8 @@ public class GameStateManager : Singleton<GameStateManager> {
 
   public void SetGameStage(GameStage newGameStage)
   {
-    if (newGameStage != _gameStage) {
+    if (newGameStage != _gameStage)
+    {
       OnExitStage(_gameStage);
       OnEnterStage(newGameStage);
       _gameStage = newGameStage;
@@ -92,33 +107,38 @@ public class GameStateManager : Singleton<GameStateManager> {
 
   public void OnExitStage(GameStage oldGameStage)
   {
-    switch(oldGameStage) {
-      case GameStage.MainMenu: 
+    switch (oldGameStage)
+    {
+      case GameStage.MainMenu:
         {
+          AudioManager.Instance.FadeOutSound(gameObject, MusicMenuLoop, 3.0f);
           Destroy(_mainMenu);
           _mainMenu = null;
         }
         break;
-      case GameStage.PreGame: 
+      case GameStage.PreGame:
         {
         }
         break;
-      case GameStage.Morning: 
+      case GameStage.Morning:
         {
           Destroy(_playerController);
           _playerController = null;
         }
         break;
-      case GameStage.Lunchtime: {
+      case GameStage.Lunchtime:
+        {
           // TODO: Destroy lunchtime UI 
         }
         break;
-      case GameStage.Afternoon: {
+      case GameStage.Afternoon:
+        {
           Destroy(_playerController);
           _playerController = null;
         }
         break;
-      case GameStage.PostGame: {
+      case GameStage.PostGame:
+        {
           Destroy(_endMenu);
           _endMenu = null;
         }
@@ -128,47 +148,55 @@ public class GameStateManager : Singleton<GameStateManager> {
 
   public void OnEnterStage(GameStage newGameStage)
   {
-    switch (newGameStage) {
-      case GameStage.MainMenu: {
+    switch (newGameStage)
+    {
+      case GameStage.MainMenu:
+        {
           _mainMenu = (GameObject)Instantiate(MainMenuPrefab, Vector3.zero, Quaternion.identity);
+          AudioManager.Instance.FadeInSound(gameObject, MusicMenuLoop, 3.0f);
         }
         break;
-      case GameStage.PreGame: 
+      case GameStage.PreGame:
         {
           _playerController = (GameObject)Instantiate(PlayerControllerPrefab, Vector3.zero, Quaternion.identity);
+          AudioManager.Instance.FadeInSound(gameObject, MusicGameLoop, 3.0f);
           CustomerOrderManager.Instance.OnRoundStarted();
 
-          if (_gameClockController != null) {
+          if (_gameClockController != null)
+          {
             _gameClockController.StartClock();
           }
         }
         break;
-      case GameStage.Morning: 
+      case GameStage.Morning:
         {
 
         }
         break;
-      case GameStage.Lunchtime: 
+      case GameStage.Lunchtime:
         {
           //TODO: Spawn lunch time UI
         }
         break;
-      case GameStage.Afternoon: 
+      case GameStage.Afternoon:
         {
           _playerController = (GameObject)Instantiate(PlayerControllerPrefab, Vector3.zero, Quaternion.identity);
         }
         break;
-      case GameStage.PostGame: 
+      case GameStage.PostGame:
         {
           CritterController.DestroyAllCreatures();
 
-          if (_gameClockController != null) {
+          if (_gameClockController != null)
+          {
             _gameClockController.StopClock();
           }
 
           CustomerOrderManager.Instance.OnRoundCompleted();
+          AudioManager.Instance.FadeOutSound(gameObject, MusicGameLoop, 3.0f);
+          //TODO: Spawn post game UI
 
-          _endMenu = (GameObject)Instantiate(EndMenuPrefab, Vector3.zero, Quaternion.identity);
+          _endMenu = (GameObject)Instantiate(EndMenuPrefab, new Vector3(0.0f, 2.65f, -3.24f), Quaternion.identity);
         }
         break;
     }

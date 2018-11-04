@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8945ec94320754896a9c8a73d0ca8f6e, type: 3}
+  m_Name: build-linux
+  m_EditorClassIdentifier: 
+  LocationPathName: ../build/spawn-salon-linux/spawn-salon
+  ProductNameOverride: spawn-salon
+  CompanyNameOverride: StickyBiscuits
+  BuildTarget: 25
+  BuildTargetGroup: 1
+  Scenes:
+  - sceneAsset: {fileID: 102900000, guid: f0af7a53c491bae48baa4bb876e019d3, type: 3}
+    sceneName: jeffnina_level

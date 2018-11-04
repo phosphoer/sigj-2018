@@ -88,13 +88,20 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
     CustomerOrder newOrder = CreateRandomOrder();
 
     // Notify the InHatch that a creature spawned
-    _inHatchController.SpawnCreature(newOrder.SpawnDescriptor);
+    if (_inHatchController != null) {
+      _inHatchController.SpawnCreature(newOrder.SpawnDescriptor);
+    }
 
     // Spawn the order panel that shows what the customer wants
     SpawnOrderPanel(newOrder);
 
     // Keep track of how many orders we issues
     ++_ordersIssued;
+  }
+
+  public List<CustomerOrder> GetCompletedOrders()
+  {
+    return _completedOrdersList;
   }
 
   public void ClearOrders()
@@ -104,6 +111,7 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
       Destroy(orderPanel);
     }
     _customerOrderPanelList.Clear();
+    _completedOrdersList.Clear();
   }
 
   Vector3 GetPanelSlotLocation(int slotIndex)
@@ -182,7 +190,7 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
 
     if (orderPanelComponent != null)
     {
-      orderPanelComponent.AssignCustomerOrder(Order);
+      orderPanelComponent.AssignCustomerOrder(Order, false);
       _customerOrderPanelList.Add(orderPanelObject);
     }
   }
