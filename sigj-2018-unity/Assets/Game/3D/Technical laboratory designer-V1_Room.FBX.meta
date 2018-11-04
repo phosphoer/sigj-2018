@@ -31,6 +31,7 @@ ModelImporter:
     100050: polySurface2
     100052: polySurface4
     100054: transform1
+    100056: Wall_4-7
     400000: ceiling_1-2
     400002: ceiling_2-2
     400004: ceiling_2-6
@@ -59,6 +60,7 @@ ModelImporter:
     400050: polySurface2
     400052: polySurface4
     400054: transform1
+    400056: Wall_4-7
     2300000: ceiling_1-2
     2300002: ceiling_2-2
     2300004: ceiling_2-6
@@ -81,6 +83,7 @@ ModelImporter:
     2300038: pasted__CeilingPanel
     2300040: polySurface1
     2300042: polySurface2
+    2300044: Wall_4-7
     3300000: ceiling_1-2
     3300002: ceiling_2-2
     3300004: ceiling_2-6
@@ -103,6 +106,7 @@ ModelImporter:
     3300038: pasted__CeilingPanel
     3300040: polySurface1
     3300042: polySurface2
+    3300044: Wall_4-7
     4300000: Portable_wall
     4300002: floor_6-6
     4300004: Wall_4-6
@@ -125,6 +129,7 @@ ModelImporter:
     4300038: FirePit9
     4300040: floor_6-7
     4300042: pasted__CeilingPanel
+    4300044: Wall_4-7
   externalObjects: {}
   materials:
     importMaterials: 0
