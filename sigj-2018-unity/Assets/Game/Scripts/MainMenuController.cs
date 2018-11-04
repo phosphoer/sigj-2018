@@ -16,7 +16,7 @@ public class MainMenuController : MonoBehaviour {
 
   public void OnNewGameClicked()
   {
-    GameStateManager.Instance.SetGameStage(GameStateManager.GameStage.Morning);
+    GameStateManager.Instance.SetGameStage(GameStateManager.GameStage.PreGame);
   }
 
   public void OnInstructionsClicked()
