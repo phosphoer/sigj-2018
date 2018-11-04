@@ -25,7 +25,6 @@ GameObject:
   - component: {fileID: 114626448182111186}
   - component: {fileID: 114275204929086920}
   - component: {fileID: 65662980483592244}
-  - component: {fileID: 114204085107575574}
   m_Layer: 0
   m_Name: OrderPanel
   m_TagString: Untagged
@@ -205,19 +204,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 13, y: 6, z: 0}
   m_Center: {x: 0, y: -0.2, z: 0}
---- !u!114 &114204085107575574
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1001486022010578}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates: []
-  delegates: []
 --- !u!114 &114275204929086920
 MonoBehaviour:
   m_ObjectHideFlags: 1
