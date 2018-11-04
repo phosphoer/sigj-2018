@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4213345519723330}
   - component: {fileID: 33092335457275054}
   - component: {fileID: 23397318203295740}
+  - component: {fileID: 114672921628526262}
   m_Layer: 0
   m_Name: polySurface1
   m_TagString: Untagged
@@ -160,3 +161,14 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114672921628526262
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1681316282428628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f3caf472e524dcf920fac67a42b94e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

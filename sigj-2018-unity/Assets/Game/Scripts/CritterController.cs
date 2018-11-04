@@ -17,9 +17,6 @@ public class CritterController : MonoBehaviour
   private float _moveChance = 0.5f;
 
   [SerializeField]
-  private float _vigorGainRate = 0.05f;
-
-  [SerializeField]
   private RangedFloat _changeDirTimeRange = new RangedFloat(4, 8);
 
   [SerializeField]
@@ -65,10 +62,12 @@ public class CritterController : MonoBehaviour
   private CritterController _nearestMate;
   private CritterController _currentMate;
   private CreatureDescriptor _critterDNA;
+  private Material _critterMaterialInstance;
 
-  private const float kAgeRate = 0.03f;
+  private const float kAgeRate = 0.02f;
   private const float kGrowAnimationDuration = 1.0f;
   private const float kMinMateDistance = 2.0f;
+  private const float kVigorGainRate = 0.02f;
   private const CritterConstants.CreatureSize kMinVigorSize = CritterConstants.CreatureSize.Medium;
 
   private static readonly int kAnimParamIsWalking = Animator.StringToHash("IsWalking");
@@ -77,6 +76,28 @@ public class CritterController : MonoBehaviour
   public void SetDNA(CreatureDescriptor DNA)
   {
     _critterDNA = DNA;
+
+    // Spawn attachments on the critter
+    CritterAttachmentManager AttachmentManager = GetComponentInChildren<CritterAttachmentManager>();
+    if (AttachmentManager != null)
+    {
+      AttachmentManager.SpawnAttachments(_critterDNA);
+    }
+
+    // Apply color settings
+    HasCritterColor[] childColors = _visualRoot.GetComponentsInChildren<HasCritterColor>();
+    foreach (var childColor in childColors)
+    {
+      var r = childColor.GetComponent<Renderer>();
+      if (r != null)
+      {
+        if (_critterMaterialInstance == null)
+          _critterMaterialInstance = Instantiate(r.sharedMaterial);
+
+        _critterMaterialInstance.color = CritterConstants.GetCreatureColorValue(_critterDNA.Color);
+        r.sharedMaterial = _critterMaterialInstance;
+      }
+    }
   }
 
   public CreatureDescriptor GetDNA()
@@ -111,6 +132,7 @@ public class CritterController : MonoBehaviour
   private void OnDestroy()
   {
     _instances.Remove(this);
+    Destroy(_critterMaterialInstance);
   }
 
   private void FixedUpdate()
@@ -135,7 +157,7 @@ public class CritterController : MonoBehaviour
     // Gain vigor, if we're old enough
     if ((int)_size >= (int)kMinVigorSize)
     {
-      _vigorLevel = Mathf.Clamp01(_vigorLevel + Time.deltaTime * _vigorGainRate);
+      _vigorLevel = Mathf.Clamp01(_vigorLevel + Time.deltaTime * kVigorGainRate);
       _vigorUI.FillPercent = _vigorLevel;
     }
 
@@ -269,7 +291,8 @@ public class CritterController : MonoBehaviour
   {
     yield return new WaitForSeconds(3.0f);
 
-    if (_currentMate != null) {
+    if (_currentMate != null)
+    {
       EggController egg = Instantiate(_eggPrefab);
       egg.transform.position = (transform.position + _currentMate.transform.position) / 2;
       egg.transform.rotation = Random.rotationUniform;

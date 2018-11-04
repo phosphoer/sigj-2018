@@ -27,21 +27,17 @@ public class CritterSpawner : Singleton<CritterSpawner>
     GameObject CritterPrefab = GetCritterPrefab(SpawnDescriptor.Shape);
     GameObject NewCritter = null;
 
-    if (CritterPrefab != null) {
-      Transform InitialTransform= SpawnTransformOverride != null ? SpawnTransformOverride : SpawnLocationTransform;
+    if (CritterPrefab != null)
+    {
+      Transform InitialTransform = SpawnTransformOverride != null ? SpawnTransformOverride : SpawnLocationTransform;
 
       NewCritter = Instantiate(CritterPrefab, InitialTransform.position, InitialTransform.rotation);
 
-      CritterController ChildController= NewCritter.GetComponentInChildren<CritterController>();
-      if (ChildController != null) {
+      CritterController ChildController = NewCritter.GetComponentInChildren<CritterController>();
+      if (ChildController != null)
+      {
         // Record the spawn descriptor (its "DNA") on the critter 
         ChildController.SetDNA(SpawnDescriptor);
-      }
-
-      // Spawn attachments on the critter
-      CritterAttachmentManager AttachmentManager= NewCritter.GetComponentInChildren<CritterAttachmentManager>();
-      if (AttachmentManager != null) {
-        AttachmentManager.SpawnAttachments(SpawnDescriptor);
       }
     }
 
@@ -50,7 +46,8 @@ public class CritterSpawner : Singleton<CritterSpawner>
 
   private GameObject GetCritterPrefab(CritterConstants.CreatureShape Shape)
   {
-    switch (Shape) {
+    switch (Shape)
+    {
       case CritterConstants.CreatureShape.FloatingOrb:
         return CritterSpherePrefab;
       case CritterConstants.CreatureShape.SlimeBlobGumdrop:
@@ -72,11 +69,13 @@ public class CritterSpawner : Singleton<CritterSpawner>
   {
     int DescriptorCount = AttachmentDatabase.Length;
 
-    if (DescriptorCount > 0) {
+    if (DescriptorCount > 0)
+    {
       int DescriptorIndex = Random.Range(0, DescriptorCount);
       return AttachmentDatabase[DescriptorIndex];
     }
-    else {
+    else
+    {
       return null;
     }
   }
@@ -85,13 +84,13 @@ public class CritterSpawner : Singleton<CritterSpawner>
   {
     int DescriptorCount = AttachmentDatabase.Length;
 
-    if (DescriptorCount > 0) 
+    if (DescriptorCount > 0)
     {
       int AttachmentCount = SpawnAttachmentCount.RandomValue;
       newDescriptor.Attachments = new GameObject[AttachmentCount];
       newDescriptor.AttachmentTypes = new CreatureAttachmentDescriptor[AttachmentCount];
 
-      for (int AttachmentIndex = 0; AttachmentIndex < AttachmentCount; ++AttachmentIndex) 
+      for (int AttachmentIndex = 0; AttachmentIndex < AttachmentCount; ++AttachmentIndex)
       {
         CreatureAttachmentDescriptor Descriptor = PickRandomAttachmentDescriptor();
         int VariationIndex = Random.Range(0, Descriptor.Variations.Length);
@@ -102,7 +101,7 @@ public class CritterSpawner : Singleton<CritterSpawner>
     }
     else
     {
-      newDescriptor.Attachments= new GameObject[0];
+      newDescriptor.Attachments = new GameObject[0];
       newDescriptor.AttachmentTypes = new CreatureAttachmentDescriptor[0];
     }
   }

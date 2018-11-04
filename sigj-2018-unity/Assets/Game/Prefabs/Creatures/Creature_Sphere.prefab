@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 4829227307799596}
   - component: {fileID: 33311282632804442}
   - component: {fileID: 23779554863589174}
+  - component: {fileID: 114683870275724860}
   m_Layer: 0
   m_Name: CreatureBody
   m_TagString: Untagged
@@ -277,7 +278,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1108301474205390}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.57, y: 0, z: -10.711}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4888238443611344}
@@ -684,7 +685,6 @@ MonoBehaviour:
   _moveSpeed: 0.75
   _turnSpeed: 0.5
   _moveChance: 0.5
-  _vigorGainRate: 0.05
   _changeDirTimeRange:
     MinValue: 4
     MaxValue: 8
@@ -744,7 +744,6 @@ MonoBehaviour:
   _vigorUIRoot: {fileID: 4961951129581944}
   _visualRoot: {fileID: 4888238443611344}
   _animator: {fileID: 95831336451944974}
-  _duplicatable: {fileID: 114407392448220620}
 --- !u!114 &114662395705921724
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -765,6 +764,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 273d8c2535bea4d26921e3d2f281db54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114683870275724860
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1423774032025640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f3caf472e524dcf920fac67a42b94e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114934626756505400
@@ -799,6 +809,6 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.69328094
-  m_Height: 2.6245022
+  m_Height: 1.8608298
   m_Direction: 1
-  m_Center: {x: 0.008672476, y: 0.098498344, z: -0.020657063}
+  m_Center: {x: 0.008672476, y: 0.48033452, z: -0.020657063}

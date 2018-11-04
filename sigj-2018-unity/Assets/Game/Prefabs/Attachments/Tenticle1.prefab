@@ -455,6 +455,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4329961132330194}
   - component: {fileID: 137575303525568410}
+  - component: {fileID: 114207384737398526}
   m_Layer: 0
   m_Name: tentale
   m_TagString: Untagged
@@ -1104,6 +1105,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114207384737398526
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1653421095678160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f3caf472e524dcf920fac67a42b94e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114693760542399580
 MonoBehaviour:
   m_ObjectHideFlags: 1
