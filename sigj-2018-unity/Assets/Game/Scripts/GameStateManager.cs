@@ -38,8 +38,6 @@ public class GameStateManager : Singleton<GameStateManager> {
 
     switch (_gameStage) {
       case GameStage.MainMenu:
-        //TODO: Remove this
-        nextGameStage= GameStage.PreGame;
         break;
       case GameStage.PreGame:
         if (_gameClockController != null) {

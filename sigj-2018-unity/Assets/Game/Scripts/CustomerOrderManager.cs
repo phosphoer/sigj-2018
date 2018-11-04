@@ -88,10 +88,7 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
     CustomerOrder newOrder = CreateRandomOrder();
 
     // Notify the InHatch that a creature spawned
-    _inHatchController.OnCreatureSpawned();
-	
-    // Spawn a creature that corresponds to that order
-    CritterSpawner.Instance?.SpawnCritter(newOrder.SpawnDescriptor, null);
+    _inHatchController.SpawnCreature(newOrder.SpawnDescriptor);
 
     // Spawn the order panel that shows what the customer wants
     SpawnOrderPanel(newOrder);

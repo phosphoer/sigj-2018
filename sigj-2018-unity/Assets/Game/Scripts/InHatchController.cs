@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class InHatchController : MonoBehaviour
 {
+  public float SpawnCheckDelay = 1.0f;
   public float HatchCheckDelay = 1.0f;
   public bool bRecentSpawn = false;
   public bool bCreatureBlocking = false;
   private Animator _animator;
+  private Queue<CreatureDescriptor> _pendingCreatureSpawns= new Queue<CreatureDescriptor>();
 
   void Start()
   {
@@ -15,6 +17,7 @@ public class InHatchController : MonoBehaviour
     _animator = GetComponent<Animator>();
     SetOpenState(false);
     StartCoroutine(CloseHatchAsync());
+    StartCoroutine(SpawnCreatureAsync());
   }
 
   private void OnTriggerStay(Collider other)
@@ -22,10 +25,23 @@ public class InHatchController : MonoBehaviour
     bCreatureBlocking = other.GetComponentInParent<CritterController>() != null;
   }
 
-  public void OnCreatureSpawned()
+  public bool IsHatchOpened()
+  {
+    return _animator.GetCurrentAnimatorStateInfo(0).IsName("OpenIdle");
+  }
+
+  public void SpawnCreature(CreatureDescriptor creatureDNA)
   {
     SetOpenState(true);
     bRecentSpawn = true;
+
+    if (IsHatchOpened()) {
+      // Spawn a creature that corresponds to that order
+      CritterSpawner.Instance?.SpawnCritter(creatureDNA, null);
+    }
+    else {
+      _pendingCreatureSpawns.Enqueue(creatureDNA);
+    }
   }
 
   public void SetOpenState(bool bIsOpen)
@@ -41,6 +57,24 @@ public class InHatchController : MonoBehaviour
       SetOpenState(bRecentSpawn || bCreatureBlocking);
       bRecentSpawn = false;
       bCreatureBlocking = false;
+    }
+  }
+
+  private IEnumerator SpawnCreatureAsync()
+  {
+    while (true) {
+      yield return new WaitForSeconds(SpawnCheckDelay);
+
+      if (_pendingCreatureSpawns.Count > 0 && IsHatchOpened()) {
+
+        CreatureDescriptor creatureDNA = _pendingCreatureSpawns.Dequeue();
+
+        SetOpenState(true);
+        bRecentSpawn = true;
+
+        // Spawn a creature that corresponds to that order
+        CritterSpawner.Instance?.SpawnCritter(creatureDNA, null);
+      }
     }
   }
 }
