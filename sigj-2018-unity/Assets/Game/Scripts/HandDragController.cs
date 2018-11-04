@@ -88,7 +88,6 @@ public class HandDragController : MonoBehaviour
       _currentDraggable = forHitInfo.rigidbody;
       _initialDragValue = _currentDraggable.drag;
       _currentDraggable.drag = 10;
-      _handObject.gameObject.SetActive(false);
       _dragStartCameraPos = Camera.main.transform.position;
       Cursor.visible = false;
       Cursor.lockState = CursorLockMode.Confined;
@@ -101,7 +100,6 @@ public class HandDragController : MonoBehaviour
     {
       _currentDraggable.drag = _initialDragValue;
       _currentDraggable = null;
-      _handObject.gameObject.SetActive(true);
       Cursor.visible = true;
       Cursor.lockState = CursorLockMode.None;
     }

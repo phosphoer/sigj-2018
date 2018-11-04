@@ -70,6 +70,7 @@ GameObject:
   - component: {fileID: 4594639715352920}
   - component: {fileID: 33579734301153360}
   - component: {fileID: 23967843129632552}
+  - component: {fileID: 114178728730344478}
   m_Layer: 0
   m_Name: lid
   m_TagString: Untagged
@@ -234,6 +235,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114178728730344478
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1980366503958116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f3caf472e524dcf920fac67a42b94e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114763333831500078
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -248,3 +260,4 @@ MonoBehaviour:
   AnimCount: 3
   PostAnimDelay: {x: 0.25, y: 1}
   AdditionalRandomScale: {x: 1.5, y: 2}
+  AnimSpeedScaleRange: {x: 1, y: 1}

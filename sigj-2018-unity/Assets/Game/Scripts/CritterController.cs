@@ -62,6 +62,7 @@ public class CritterController : MonoBehaviour
   private CritterController _nearestMate;
   private CritterController _currentMate;
   private CreatureDescriptor _critterDNA;
+  private Material _critterMaterialInstance;
 
   private const float kAgeRate = 0.02f;
   private const float kGrowAnimationDuration = 1.0f;
@@ -75,6 +76,28 @@ public class CritterController : MonoBehaviour
   public void SetDNA(CreatureDescriptor DNA)
   {
     _critterDNA = DNA;
+
+    // Spawn attachments on the critter
+    CritterAttachmentManager AttachmentManager = GetComponentInChildren<CritterAttachmentManager>();
+    if (AttachmentManager != null)
+    {
+      AttachmentManager.SpawnAttachments(_critterDNA);
+    }
+
+    // Apply color settings
+    HasCritterColor[] childColors = _visualRoot.GetComponentsInChildren<HasCritterColor>();
+    foreach (var childColor in childColors)
+    {
+      var r = childColor.GetComponent<Renderer>();
+      if (r != null)
+      {
+        if (_critterMaterialInstance == null)
+          _critterMaterialInstance = Instantiate(r.sharedMaterial);
+
+        _critterMaterialInstance.color = CritterConstants.GetCreatureColorValue(_critterDNA.Color);
+        r.sharedMaterial = _critterMaterialInstance;
+      }
+    }
   }
 
   public CreatureDescriptor GetDNA()
@@ -109,6 +132,7 @@ public class CritterController : MonoBehaviour
   private void OnDestroy()
   {
     _instances.Remove(this);
+    Destroy(_critterMaterialInstance);
   }
 
   private void FixedUpdate()

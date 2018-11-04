@@ -190,6 +190,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4232445156986768}
   - component: {fileID: 137212176153255798}
+  - component: {fileID: 114065732342673602}
   m_Layer: 0
   m_Name: CreatureBody
   m_TagString: Untagged
@@ -727,6 +728,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114065732342673602
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1436257186508626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f3caf472e524dcf920fac67a42b94e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114107108615962388
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -854,7 +866,6 @@ MonoBehaviour:
   _moveSpeed: 0.75
   _turnSpeed: 0.5
   _moveChance: 0.5
-  _vigorGainRate: 0.05
   _changeDirTimeRange:
     MinValue: 4
     MaxValue: 8
@@ -914,7 +925,6 @@ MonoBehaviour:
   _vigorUIRoot: {fileID: 4291489790745966}
   _visualRoot: {fileID: 4773193581948172}
   _animator: {fileID: 95911945735835766}
-  _duplicatable: {fileID: 114256308292487474}
 --- !u!114 &114892192150552194
 MonoBehaviour:
   m_ObjectHideFlags: 1

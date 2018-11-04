@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 4641070038733584}
   - component: {fileID: 33585979043925298}
   - component: {fileID: 23300147149283940}
+  - component: {fileID: 114374669868210836}
   m_Layer: 0
   m_Name: stalk
   m_TagString: Untagged
@@ -55,6 +56,7 @@ GameObject:
   - component: {fileID: 4790926293224696}
   - component: {fileID: 33987344832339774}
   - component: {fileID: 23184081793078716}
+  - component: {fileID: 114733647927797058}
   m_Layer: 0
   m_Name: eyePolyp
   m_TagString: Untagged
@@ -292,3 +294,26 @@ MonoBehaviour:
   AnimCount: 2
   PostAnimDelay: {x: 3, y: 6}
   AdditionalRandomScale: {x: 1.5, y: 1}
+  AnimSpeedScaleRange: {x: 1, y: 1}
+--- !u!114 &114374669868210836
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1202993678255830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f3caf472e524dcf920fac67a42b94e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114733647927797058
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1807265784856758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f3caf472e524dcf920fac67a42b94e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -16,9 +16,32 @@ public static class CritterConstants
     Purple
   }
 
-  public static string GetCreatureColorDisplayString(CreatureColor Color)
+  public static Color GetCreatureColorValue(CreatureColor color)
   {
-    switch (Color)
+    switch (color)
+    {
+      case CreatureColor.White:
+        return Color.white;
+      case CreatureColor.Red:
+        return new Color(0.9f, 0.1f, 0.2f);
+      case CreatureColor.Blue:
+        return new Color(0.1f, 0.1f, 0.9f);
+      case CreatureColor.Orange:
+        return new Color(1.0f, 0.7f, 0.3f);
+      case CreatureColor.Green:
+        return new Color(0.1f, 0.9f, 0.1f);
+      case CreatureColor.Yellow:
+        return new Color(1.0f, 0.8f, 0.1f);
+      case CreatureColor.Purple:
+        return new Color(0.8f, 0.1f, 0.5f);
+    }
+
+    return Color.white;
+  }
+
+  public static string GetCreatureColorDisplayString(CreatureColor color)
+  {
+    switch (color)
     {
       case CreatureColor.White:
         return "White";
