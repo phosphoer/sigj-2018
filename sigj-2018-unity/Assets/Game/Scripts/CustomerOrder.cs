@@ -97,19 +97,32 @@ public class CreatureDescriptor
   public CritterConstants.CreatureShape Shape= CritterConstants.CreatureShape.FloatingOrb;
   public CritterConstants.CreatureSize Size= CritterConstants.CreatureSize.Small;
   public GameObject[] Attachments = new GameObject[0];
+  public CreatureAttachmentDescriptor[] AttachmentTypes = new CreatureAttachmentDescriptor[0]; // Parallel array to Attachments
+
+  //private void SortAttachments()
+  //{
+  //  int[] SortedIndices= ArrayUtilities.MakeIntSequence(0, Attachments.Length);
+
+  //  // Sort the descriptors from most restrictive pitch angles to least
+  //  System.Array.Sort(SortedIndices, (x, y) =>
+  //  {
+  //    return Comparer<float>.Default.Compare(AttachmentTypes[x].MaxAllowedPitchAngle, AttachmentTypes[y].MaxAllowedPitchAngle);
+  //  });
+  //}
 
   public static CreatureDescriptor CreateRandomCreatureDescriptor()
   {
-    CreatureDescriptor newDescriptor = new CreatureDescriptor();
-    newDescriptor.Color = CritterConstants.PickRandomCreatureColor();
-    newDescriptor.Shape = CritterConstants.PickRandomCreatureShape();
-    newDescriptor.Size = CritterConstants.PickRandomCreatureSize();
+    CreatureDescriptor randomDNA = new CreatureDescriptor();
+    randomDNA.Color = CritterConstants.PickRandomCreatureColor();
+    randomDNA.Shape = CritterConstants.PickRandomCreatureShape();
+    randomDNA.Size = CritterConstants.PickRandomCreatureSize();
 
     if (CritterSpawner.Instance != null) {
-      newDescriptor.Attachments = CritterSpawner.Instance.PickNRandomAttachmentPrefabs();
+      CritterSpawner.Instance.PickNRandomAttachmentPrefabs(randomDNA);
+      //randomDNA.SortAttachments();
     }
 
-    return newDescriptor;
+    return randomDNA;
   }
 
   public static CreatureDescriptor CreateCreatureDescriptorFromParents(CritterController parent0, CritterController parent1)
@@ -132,6 +145,10 @@ public class CreatureDescriptor
     combinedParentAttachments.AddRange(parentDNA0.Attachments);
     combinedParentAttachments.AddRange(parentDNA1.Attachments);
 
+    List<CreatureAttachmentDescriptor> combinedParentAttachmentTypes = new List<CreatureAttachmentDescriptor>();
+    combinedParentAttachmentTypes.AddRange(parentDNA0.AttachmentTypes);
+    combinedParentAttachmentTypes.AddRange(parentDNA1.AttachmentTypes);
+
     // Create a shuffled index into the combined attachent list
     int[] shuffledParentAttachmentIndices= ArrayUtilities.MakeShuffledIntSequence(0, combinedParentAttachments.Count - 1);
 
@@ -142,11 +159,14 @@ public class CreatureDescriptor
 
     // Fill in the child attachment list using the shuffled indices
     childDNA.Attachments = new GameObject[childAttachmentCount];
+    childDNA.AttachmentTypes = new CreatureAttachmentDescriptor[childAttachmentCount];
     for (int childAttachmentIndex= 0; childAttachmentIndex < childAttachmentCount; ++childAttachmentIndex) {
       int randomAttachmentIndex = shuffledParentAttachmentIndices[childAttachmentIndex];
 
       childDNA.Attachments[childAttachmentIndex] = combinedParentAttachments[randomAttachmentIndex];
+      childDNA.AttachmentTypes[childAttachmentIndex] = combinedParentAttachmentTypes[randomAttachmentIndex];
     }
+    //childDNA.SortAttachments();
 
     return childDNA;
   }
