@@ -51,10 +51,10 @@ public class Sandwich : MonoBehaviour {
 		}
 
 		CritterController hitCritter = col.transform.GetComponentInParent<CritterController>();
-		if(!hitCritter) Debug.LogWarning("No critter controller found on object: " + col.transform.parent.parent.name);
+		//if(!hitCritter) Debug.LogWarning("No critter controller found on object: " + col.transform.parent.parent.name);
 
 		if(!cding && hitCritter){
-			Debug.LogWarning("Critter fed!");
+			//Debug.LogWarning("Critter fed!");
 			SetSandwichLevel(sandwichLvl+1);
 			cding = true;
 		}
