@@ -12,10 +12,10 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
   public RangedInt DesiredAttachmentCount = new RangedInt(0, 5);
   public int TotalOrders = 5;
 
-  private int _OrdersIssued = 0;
-  private IEnumerator _OrdersTimer;
-
-  private List<GameObject> CustomerOrderPanelList = new List<GameObject>();
+  private int _ordersIssued = 0;
+  private IEnumerator _ordersTimer;
+  private CustomerOrderPanel _selectedOrderPanel = null;
+  private List<GameObject> _customerOrderPanelList = new List<GameObject>();
 
   private void Awake()
   {
@@ -24,7 +24,7 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
 
   public void OnRoundStarted()
   {
-    _OrdersIssued = 0;
+    _ordersIssued = 0;
     ClearOrders();
     StartOrderTimer();
   }
@@ -38,22 +38,22 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
   {
     StopOrderTimer();
 
-    _OrdersTimer = IssueOrderTimer();
-    StartCoroutine(_OrdersTimer);
+    _ordersTimer = IssueOrderTimer();
+    StartCoroutine(_ordersTimer);
   }
 
   void StopOrderTimer()
   {
-    if (_OrdersTimer != null)
+    if (_ordersTimer != null)
     {
-      StopCoroutine(_OrdersTimer);
-      _OrdersTimer = null;
+      StopCoroutine(_ordersTimer);
+      _ordersTimer = null;
     }
   }
 
   IEnumerator IssueOrderTimer()
   {
-    while (_OrdersIssued < TotalOrders)
+    while (_ordersIssued < TotalOrders)
     {
       yield return new WaitForSeconds(OrderTimeRange.RandomValue);
       print("Adding a new random order");
@@ -76,29 +76,29 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
     SpawnOrderPanel(newOrder);
 
     // Keep track of how many orders we issues
-    ++_OrdersIssued;
+    ++_ordersIssued;
   }
 
   public void ClearOrders()
   {
-    foreach (GameObject orderPanel in CustomerOrderPanelList)
+    foreach (GameObject orderPanel in _customerOrderPanelList)
     {
       Destroy(orderPanel);
     }
-    CustomerOrderPanelList.Clear();
+    _customerOrderPanelList.Clear();
   }
 
   Vector3 GetNextPanelStartLocation()
   {
     Vector3 panelListRight = PanelListTransform.rotation * Vector3.right;
 
-    return PanelListTransform.position + PanelOffset * panelListRight * (float)CustomerOrderPanelList.Count;
+    return PanelListTransform.position + PanelOffset * panelListRight * (float)_customerOrderPanelList.Count;
   }
 
   CustomerOrder CreateRandomOrder()
   {
     CustomerOrder newOrder = new CustomerOrder();
-    newOrder.OrderNumber = _OrdersIssued + 1;
+    newOrder.OrderNumber = _ordersIssued + 1;
     newOrder.SpawnDescriptor = CreatureDescriptor.CreateRandomCreatureDescriptor();
 
     int numDesiredChanges = OrderDesiredChanges.RandomValue;
@@ -163,7 +163,27 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
     if (orderPanelComponent != null)
     {
       orderPanelComponent.AssignCustomerOrder(Order);
-      CustomerOrderPanelList.Add(orderPanelObject);
+      _customerOrderPanelList.Add(orderPanelObject);
+    }
+  }
+
+  public void OnOrderPanelClicked(CustomerOrderPanel panel)
+  {
+    SetSelectedPanel(panel);
+  }
+
+  private void SetSelectedPanel(CustomerOrderPanel panel)
+  {
+    if (panel != _selectedOrderPanel) {
+      if (_selectedOrderPanel != null) {
+        _selectedOrderPanel.SetHighlightEnabled(false);
+      }
+
+      if (panel != null) {
+        panel.SetHighlightEnabled(true);
+      }
+
+      _selectedOrderPanel = panel;
     }
   }
 }
