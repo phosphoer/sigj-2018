@@ -8,11 +8,13 @@ public class CustomerDesire
   public enum DesireType { Nothing, ChangeColor, ChangeShape, ChangeSize, ChangeAttachments };
   public bool DesireMet = false;
 
-  public virtual DesireType GetDesireType() {
+  public virtual DesireType GetDesireType()
+  {
     return DesireType.Nothing;
   }
 
-  public virtual string ToUIString() {
+  public virtual string ToUIString()
+  {
     return "";
   }
 
@@ -101,13 +103,15 @@ public class CreatureAttachmentDesire : CustomerDesire
 
   public override string ToUIString()
   {
-    if (Count > 1) {
+    if (Count > 1)
+    {
       return string.Format("{0} {1}", Count, AttachmentDescriptor.UIPluralName);
     }
-    else if (Count == 1) {
+    else if (Count == 1)
+    {
       return string.Format("1 {0}", AttachmentDescriptor.UISingularName);
     }
-    else 
+    else
     {
       return string.Format("No {0}", AttachmentDescriptor.UIPluralName);
     }
@@ -116,8 +120,10 @@ public class CreatureAttachmentDesire : CustomerDesire
   public override bool TrySatisfyDesireWithCreatureDescriptor(CreatureDescriptor creatureDNA)
   {
     int UnmetCount = Count;
-    for (int attachmentIndex= 0; attachmentIndex < creatureDNA.AttachmentTypes.Length && UnmetCount > 0; ++attachmentIndex) {
-      if (creatureDNA.AttachmentTypes[attachmentIndex].AttachmentType == AttachmentDescriptor.AttachmentType) {
+    for (int attachmentIndex = 0; attachmentIndex < creatureDNA.AttachmentTypes.Length && UnmetCount > 0; ++attachmentIndex)
+    {
+      if (creatureDNA.AttachmentTypes[attachmentIndex].AttachmentType == AttachmentDescriptor.AttachmentType)
+      {
         --UnmetCount;
       }
     }
@@ -130,22 +136,29 @@ public class CreatureAttachmentDesire : CustomerDesire
 [System.Serializable]
 public class CreatureDescriptor
 {
-  public CritterConstants.CreatureColor Color= CritterConstants.CreatureColor.White;
-  public CritterConstants.CreatureShape Shape= CritterConstants.CreatureShape.FloatingOrb;
-  public CritterConstants.CreatureSize Size= CritterConstants.CreatureSize.Small;
+  public CritterConstants.CreatureColor Color = CritterConstants.CreatureColor.White;
+  public CritterConstants.CreatureShape Shape = CritterConstants.CreatureShape.FloatingOrb;
+  public CritterConstants.CreatureSize Size = CritterConstants.CreatureSize.Small;
   public GameObject[] Attachments = new GameObject[0];
   public CreatureAttachmentDescriptor[] AttachmentTypes = new CreatureAttachmentDescriptor[0]; // Parallel array to Attachments
 
-  //private void SortAttachments()
-  //{
-  //  int[] SortedIndices= ArrayUtilities.MakeIntSequence(0, Attachments.Length);
+  public Dictionary<CreatureAttachmentDescriptor, int> GetAttachmentTypeCounts()
+  {
+    var countMap = new Dictionary<CreatureAttachmentDescriptor, int>();
+    foreach (var attachment in AttachmentTypes)
+    {
+      if (countMap.ContainsKey(attachment))
+      {
+        countMap[attachment]++;
+      }
+      else
+      {
+        countMap[attachment] = 1;
+      }
+    }
 
-  //  // Sort the descriptors from most restrictive pitch angles to least
-  //  System.Array.Sort(SortedIndices, (x, y) =>
-  //  {
-  //    return Comparer<float>.Default.Compare(AttachmentTypes[x].MaxAllowedPitchAngle, AttachmentTypes[y].MaxAllowedPitchAngle);
-  //  });
-  //}
+    return countMap;
+  }
 
   public static CreatureDescriptor CreateRandomCreatureDescriptor()
   {
@@ -154,7 +167,8 @@ public class CreatureDescriptor
     randomDNA.Shape = CritterConstants.PickRandomCreatureShape();
     randomDNA.Size = CritterConstants.PickRandomCreatureSize();
 
-    if (CritterSpawner.Instance != null) {
+    if (CritterSpawner.Instance != null)
+    {
       CritterSpawner.Instance.PickNRandomAttachmentPrefabs(randomDNA);
       //randomDNA.SortAttachments();
     }
@@ -175,7 +189,7 @@ public class CreatureDescriptor
     childDNA.Shape = Random.Range(0, 1) == 0 ? parentDNA0.Shape : parentDNA1.Shape;
 
     // Always start small
-    childDNA.Size = CritterConstants.CreatureSize.Small; 
+    childDNA.Size = CritterConstants.CreatureSize.Small;
 
     // Combine the attachment from both parents into one big list
     List<GameObject> combinedParentAttachments = new List<GameObject>();
@@ -187,7 +201,7 @@ public class CreatureDescriptor
     combinedParentAttachmentTypes.AddRange(parentDNA1.AttachmentTypes);
 
     // Create a shuffled index into the combined attachent list
-    int[] shuffledParentAttachmentIndices= ArrayUtilities.MakeShuffledIntSequence(0, combinedParentAttachments.Count - 1);
+    int[] shuffledParentAttachmentIndices = ArrayUtilities.MakeShuffledIntSequence(0, combinedParentAttachments.Count - 1);
 
     // Decide how many attachments the child will have
     //  1 -> SpawnAttachmentCount
@@ -197,7 +211,8 @@ public class CreatureDescriptor
     // Fill in the child attachment list using the shuffled indices
     childDNA.Attachments = new GameObject[childAttachmentCount];
     childDNA.AttachmentTypes = new CreatureAttachmentDescriptor[childAttachmentCount];
-    for (int childAttachmentIndex= 0; childAttachmentIndex < childAttachmentCount; ++childAttachmentIndex) {
+    for (int childAttachmentIndex = 0; childAttachmentIndex < childAttachmentCount; ++childAttachmentIndex)
+    {
       int randomAttachmentIndex = shuffledParentAttachmentIndices[childAttachmentIndex];
 
       childDNA.Attachments[childAttachmentIndex] = combinedParentAttachments[randomAttachmentIndex];
@@ -210,7 +225,8 @@ public class CreatureDescriptor
 }
 
 [System.Serializable]
-public class CustomerOrder {
+public class CustomerOrder
+{
   public int OrderNumber;
   public CreatureDescriptor SpawnDescriptor;
   public CustomerDesire[] CustomerDesires = new CustomerDesire[0];
@@ -219,8 +235,10 @@ public class CustomerOrder {
   {
     bool bAllDesiresSatisfied = true;
 
-    for (int DesireIndex= 0; DesireIndex < CustomerDesires.Length; ++DesireIndex) {
-      if (!CustomerDesires[DesireIndex].TrySatisfyDesireWithCreatureDescriptor(creatureDNA)) {
+    for (int DesireIndex = 0; DesireIndex < CustomerDesires.Length; ++DesireIndex)
+    {
+      if (!CustomerDesires[DesireIndex].TrySatisfyDesireWithCreatureDescriptor(creatureDNA))
+      {
         bAllDesiresSatisfied = false;
       }
     }
