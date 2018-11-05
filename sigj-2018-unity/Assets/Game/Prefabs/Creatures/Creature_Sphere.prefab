@@ -744,6 +744,7 @@ MonoBehaviour:
   _vigorUIRoot: {fileID: 4961951129581944}
   _visualRoot: {fileID: 4888238443611344}
   _animator: {fileID: 95831336451944974}
+  _growSound: {fileID: 11400000, guid: 2ba20c6efffcbb044ba8b35af487eb04, type: 2}
 --- !u!114 &114662395705921724
 MonoBehaviour:
   m_ObjectHideFlags: 1
