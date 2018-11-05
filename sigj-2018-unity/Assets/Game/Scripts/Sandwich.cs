@@ -1,13 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Sandwich : MonoBehaviour {
+public class Sandwich : MonoBehaviour, IPointerClickHandler
+{
 
 	public Renderer[] SandwichBits = new Renderer[0];
 	public float CrumbEmitForceThreshold = .25f;
 	public ParticleSystem CrumbsFX;
 	public float CritterEatCoolDown = 2f;
+  public int SandwichTotalHealth = 100;
+
+  private int _sandwichclicks = 0;
+  private bool _isClickingEnabled = false;
 
 	bool cding = false;
 	float timer = 0f;
@@ -15,8 +21,14 @@ public class Sandwich : MonoBehaviour {
 	Rigidbody rb;
 
 	void Awake(){
-		rb = GetComponent<Rigidbody>();
+    _sandwichclicks = 0;
+    rb = GetComponent<Rigidbody>();
 	}
+
+  public void SetIsSandwichClickable()
+  {
+    _isClickingEnabled = true;
+  }
 
 	// Use this for initialization
 	void Start () {
@@ -25,7 +37,7 @@ public class Sandwich : MonoBehaviour {
 	}
 
 	void Update(){
-		if(cding){
+		if(cding && !_isClickingEnabled) {
 			timer+=Time.deltaTime;
 			if(timer>=CritterEatCoolDown){
 				cding = false;
@@ -42,8 +54,16 @@ public class Sandwich : MonoBehaviour {
 			sandwichLvl = newLvl;
 			SandwichBits[sandwichLvl].enabled = true;
 		}
-		else Destroy(gameObject);
-	}
+		else {
+      if (_isClickingEnabled) {
+        // This will cleanup the sandwich and end lunch early
+        GameStateManager.Instance.SetGameStage(GameStateManager.GameStage.Afternoon);
+      }
+      else {
+        Destroy(gameObject);
+      }
+    }
+  }
 
 	void OnCollisionEnter(Collision col){
 		if(rb.velocity.magnitude >= CrumbEmitForceThreshold){
@@ -59,4 +79,13 @@ public class Sandwich : MonoBehaviour {
 			cding = true;
 		}
 	}
+
+  public void OnPointerClick(PointerEventData eventData)
+  {
+    if (_isClickingEnabled) {
+      _sandwichclicks++;
+      int newSandwidthLevel = System.Math.Max((_sandwichclicks * SandwichBits.Length) / SandwichTotalHealth, 0);
+      SetSandwichLevel(newSandwidthLevel);
+    }
+  }
 }
