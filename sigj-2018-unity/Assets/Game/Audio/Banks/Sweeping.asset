@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a304fc70ef8047e682c3deb848e11e6, type: 3}
+  m_Name: Sweeping
+  m_EditorClassIdentifier: 
+  AudioClips:
+  - {fileID: 8300000, guid: 220fa58b95a8a9c489165763950a83b8, type: 3}
+  - {fileID: 8300000, guid: 3e2c949bb5cba7e4f80545cd1d21db4d, type: 3}
+  - {fileID: 8300000, guid: 0601e5be4848a30498bf970e5078f9f6, type: 3}
+  - {fileID: 8300000, guid: fdc31294fb752794e9bd1aa8e5e65ba8, type: 3}
+  IsSpatial: 0
+  MaxDistance: 100
+  MinDistance: 10
+  VolumeScale: 1
+  IsLooping: 0
+  AudioMixerGroup: {fileID: 243978544449081158, guid: 7da3c2abc77f54ca0bf6e8874a4d51c2,
+    type: 2}

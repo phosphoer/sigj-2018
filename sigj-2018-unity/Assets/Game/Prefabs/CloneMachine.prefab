@@ -1912,6 +1912,7 @@ MonoBehaviour:
   _duplicateTrigger: {fileID: 114028162750089016}
   _coolDownTime: 30
   _coolDownText: {fileID: 114560988266016030}
+  _duplicateSound: {fileID: 11400000, guid: c1df9bf1f6cd6da4a92ef6b80565e288, type: 2}
 --- !u!114 &114488057932959448
 MonoBehaviour:
   m_ObjectHideFlags: 1

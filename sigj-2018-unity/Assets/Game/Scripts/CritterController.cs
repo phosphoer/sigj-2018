@@ -49,6 +49,12 @@ public class CritterController : MonoBehaviour
   [SerializeField]
   private Animator _animator = null;
 
+  [SerializeField]
+  private SoundBank _growSound = null;
+
+  [SerializeField]
+  private SoundBank _mateSound = null;
+
   private Vector3 _desiredDirection;
   private Vector3 _moveDirection;
   private float _changeDirectionTimer;
@@ -139,7 +145,8 @@ public class CritterController : MonoBehaviour
 
   public static void DestroyAllCreatures()
   {
-    for(int creatureIndex= 0; creatureIndex < _instances.Count; ++creatureIndex) {
+    for (int creatureIndex = 0; creatureIndex < _instances.Count; ++creatureIndex)
+    {
       Destroy(_instances[creatureIndex].gameObject);
     }
     _instances.Clear();
@@ -302,6 +309,8 @@ public class CritterController : MonoBehaviour
 
   private IEnumerator MateAsync()
   {
+    AudioManager.Instance.PlaySound(_mateSound);
+
     yield return new WaitForSeconds(3.0f);
 
     if (_currentMate != null)
@@ -322,6 +331,8 @@ public class CritterController : MonoBehaviour
 
   private IEnumerator UpdateSizeAsync()
   {
+    AudioManager.Instance.PlaySound(_growSound);
+
     Vector3 startScale = _visualRoot.localScale;
     Vector3 endScale = Vector3.one * CritterConstants.GetCreatureSizeScale(_size);
     for (float time = 0; time < kGrowAnimationDuration; time += Time.deltaTime)
