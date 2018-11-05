@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a304fc70ef8047e682c3deb848e11e6, type: 3}
+  m_Name: CritterGrow
+  m_EditorClassIdentifier: 
+  AudioClips:
+  - {fileID: 8300000, guid: d7df35e9cbfc062418f0be74f9e8c3f7, type: 3}
+  - {fileID: 8300000, guid: e1e3ac53535c97d42866c61a2a4d0b0d, type: 3}
+  - {fileID: 8300000, guid: cf084996cd0f8754982b28ddd17def5f, type: 3}
+  - {fileID: 8300000, guid: ab723afa978654d41a4bef43e7b5bb11, type: 3}
+  IsSpatial: 0
+  MaxDistance: 100
+  MinDistance: 10
+  VolumeScale: 1
+  IsLooping: 0
+  AudioMixerGroup: {fileID: 0}
