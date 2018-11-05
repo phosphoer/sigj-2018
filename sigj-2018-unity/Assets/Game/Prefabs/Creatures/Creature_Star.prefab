@@ -680,6 +680,7 @@ MonoBehaviour:
   _visualRoot: {fileID: 4577673774926582}
   _animator: {fileID: 95521702636472110}
   _growSound: {fileID: 11400000, guid: 2ba20c6efffcbb044ba8b35af487eb04, type: 2}
+  _mateSound: {fileID: 11400000, guid: ef7ee1e845cf04f3ca6dfac3af193bc7, type: 2}
 --- !u!114 &114405823770505322
 MonoBehaviour:
   m_ObjectHideFlags: 1
