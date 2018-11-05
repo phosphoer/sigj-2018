@@ -25,7 +25,7 @@ public class RigidBodySFX : MonoBehaviour {
 
 	void OnCollisionEnter(Collision col){
 
-		Debug.LogWarning(col.impulse.magnitude);
+		//Debug.LogWarning(col.impulse.magnitude);
 
 		if(!cding){
 			if(col.impulse.magnitude>=VelocityCuttoff){
