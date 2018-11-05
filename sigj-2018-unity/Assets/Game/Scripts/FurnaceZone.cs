@@ -13,6 +13,9 @@ public class FurnaceZone : MonoBehaviour
   [SerializeField]
   private ImpactReaction _furnaceTrigger = null;
 
+  [SerializeField]
+  private SoundBank _furnaceSound = null;
+
   private void Start()
   {
     _furnaceTrigger.ImpactBegin += OnFurnaceTrigger;
@@ -30,6 +33,7 @@ public class FurnaceZone : MonoBehaviour
     {
       Destroy(destroyable.gameObject);
       Instantiate(_burninateEffectPrefab, _burnEffectSpawnAnchor.position, _burnEffectSpawnAnchor.rotation);
+      AudioManager.Instance.PlaySound(_furnaceSound);
     }
   }
 }

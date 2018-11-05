@@ -25,6 +25,9 @@ public class DuplicateZone : MonoBehaviour
   [SerializeField]
   private TMPro.TMP_Text _coolDownText = null;
 
+  [SerializeField]
+  private SoundBank _duplicateSound = null;
+
   private float _coolDown;
   private int _roundedCoolDown;
   private bool _isDuplicating;
@@ -83,6 +86,8 @@ public class DuplicateZone : MonoBehaviour
     {
       Instantiate(_duplicateEffectPrefab, _duplicateEffectSpawnAnchor.position, _duplicateEffectSpawnAnchor.rotation);
     }
+
+    AudioManager.Instance.PlaySound(_duplicateSound);
 
     yield return new WaitForSeconds(3.0f);
 
