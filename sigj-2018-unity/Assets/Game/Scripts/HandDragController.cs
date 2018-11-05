@@ -31,6 +31,11 @@ public class HandDragController : MonoBehaviour
   private Vector3 _dragStartCameraPos;
   private bool _isRotating;
 
+  private void OnDestroy()
+  {
+    StopDrag();
+  }
+
   private void FixedUpdate()
   {
     if (_currentDraggable != null)
@@ -124,8 +129,8 @@ public class HandDragController : MonoBehaviour
       _currentDraggable.drag = _initialDragValue;
     }
 
-    IsDragging = false;
     _currentDraggable = null;
+    IsDragging = false;
     Cursor.visible = true;
     Cursor.lockState = CursorLockMode.None;
 
