@@ -30,6 +30,9 @@ public class EggController : MonoBehaviour
   [SerializeField]
   private RangedFloat _hatchTimeRange = new RangedFloat(15.0f, 20.0f);
 
+  [SerializeField]
+  private SoundBank _hatchSound = null;
+
   private float _rockTimer;
   private float _hatchTimer;
   private bool _isHatching;
@@ -126,6 +129,8 @@ public class EggController : MonoBehaviour
     // Spawn the new creature using the DNA contained in the Egg
     GameObject childCreature = CritterSpawner.Instance.SpawnCritter(_critterDNA, transform);
     childCreature.transform.rotation = Quaternion.identity;
+
+    AudioManager.Instance.PlaySound(_hatchSound);
 
     // Destroy the egg
     Destroy(gameObject);

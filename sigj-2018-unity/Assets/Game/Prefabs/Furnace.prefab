@@ -1994,6 +1994,7 @@ MonoBehaviour:
     type: 2}
   _burnEffectSpawnAnchor: {fileID: 4402183952719524}
   _furnaceTrigger: {fileID: 114886173966847824}
+  _furnaceSound: {fileID: 11400000, guid: 1a018e7f370f79142a070bdd3a4e3ba8, type: 2}
 --- !u!114 &114396780689903380
 MonoBehaviour:
   m_ObjectHideFlags: 1

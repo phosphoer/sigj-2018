@@ -220,6 +220,7 @@ MonoBehaviour:
   _hatchTimeRange:
     MinValue: 15
     MaxValue: 20
+  _hatchSound: {fileID: 11400000, guid: 82635d38171c4e744944ea35956adcba, type: 2}
 --- !u!136 &136718747510562406
 CapsuleCollider:
   m_ObjectHideFlags: 1

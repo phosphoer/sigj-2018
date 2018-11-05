@@ -13,6 +13,7 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
   public RangedInt DesiredAttachmentCount = new RangedInt(0, 5);
   public int TotalActiveOrders = 5;
   public AnimationCurve PanelDehydrateHeightCurve;
+  public SoundBank OrderUpSound;
 
   private int _ordersIssued = 0;
 
@@ -83,12 +84,15 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
   }
 
   public void IssueRandomOrder()
-  {	
+  {
+    AudioManager.Instance.PlaySound(OrderUpSound);
+
     // Create a new customer order
     CustomerOrder newOrder = CreateRandomOrder();
 
     // Notify the InHatch that a creature spawned
-    if (_inHatchController != null) {
+    if (_inHatchController != null)
+    {
       _inHatchController.SpawnCreature(newOrder.SpawnDescriptor);
     }
 
@@ -212,7 +216,7 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
   {
     _outHatchController = controller;
   }
-  
+
   public void RegisterInHatchController(InHatchController controller)
   {
     _inHatchController = controller;
@@ -257,7 +261,7 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
     // Destroy the creature deposited in the hatch
     Destroy(critter.gameObject);
   }
-  
+
   private IEnumerator DehydrateOrderPanelAsync(GameObject panelObj)
   {
     float animDuration = 5.0f;
@@ -304,6 +308,6 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
     {
       bool bOpenHatch = _selectedOrderPanel != null;
       _outHatchController.SetOpenState(bOpenHatch);
-    }	
+    }
   }
 }
