@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class HandDragController : MonoBehaviour
 {
+  public static event System.Action<GameObject> DragStart;
+  public static event System.Action DragStop;
+
   public bool IsDragging { get; private set; }
 
   [SerializeField]
@@ -26,6 +29,7 @@ public class HandDragController : MonoBehaviour
   private Rigidbody _currentDraggable;
   private float _initialDragValue;
   private Vector3 _dragStartCameraPos;
+  private bool _isRotating;
 
   private void FixedUpdate()
   {
@@ -33,6 +37,11 @@ public class HandDragController : MonoBehaviour
     {
       Vector3 toHand = _targetHandPos - _currentDraggable.position;
       _currentDraggable.AddForce(toHand * 100);
+
+      if (_isRotating)
+      {
+        _currentDraggable.AddRelativeTorque(0, 1.0f, 0, ForceMode.Force);
+      }
     }
   }
 
@@ -63,6 +72,8 @@ public class HandDragController : MonoBehaviour
       _targetHandPos += cameraMovement;
       _targetHandPos.y = _handDragHeight;
       _dragStartCameraPos = Camera.main.transform.position;
+
+      _isRotating = player.GetButton("Context");
     }
     else
     {
@@ -93,12 +104,16 @@ public class HandDragController : MonoBehaviour
     if (forHitInfo.rigidbody != null && !forHitInfo.rigidbody.isKinematic)
     {
       IsDragging = true;
+
       _currentDraggable = forHitInfo.rigidbody;
       _initialDragValue = _currentDraggable.drag;
       _currentDraggable.drag = 10;
       _dragStartCameraPos = Camera.main.transform.position;
+
       Cursor.visible = false;
       Cursor.lockState = CursorLockMode.Confined;
+
+      DragStart?.Invoke(_currentDraggable.gameObject);
     }
   }
 
@@ -113,5 +128,7 @@ public class HandDragController : MonoBehaviour
     _currentDraggable = null;
     Cursor.visible = true;
     Cursor.lockState = CursorLockMode.None;
+
+    DragStop?.Invoke();
   }
 }

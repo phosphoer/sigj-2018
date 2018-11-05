@@ -4,42 +4,43 @@ using UnityEngine;
 
 public class InHatchController : MonoBehaviour
 {
-  public GameObject GoodOrderLight;
-  public GameObject BadOrderLight;
-  public GameObject GoodOrderEffectPrefab;
-  public GameObject BadOrderEffectPrefab;
-  public Transform OrderEffectTransform;
-
+  public float SpawnCheckDelay = 1.0f;
+  public float HatchCheckDelay = 1.0f;
+  public bool bRecentSpawn = false;
+  public bool bCreatureBlocking = false;
   private Animator _animator;
+  private Queue<CreatureDescriptor> _pendingCreatureSpawns= new Queue<CreatureDescriptor>();
 
   void Start()
   {
     CustomerOrderManager.Instance.RegisterInHatchController(this);
     _animator = GetComponent<Animator>();
-    TurnOffLights();
+    SetOpenState(false);
+    StartCoroutine(CloseHatchAsync());
+    StartCoroutine(SpawnCreatureAsync());
   }
 
-  private void OnTriggerEnter(Collider other)
+  private void OnTriggerStay(Collider other)
   {
-    CritterController Critter = other.GetComponentInParent<CritterController>();
-    if (Critter != null)
-    {
-      CustomerOrderManager.Instance.OnCreatureDeposited(Critter);
-    }
+    bCreatureBlocking = other.GetComponentInParent<CritterController>() != null;
   }
 
-  public void OnCrittedScored(bool bOrderSatisfied)
+  public bool IsHatchOpened()
   {
-    GameObject EffectPrefab = bOrderSatisfied ? GoodOrderEffectPrefab : BadOrderEffectPrefab;
-    GameObject OrderLight = bOrderSatisfied ? GoodOrderLight : BadOrderLight;
+    return _animator.GetCurrentAnimatorStateInfo(0).IsName("OpenIdle");
+  }
 
-    if (EffectPrefab != null) {
-      Instantiate(EffectPrefab, OrderEffectTransform.position, OrderEffectTransform.rotation);
+  public void SpawnCreature(CreatureDescriptor creatureDNA)
+  {
+    SetOpenState(true);
+    bRecentSpawn = true;
+
+    if (IsHatchOpened()) {
+      // Spawn a creature that corresponds to that order
+      CritterSpawner.Instance?.SpawnCritter(creatureDNA, null);
     }
-
-    if (OrderLight != null) {
-      OrderLight.SetActive(true);
-      StartCoroutine(TurnOffLightsAsync());
+    else {
+      _pendingCreatureSpawns.Enqueue(creatureDNA);
     }
   }
 
@@ -48,19 +49,32 @@ public class InHatchController : MonoBehaviour
     _animator.SetBool("IsOpen", bIsOpen);
   }
 
-  private IEnumerator TurnOffLightsAsync()
+  private IEnumerator CloseHatchAsync()
   {
-    yield return new WaitForSeconds(1.0f);
+    while (true) {
+      yield return new WaitForSeconds(HatchCheckDelay);
 
-    TurnOffLights();
+      SetOpenState(bRecentSpawn || bCreatureBlocking);
+      bRecentSpawn = false;
+      bCreatureBlocking = false;
+    }
   }
 
-  private void TurnOffLights()
+  private IEnumerator SpawnCreatureAsync()
   {
-    if (GoodOrderLight != null)
-      GoodOrderLight.SetActive(false);
+    while (true) {
+      yield return new WaitForSeconds(SpawnCheckDelay);
 
-    if (BadOrderLight != null)
-      BadOrderLight.SetActive(false);
+      if (_pendingCreatureSpawns.Count > 0 && IsHatchOpened()) {
+
+        CreatureDescriptor creatureDNA = _pendingCreatureSpawns.Dequeue();
+
+        SetOpenState(true);
+        bRecentSpawn = true;
+
+        // Spawn a creature that corresponds to that order
+        CritterSpawner.Instance?.SpawnCritter(creatureDNA, null);
+      }
+    }
   }
 }

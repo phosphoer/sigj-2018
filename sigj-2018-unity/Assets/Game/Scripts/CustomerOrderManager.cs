@@ -15,7 +15,6 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
   public AnimationCurve PanelDehydrateHeightCurve;
 
   private int _ordersIssued = 0;
-  private bool aOpenHatch = false;
 
   private IEnumerator _ordersTimer;
   private CustomerOrderPanel _selectedOrderPanel = null;
@@ -43,7 +42,6 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
   {
     _ordersIssued = 0;
     ClearOrders();
-	ToggleInHatch();
     StartOrderTimer();
   }
 
@@ -85,21 +83,25 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
   }
 
   public void IssueRandomOrder()
-  {
-	//Open the In Hatch
-	ToggleInHatch();
-	
+  {	
     // Create a new customer order
     CustomerOrder newOrder = CreateRandomOrder();
-	
-    // Spawn a creature that corresponds to that order
-    CritterSpawner.Instance?.SpawnCritter(newOrder.SpawnDescriptor, null);
+
+    // Notify the InHatch that a creature spawned
+    if (_inHatchController != null) {
+      _inHatchController.SpawnCreature(newOrder.SpawnDescriptor);
+    }
 
     // Spawn the order panel that shows what the customer wants
     SpawnOrderPanel(newOrder);
 
     // Keep track of how many orders we issues
     ++_ordersIssued;
+  }
+
+  public List<CustomerOrder> GetCompletedOrders()
+  {
+    return _completedOrdersList;
   }
 
   public void ClearOrders()
@@ -109,6 +111,7 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
       Destroy(orderPanel);
     }
     _customerOrderPanelList.Clear();
+    _completedOrdersList.Clear();
   }
 
   Vector3 GetPanelSlotLocation(int slotIndex)
@@ -187,7 +190,7 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
 
     if (orderPanelComponent != null)
     {
-      orderPanelComponent.AssignCustomerOrder(Order);
+      orderPanelComponent.AssignCustomerOrder(Order, false);
       _customerOrderPanelList.Add(orderPanelObject);
     }
   }
@@ -253,22 +256,6 @@ public class CustomerOrderManager : Singleton<CustomerOrderManager>
 
     // Destroy the creature deposited in the hatch
     Destroy(critter.gameObject);
-  }
-
-  private void ToggleInHatch() {
-	  
-    if (_inHatchController != null) {
-		//Open the hatch if it's closed
-		if (aOpenHatch) {
-			_inHatchController.SetOpenState(false);
-			aOpenHatch = false;
-		}
-		//Close the hatch if it's open
-		else{
-			_inHatchController.SetOpenState(true);
-			aOpenHatch = true;
-		}
-	}
   }
   
   private IEnumerator DehydrateOrderPanelAsync(GameObject panelObj)

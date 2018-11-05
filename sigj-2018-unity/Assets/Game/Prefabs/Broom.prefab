@@ -71,6 +71,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4285275848988744}
   - component: {fileID: 54029992549796150}
+  - component: {fileID: 114474200341946516}
+  - component: {fileID: 114731599167763768}
   m_Layer: 0
   m_Name: Broom
   m_TagString: Untagged
@@ -85,7 +87,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1322942917677636}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.22362763, y: 0.22981925, z: -2.842171e-16}
+  m_LocalPosition: {x: -0.22362763, y: -0.1, z: -2.842171e-16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4285275848988744}
@@ -98,7 +100,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1098678723820178}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.2692655, y: 2.3370423, z: -0.00030899048}
+  m_LocalPosition: {x: -1.2692655, y: 2.007, z: -0.00030899048}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4285275848988744}
@@ -110,8 +112,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1880691176313036}
-  m_LocalRotation: {x: -0, y: 0.4990434, z: -0, w: 0.86657697}
-  m_LocalPosition: {x: -6.06, y: 0.67, z: 2.14}
+  m_LocalRotation: {x: -0, y: 0.24855682, z: -0, w: 0.9686174}
+  m_LocalPosition: {x: -9.97, y: 1.02, z: -1.64}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4428460141435850}
@@ -119,7 +121,7 @@ Transform:
   - {fileID: 4073520920656082}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 59.873, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 28.784002, z: 0}
 --- !u!4 &4428460141435850
 Transform:
   m_ObjectHideFlags: 1
@@ -127,7 +129,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1486793356951252}
   m_LocalRotation: {x: 0, y: 0, z: 0.20799702, w: 0.97812945}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.33, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4285275848988744}
@@ -224,9 +226,9 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1880691176313036}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 2
   m_Drag: 1
-  m_AngularDrag: 0.1
+  m_AngularDrag: 1
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -256,3 +258,26 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.11719288, y: 4.4301643, z: 0.12730621}
   m_Center: {x: -0.18769175, y: 2.6053686, z: 0}
+--- !u!114 &114474200341946516
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1880691176313036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c10606e004154964a9b69506cfd19d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Description: It's a broom, what do you want?
+--- !u!114 &114731599167763768
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1880691176313036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 273d8c2535bea4d26921e3d2f281db54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
