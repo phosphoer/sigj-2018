@@ -1662,7 +1662,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 3
-  baseColor: {r: 0.37647063, g: 0.8196079, b: 0.5137255, a: 0}
+  baseColor: {r: 1, g: 0.08627451, b: 0.078431375, a: 1}
 --- !u!114 &114764828253353142
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1694,3 +1694,7 @@ MonoBehaviour:
   BadOrderEffectPrefab: {fileID: 1742617582437854, guid: cec36f5214c60c946819bbe7e526e0d2,
     type: 2}
   OrderEffectTransform: {fileID: 4106873861126640}
+  OpenSound: {fileID: 11400000, guid: 8ed7882b93e2912418661a1c4b8974e5, type: 2}
+  CloseSound: {fileID: 11400000, guid: a39290688ed3c9247967ddb9ddd1a5fe, type: 2}
+  CorrectSound: {fileID: 11400000, guid: 663addb7dfb37a643aebb668c7152115, type: 2}
+  IncorrectSound: {fileID: 11400000, guid: bd8f39101e4b38d40841cc7ca4d9e9df, type: 2}
