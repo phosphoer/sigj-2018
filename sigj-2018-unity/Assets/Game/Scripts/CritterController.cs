@@ -295,6 +295,7 @@ public class CritterController : MonoBehaviour
   private void SetSize(CritterConstants.CreatureSize newSize, bool animate)
   {
     _size = newSize;
+    _critterDNA.Size = newSize;
     _vigorUI.gameObject.SetActive(((int)_size >= (int)kMinVigorSize));
 
     if (animate)
