@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114706648669772978}
   - component: {fileID: 114148870676089878}
   - component: {fileID: 114017946261417326}
+  - component: {fileID: 114045866453359098}
   m_Layer: 0
   m_Name: Monitor02
   m_TagString: Untagged
@@ -437,6 +438,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 273d8c2535bea4d26921e3d2f281db54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114045866453359098
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1036543301436514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 774f01a9a85d10841ac4a7bfb48285a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SFX: {fileID: 11400000, guid: f7426669470801044822bcc77a4c60f6, type: 2}
+  VelocityCuttoff: 1
+  SFXCoolDown: 0.5
 --- !u!114 &114148870676089878
 MonoBehaviour:
   m_ObjectHideFlags: 1

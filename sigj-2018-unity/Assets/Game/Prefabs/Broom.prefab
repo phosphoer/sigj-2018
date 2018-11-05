@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 54029992549796150}
   - component: {fileID: 114474200341946516}
   - component: {fileID: 114731599167763768}
+  - component: {fileID: 114230864132833028}
   m_Layer: 0
   m_Name: Broom
   m_TagString: Untagged
@@ -258,6 +259,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.11719288, y: 4.4301643, z: 0.12730621}
   m_Center: {x: -0.18769175, y: 2.6053686, z: 0}
+--- !u!114 &114230864132833028
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1880691176313036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 774f01a9a85d10841ac4a7bfb48285a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SFX: {fileID: 11400000, guid: 580d24965026f5c47b9ac4e04a9c38b0, type: 2}
+  VelocityCuttoff: 1
+  SFXCoolDown: 0.5
 --- !u!114 &114474200341946516
 MonoBehaviour:
   m_ObjectHideFlags: 1
