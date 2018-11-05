@@ -2263,6 +2263,7 @@ MonoBehaviour:
   EnableOnBreak: {fileID: 1132234455890298}
   ToDisable: {fileID: 54382386974539464}
   BreakingPoint: 2
+  BreakSound: {fileID: 11400000, guid: f7426669470801044822bcc77a4c60f6, type: 2}
 --- !u!136 &136271208821384388
 CapsuleCollider:
   m_ObjectHideFlags: 1
