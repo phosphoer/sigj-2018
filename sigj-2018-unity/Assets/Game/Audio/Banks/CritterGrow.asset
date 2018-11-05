@@ -21,4 +21,5 @@ MonoBehaviour:
   MinDistance: 10
   VolumeScale: 1
   IsLooping: 0
-  AudioMixerGroup: {fileID: 0}
+  AudioMixerGroup: {fileID: 243978544449081158, guid: 7da3c2abc77f54ca0bf6e8874a4d51c2,
+    type: 2}

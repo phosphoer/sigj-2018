@@ -9,10 +9,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a304fc70ef8047e682c3deb848e11e6, type: 3}
-  m_Name: EatingSound
+  m_Name: Mate
   m_EditorClassIdentifier: 
   AudioClips:
-  - {fileID: 8300000, guid: 05ccf72fc78d06a40ae9d08e6158bb9d, type: 3}
+  - {fileID: 8300000, guid: 1df7db632cd5441a8bdf71452f819ca3, type: 3}
   IsSpatial: 0
   MaxDistance: 100
   MinDistance: 10

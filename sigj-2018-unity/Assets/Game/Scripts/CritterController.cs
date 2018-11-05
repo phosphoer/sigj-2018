@@ -52,6 +52,9 @@ public class CritterController : MonoBehaviour
   [SerializeField]
   private SoundBank _growSound = null;
 
+  [SerializeField]
+  private SoundBank _mateSound = null;
+
   private Vector3 _desiredDirection;
   private Vector3 _moveDirection;
   private float _changeDirectionTimer;
@@ -306,6 +309,8 @@ public class CritterController : MonoBehaviour
 
   private IEnumerator MateAsync()
   {
+    AudioManager.Instance.PlaySound(_mateSound);
+
     yield return new WaitForSeconds(3.0f);
 
     if (_currentMate != null)

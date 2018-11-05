@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Name: CloningMachine
   m_EditorClassIdentifier: 
   AudioClips:
-  - {fileID: 8300000, guid: 16f809c239022ef47b11c6985f132fca, type: 3}
+  - {fileID: 8300000, guid: d437ecc8ff2874ee98debc3fd436740e, type: 3}
   IsSpatial: 0
   MaxDistance: 100
   MinDistance: 10
   VolumeScale: 1
-  IsLooping: 1
-  AudioMixerGroup: {fileID: 0}
+  IsLooping: 0
+  AudioMixerGroup: {fileID: 243978544449081158, guid: 7da3c2abc77f54ca0bf6e8874a4d51c2,
+    type: 2}

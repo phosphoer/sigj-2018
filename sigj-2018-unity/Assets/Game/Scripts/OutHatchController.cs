@@ -9,8 +9,13 @@ public class OutHatchController : MonoBehaviour
   public GameObject GoodOrderEffectPrefab;
   public GameObject BadOrderEffectPrefab;
   public Transform OrderEffectTransform;
+  public SoundBank OpenSound;
+  public SoundBank CloseSound;
+  public SoundBank CorrectSound;
+  public SoundBank IncorrectSound;
 
   private Animator _animator;
+  private bool _wasOpen;
 
   void Start()
   {
@@ -32,12 +37,17 @@ public class OutHatchController : MonoBehaviour
   {
     GameObject EffectPrefab = bOrderSatisfied ? GoodOrderEffectPrefab : BadOrderEffectPrefab;
     GameObject OrderLight = bOrderSatisfied ? GoodOrderLight : BadOrderLight;
+    SoundBank ScoreSound = bOrderSatisfied ? CorrectSound : IncorrectSound;
 
-    if (EffectPrefab != null) {
+    if (EffectPrefab != null)
+    {
       Instantiate(EffectPrefab, OrderEffectTransform.position, OrderEffectTransform.rotation);
     }
 
-    if (OrderLight != null) {
+    AudioManager.Instance.PlaySound(ScoreSound);
+
+    if (OrderLight != null)
+    {
       OrderLight.SetActive(true);
       StartCoroutine(TurnOffLightsAsync());
     }
@@ -46,6 +56,14 @@ public class OutHatchController : MonoBehaviour
   public void SetOpenState(bool bIsOpen)
   {
     _animator.SetBool("IsOpen", bIsOpen);
+
+    if (bIsOpen != _wasOpen)
+    {
+      if (bIsOpen) AudioManager.Instance.PlaySound(OpenSound);
+      else AudioManager.Instance.PlaySound(CloseSound);
+
+      _wasOpen = bIsOpen;
+    }
   }
 
   private IEnumerator TurnOffLightsAsync()

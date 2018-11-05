@@ -18,6 +18,7 @@ public class GameStateManager : Singleton<GameStateManager>
   public GameObject PlayerControllerPrefab;
   public GameObject MainMenuPrefab;
   public GameObject EndMenuPrefab;
+  public GameObject SandwichPrefab;
   public SoundBank MusicMenuLoop;
   public SoundBank MusicGameLoop;
 
@@ -26,6 +27,7 @@ public class GameStateManager : Singleton<GameStateManager>
   private GameObject _endMenu = null;
   private GameObject _playerController = null;
   private GameClockController _gameClockController = null;
+  private GameObject _sandwich = null;
 
   private void Awake()
   {
@@ -68,7 +70,7 @@ public class GameStateManager : Singleton<GameStateManager>
       case GameStage.Lunchtime:
         if (_gameClockController != null)
         {
-          if (_gameClockController.HasMorningFinished())
+          if (_gameClockController.HasLunchFinished())
           {
             nextGameStage = GameStage.Afternoon;
           }
@@ -128,7 +130,10 @@ public class GameStateManager : Singleton<GameStateManager>
         break;
       case GameStage.Lunchtime:
         {
-          // TODO: Destroy lunchtime UI 
+          if (_sandwich != null) {
+            Destroy(_sandwich);
+            _sandwich = null;
+          }
         }
         break;
       case GameStage.Afternoon:
@@ -175,7 +180,12 @@ public class GameStateManager : Singleton<GameStateManager>
         break;
       case GameStage.Lunchtime:
         {
-          //TODO: Spawn lunch time UI
+          if (SandwichPrefab != null) {
+            _sandwich= (GameObject)Instantiate(SandwichPrefab, Camera.main.gameObject.transform.position + Vector3.forward * 0.75f, Quaternion.Euler(90.0f, 0.0f, 0.0f));
+            _sandwich.GetComponent<Rigidbody>().useGravity = false;
+            _sandwich.GetComponent<Rigidbody>().isKinematic = true;
+            _sandwich.GetComponent<Sandwich>().SetIsSandwichClickable();
+          }
         }
         break;
       case GameStage.Afternoon:
